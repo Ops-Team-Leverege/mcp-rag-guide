@@ -40,8 +40,8 @@ export const OverviewSection = () => (
         <div className="flex items-start gap-3">
           <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
           <div>
-            <p className="font-medium">Make architecture decisions (Router vs MCP vs Agentic)</p>
-            <p className="text-sm text-gray-600">When to use code-driven vs LLM-driven routing</p>
+            <p className="font-medium">Choose and combine the right architecture patterns</p>
+            <p className="text-sm text-gray-600">When to use code-driven routing, when to let LLMs decide, and how patterns combine</p>
           </div>
         </div>
         <div className="flex items-start gap-3">

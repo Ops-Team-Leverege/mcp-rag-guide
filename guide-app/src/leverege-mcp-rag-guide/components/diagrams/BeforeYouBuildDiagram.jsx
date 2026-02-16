@@ -106,63 +106,57 @@ const BeforeYouBuildDiagram = () => {
                     Don't underestimate the upfront work:
                 </p>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-1 gap-4">
                     <div className="bg-white rounded-lg border border-amber-200 p-4">
-                        <div className="font-semibold text-amber-900 mb-2">Phase Timeline</div>
-                        <div className="space-y-2 text-sm">
-                            <div className="flex justify-between">
-                                <span className="text-gray-700">Data preparation</span>
-                                <span className="font-mono text-amber-700">2-4 weeks</span>
+                        <div className="font-semibold text-amber-900 mb-2">Where the Time Actually Goes</div>
+                        <div className="space-y-3 text-sm">
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="w-full bg-amber-100 rounded-full h-4 overflow-hidden">
+                                        <div className="bg-amber-500 h-full rounded-full" style={{ width: '40%' }} />
+                                    </div>
+                                    <span className="text-amber-800 font-mono text-xs whitespace-nowrap">~40%</span>
+                                </div>
+                                <span className="text-gray-700 font-medium">Data preparation & ingestion pipeline</span>
+                                <p className="text-xs text-gray-500">Cleaning data, speaker attribution, chunking, metadata, edge cases. Always takes longer than you think.</p>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-gray-700">Core architecture</span>
-                                <span className="font-mono text-amber-700">2-3 weeks</span>
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="w-full bg-blue-100 rounded-full h-4 overflow-hidden">
+                                        <div className="bg-blue-500 h-full rounded-full" style={{ width: '25%' }} />
+                                    </div>
+                                    <span className="text-blue-800 font-mono text-xs whitespace-nowrap">~25%</span>
+                                </div>
+                                <span className="text-gray-700 font-medium">Core architecture & routing</span>
+                                <p className="text-xs text-gray-500">Intent classification, contracts, handler logic, retrieval pipeline.</p>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-gray-700">Prompt engineering</span>
-                                <span className="font-mono text-amber-700">1-2 weeks</span>
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="w-full bg-purple-100 rounded-full h-4 overflow-hidden">
+                                        <div className="bg-purple-500 h-full rounded-full" style={{ width: '20%' }} />
+                                    </div>
+                                    <span className="text-purple-800 font-mono text-xs whitespace-nowrap">~20%</span>
+                                </div>
+                                <span className="text-gray-700 font-medium">Prompt engineering & tuning</span>
+                                <p className="text-xs text-gray-500">System prompts, few-shot examples, testing across edge cases.</p>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-gray-700">Testing & debugging</span>
-                                <span className="font-mono text-amber-700">1-2 weeks</span>
-                            </div>
-                            <div className="border-t border-amber-200 pt-2 mt-2 flex justify-between font-bold">
-                                <span className="text-amber-900">Total</span>
-                                <span className="font-mono text-amber-800">6-11 weeks</span>
+                            <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="w-full bg-green-100 rounded-full h-4 overflow-hidden">
+                                        <div className="bg-green-500 h-full rounded-full" style={{ width: '15%' }} />
+                                    </div>
+                                    <span className="text-green-800 font-mono text-xs whitespace-nowrap">~15%</span>
+                                </div>
+                                <span className="text-gray-700 font-medium">Testing, debugging, iteration</span>
+                                <p className="text-xs text-gray-500">Golden test set, contract distribution analysis, user feedback loops.</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="bg-white rounded-lg border border-amber-200 p-4">
-                        <div className="font-semibold text-amber-900 mb-2">What Takes Time</div>
-                        <ul className="space-y-2 text-sm text-gray-700">
-                            <li className="flex items-start gap-2">
-                                <span className="text-amber-600">•</span>
-                                <span>Cleaning transcripts, setting up SSOT</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-amber-600">•</span>
-                                <span>Building ingestion pipeline</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-amber-600">•</span>
-                                <span>Intent classification & routing</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-amber-600">•</span>
-                                <span>System prompts & few-shot examples</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-amber-600">•</span>
-                                <span>Golden test set & edge cases</span>
-                            </li>
-                        </ul>
                     </div>
                 </div>
 
                 <div className="mt-4 p-3 bg-amber-100 border border-amber-300 rounded-lg">
                     <p className="text-sm text-amber-900 font-medium">
-                        ⚠️ The ingestion pipeline and data prep take longer than the AI code. Plan for that.
+                        ⚠️ The "boring" data work (cleaning, ingestion, metadata) consistently takes more time than the "exciting" AI work (prompts, models, generation). Plan accordingly.
                     </p>
                 </div>
             </div>

@@ -96,7 +96,7 @@ const AgenticFlowDiagram = () => (
 
 export const DecisionsSection = () => (
     <div className="space-y-10">
-        <h2 className="text-2xl font-bold text-gray-900">When to Use What: SQL vs RAG vs Agentic AI</h2>
+        <h2 className="text-2xl font-bold text-gray-900">When to Use What: Choosing Your Architecture</h2>
 
         <Callout type="insight" title="The Key Question">
             Not every question needs AI. The right approach depends on <strong>what you're asking</strong>

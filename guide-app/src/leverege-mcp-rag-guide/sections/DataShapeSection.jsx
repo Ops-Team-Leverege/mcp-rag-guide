@@ -108,39 +108,71 @@ export const DataShapeSection = () => (
             </div>
         </ProgressiveSection>
 
-        <ProgressiveSection number="3" title="The Speaker Attribution Problem" subtitle="Your biggest risk with transcripts">
-            <Card className="p-4 bg-red-50 border-red-200">
-                <p className="text-red-800">
-                    Your entire "what did the customer say?" capability depends on correct <code>speaker_role</code> assignment.
+        <ProgressiveSection number="3" title="The Attribution Problem" subtitle="When your AI can't tell WHO said WHAT">
+            <Card className="p-4 bg-amber-50 border-amber-200 mb-4">
+                <p className="text-amber-900">
+                    If your data doesn't clearly mark <strong>WHO</strong> created it, <strong>WHEN</strong> it was created,
+                    and <strong>WHETHER</strong> it's still current, your AI will mix sources and erode trust.
                 </p>
             </Card>
 
-            <DiagramBox title="The Chain of Trust">
-                {`Transcription outputs: "John Smith: We're concerned..."
-                              │
-Your DB has:          "John Smith, Jane Doe" (leverage_team)
-                              │
-Matching determines:  speaker_role = 'customer' or 'leverege'
-                              │
-Retrieval filters:    WHERE speaker_role = 'customer'
-                              │
-User gets:            Only customer statements (hopefully)`}
-            </DiagramBox>
+            <h4 className="font-bold mb-3">Attribution Challenges Across Data Types</h4>
 
-            <h4 className="font-bold mt-4 mb-2">What Can Go Wrong</h4>
-            <ComparisonTable
-                headers={["Problem", "Example", "Result"]}
-                rows={[
-                    ["Name mismatch", '"Jon Smith" vs "John Smith"', "Role = 'unknown'"],
-                    ["First name only", '"Julia" vs "Julia Conn"', "Need fuzzy matching"],
-                    ["Transcription error", '"Eric Con" vs "Eric Conn"', "Role = 'unknown'"],
-                    ["Guest speaker", "External consultant", "Not in either list"],
-                ]}
-            />
+            <div className="space-y-4 mb-6">
+                <Card className="p-4 border-l-4 border-blue-500">
+                    <h5 className="font-bold text-blue-900 mb-2">Example 1: Meeting Transcripts</h5>
+                    <p className="text-sm text-gray-700 mb-2">
+                        <strong>Challenge:</strong> Speaker roles (customer vs internal), name matching, transcription errors
+                    </p>
+                    <p className="text-sm text-gray-700 mb-2">
+                        <strong>Risk:</strong> Misattributed quotes → wrong follow-ups, damaged trust
+                    </p>
+                    <DiagramBox>
+                        {`Transcription: "John Smith: We're concerned..."
+                              │
+Your DB has:  "John Smith, Jane Doe" (leverage_team)
+                              │
+Matching:     speaker_role = 'customer' or 'leverege'
+                              │
+Retrieval:    WHERE speaker_role = 'customer'
+                              │
+Result:       Only customer statements (hopefully)`}
+                    </DiagramBox>
+                    <p className="text-sm text-gray-600 mt-2">
+                        Common issues: "Jon Smith" vs "John Smith", first name only, transcription errors
+                    </p>
+                </Card>
 
-            <Callout type="success" title="Mitigation">
-                Use fuzzy matching with a fallback to 'unknown'. Review 'unknown' chunks periodically
-                to improve matching logic.
+                <Card className="p-4 border-l-4 border-purple-500">
+                    <h5 className="font-bold text-purple-900 mb-2">Example 2: Support Tickets / CRM Notes</h5>
+                    <p className="text-sm text-gray-700 mb-2">
+                        <strong>Challenge:</strong> Multiple agents touch one ticket, customer vs agent vs system messages
+                    </p>
+                    <p className="text-sm text-gray-700 mb-2">
+                        <strong>Risk:</strong> AI attributes agent's summary as customer's words
+                    </p>
+                    <p className="text-sm text-gray-600 mt-2">
+                        Example: "Customer is frustrated with billing" (agent note) → AI says "Customer said they're frustrated with billing" (wrong)
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-green-500">
+                    <h5 className="font-bold text-green-900 mb-2">Example 3: Product Documentation / Knowledge Base</h5>
+                    <p className="text-sm text-gray-700 mb-2">
+                        <strong>Challenge:</strong> Multiple authors, multiple versions, deprecated vs current content
+                    </p>
+                    <p className="text-sm text-gray-700 mb-2">
+                        <strong>Risk:</strong> AI cites outdated information as authoritative
+                    </p>
+                    <p className="text-sm text-gray-600 mt-2">
+                        Example: Old doc says "Feature X requires manual setup" but current version is automated → AI gives wrong instructions
+                    </p>
+                </Card>
+            </div>
+
+            <Callout type="success" title="Universal Solution">
+                Use fuzzy matching with fallback to 'unknown'. Tag content with author, role, timestamp, and status.
+                Review 'unknown' or untagged chunks periodically to improve matching logic.
             </Callout>
         </ProgressiveSection>
 
