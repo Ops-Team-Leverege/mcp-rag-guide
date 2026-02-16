@@ -1,0 +1,56 @@
+/* Enhanced UX Styles */
+
+/* Better section spacing */
+.space-y-6>*+* {
+  margin-top: 2rem;
+}
+
+.space-y-8>*+* {
+  margin-top: 2.5rem;
+}
+
+.space-y-10>*+* {
+  margin-top: 3rem;
+}
+
+/* Better list styling */
+ul,
+ol {
+  line-height: 1.8;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Better code blocks */
+pre {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better focus states */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Print styles */
+@media print {
+
+  .sidebar,
+  button {
+    display: none;
+  }
+
+  body {
+    font-size: 12pt;
+  }
+}

@@ -16,33 +16,33 @@ import ModelSelectionSection from './sections/ModelSelectionSection';
 // ============================================
 
 const Card = ({ children, className = "" }) => (
-  <div className={`bg-white rounded-xl border border-gray-200 shadow-sm ${className}`}>
+  <div className={`bg-white rounded-xl border border-gray-200 shadow-sm p-6 ${className}`}>
     {children}
   </div>
 );
 
 const Callout = ({ type = "info", title, children }) => {
   const styles = {
-    info: "bg-blue-50 border-blue-200 text-blue-800",
-    warning: "bg-amber-50 border-amber-200 text-amber-800",
-    success: "bg-emerald-50 border-emerald-200 text-emerald-800",
-    insight: "bg-purple-50 border-purple-200 text-purple-800",
-    danger: "bg-red-50 border-red-200 text-red-800"
+    info: "bg-blue-100 border-blue-300 text-blue-900",
+    warning: "bg-amber-100 border-amber-300 text-amber-900",
+    success: "bg-emerald-100 border-emerald-300 text-emerald-900",
+    insight: "bg-purple-100 border-purple-300 text-purple-900",
+    danger: "bg-red-100 border-red-300 text-red-900"
   };
   const icons = {
-    info: <Lightbulb className="w-5 h-5" />,
-    warning: <AlertTriangle className="w-5 h-5" />,
-    success: <CheckCircle className="w-5 h-5" />,
-    insight: <Brain className="w-5 h-5" />,
-    danger: <Shield className="w-5 h-5" />
+    info: <Lightbulb className="w-6 h-6" />,
+    warning: <AlertTriangle className="w-6 h-6" />,
+    success: <CheckCircle className="w-6 h-6" />,
+    insight: <Brain className="w-6 h-6" />,
+    danger: <Shield className="w-6 h-6" />
   };
   return (
-    <div className={`p-4 rounded-xl border-l-4 ${styles[type]} my-4`}>
-      <div className="flex items-center gap-2 font-semibold mb-2">
+    <div className={`p-6 rounded-xl border-2 border-l-4 ${styles[type]} my-6`}>
+      <div className="flex items-center gap-3 font-bold text-lg mb-3">
         {icons[type]}
         {title}
       </div>
-      <div className="text-sm leading-relaxed">{children}</div>
+      <div className="text-base leading-relaxed">{children}</div>
     </div>
   );
 };
@@ -50,40 +50,42 @@ const Callout = ({ type = "info", title, children }) => {
 const ProgressiveSection = ({ number, title, subtitle, children, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
-    <div className="border border-gray-200 rounded-xl my-4 overflow-hidden">
+    <div className="border-2 border-gray-200 rounded-xl my-6 overflow-hidden hover:border-gray-300 transition-colors">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center gap-4 text-left hover:bg-gray-50 transition-colors"
+        className="w-full px-8 py-6 flex items-center gap-4 text-left hover:bg-gray-50 transition-colors"
       >
-        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-bold">
+        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-bold text-lg shadow-md">
           {number}
         </div>
         <div className="flex-grow">
-          <h3 className="font-bold text-gray-900">{title}</h3>
-          {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
+          <h3 className="font-bold text-lg text-gray-900">{title}</h3>
+          {subtitle && <p className="text-base text-gray-600 mt-1">{subtitle}</p>}
         </div>
-        {isOpen ? <ChevronDown className="w-5 h-5 text-gray-400" /> : <ChevronRight className="w-5 h-5 text-gray-400" />}
+        <div className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+          <ChevronDown className="w-6 h-6 text-gray-400" />
+        </div>
       </button>
-      {isOpen && <div className="px-6 pb-6 border-t border-gray-100 pt-4">{children}</div>}
+      {isOpen && <div className="px-8 pb-8 border-t-2 border-gray-100 pt-6 bg-gray-50">{children}</div>}
     </div>
   );
 };
 
 const ComparisonTable = ({ headers, rows }) => (
-  <div className="overflow-x-auto my-4 rounded-lg border border-gray-200">
-    <table className="w-full text-sm">
+  <div className="overflow-x-auto my-6 rounded-xl border-2 border-gray-200 shadow-sm">
+    <table className="w-full">
       <thead>
-        <tr className="bg-gray-50">
+        <tr className="bg-gradient-to-r from-gray-100 to-gray-50">
           {headers.map((h, i) => (
-            <th key={i} className="px-4 py-3 text-left font-semibold border-b">{h}</th>
+            <th key={i} className="px-6 py-4 text-left font-bold text-gray-900 border-b-2 border-gray-200">{h}</th>
           ))}
         </tr>
       </thead>
       <tbody>
         {rows.map((row, i) => (
-          <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+          <tr key={i} className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-blue-50 transition-colors`}>
             {row.map((cell, j) => (
-              <td key={j} className="px-4 py-3 border-b">{cell}</td>
+              <td key={j} className="px-6 py-4 border-b border-gray-200 text-gray-700">{cell}</td>
             ))}
           </tr>
         ))}
@@ -93,9 +95,9 @@ const ComparisonTable = ({ headers, rows }) => (
 );
 
 const DiagramBox = ({ children, title }) => (
-  <div className="my-4">
-    {title && <p className="text-sm font-medium text-gray-500 mb-2">{title}</p>}
-    <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-xs overflow-x-auto font-mono leading-relaxed">
+  <div className="my-6">
+    {title && <p className="text-base font-semibold text-gray-700 mb-3">{title}</p>}
+    <pre className="bg-gray-900 text-gray-100 p-6 rounded-xl text-sm overflow-x-auto font-mono leading-relaxed shadow-lg">
       {children}
     </pre>
   </div>
@@ -385,41 +387,36 @@ const tabs = [
 // ============================================
 
 const OverviewSection = () => (
-  <div className="space-y-6">
-    <div className="text-center py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">MCP & RAG Implementation Guide</h1>
-      <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-        A comprehensive guide for ops teams to understand, plan, and implement AI agent infrastructure.
-        <strong> Understand what you're building and why — then use AI to help with how.</strong>
-      </p>
-    </div>
-
-    <Card className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
-      <h2 className="font-bold text-lg mb-4">🎯 What This Guide Will Help You Do</h2>
-      <div className="grid md:grid-cols-2 gap-4">
+  <div className="space-y-10">
+    <Card className="p-8 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+      <h2 className="font-bold text-2xl mb-6 flex items-center gap-3">
+        <Target className="w-8 h-8 text-blue-600" />
+        What This Guide Will Help You Do
+      </h2>
+      <div className="grid md:grid-cols-2 gap-6">
         <div className="flex items-start gap-3">
-          <CheckCircle className="w-5 h-5 text-green-600 mt-1" />
+          <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
           <div>
             <p className="font-medium">Understand MCP Architecture</p>
             <p className="text-sm text-gray-600">How AI agents connect to external tools and data</p>
           </div>
         </div>
         <div className="flex items-start gap-3">
-          <CheckCircle className="w-5 h-5 text-green-600 mt-1" />
+          <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
           <div>
             <p className="font-medium">Design RAG Systems</p>
             <p className="text-sm text-gray-600">Ground AI responses in your actual data</p>
           </div>
         </div>
         <div className="flex items-start gap-3">
-          <CheckCircle className="w-5 h-5 text-green-600 mt-1" />
+          <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
           <div>
             <p className="font-medium">Make Build vs Buy Decisions</p>
             <p className="text-sm text-gray-600">When to use Zapier MCP vs custom solutions</p>
           </div>
         </div>
         <div className="flex items-start gap-3">
-          <CheckCircle className="w-5 h-5 text-green-600 mt-1" />
+          <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
           <div>
             <p className="font-medium">Plan Production Deployments</p>
             <p className="text-sm text-gray-600">Hosting, security, and monitoring strategies</p>
@@ -428,8 +425,8 @@ const OverviewSection = () => (
       </div>
     </Card>
 
-    <h2 className="text-xl font-bold mt-8 mb-4">Learning Path</h2>
-    <p className="text-gray-600 mb-4">This guide is organized progressively. Each section builds on the previous one.</p>
+    <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-900">Learning Path</h2>
+    <p className="text-gray-600 mb-6">This guide is organized progressively. Each section builds on the previous one.</p>
 
     <div className="space-y-3">
       {[
@@ -449,13 +446,13 @@ const OverviewSection = () => (
         { num: 14, title: "Evaluation", desc: "How to know if it's working. RAGAS, golden test sets." },
         { num: 15, title: "Resources", desc: "External links, documentation, and quick reference." },
       ].map(item => (
-        <div key={item.num} className="flex items-center gap-4 p-3 border border-gray-200 rounded-lg">
-          <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
+        <div key={item.num} className="flex items-start gap-4 p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all">
+          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-md">
             {item.num}
           </div>
-          <div>
-            <p className="font-medium">{item.title}</p>
-            <p className="text-sm text-gray-500">{item.desc}</p>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-gray-900">{item.title}</p>
+            <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
           </div>
         </div>
       ))}
@@ -468,7 +465,7 @@ const OverviewSection = () => (
 );
 
 const MindsetSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">The Most Important Lesson</h2>
 
     {/* Before You Build Decision Check */}
@@ -594,7 +591,7 @@ Answer`}
 );
 
 const BusinessCaseSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Start With the Business Case</h2>
 
     <Callout type="danger" title="The Most Common Mistake">
@@ -819,42 +816,60 @@ const BusinessCaseSection = () => (
 );
 
 const ConceptsSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Core Concepts</h2>
 
     {/* Redesigned Mental Model Card */}
-    <Card className="overflow-hidden">
-      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8">
+    <Card className="overflow-hidden mb-8">
+      <div className="bg-gradient-to-br from-blue-600 to-purple-700 p-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg">
-            <Brain className="w-6 h-6 text-white" />
+          <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
+            <Brain className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-xl font-bold text-white">The Mental Model</h3>
+          <h3 className="text-2xl font-bold text-white">The Mental Model</h3>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-6">
           {[
-            { text: "Prompts explain.", color: "from-purple-400 to-purple-500", desc: "Natural language instructions" },
-            { text: "Capabilities execute.", color: "from-blue-400 to-blue-500", desc: "Actions the AI can take" },
-            { text: "Contracts constrain.", color: "from-cyan-400 to-cyan-500", desc: "Rules & boundaries" },
-            { text: "MCP orchestrates.", color: "from-emerald-400 to-emerald-500", desc: "Connects everything" },
+            { text: "Prompts explain.", desc: "Natural language instructions" },
+            { text: "Capabilities execute.", desc: "Actions the AI can take" },
+            { text: "Contracts constrain.", desc: "Rules & boundaries" },
+            { text: "MCP orchestrates.", desc: "Connects everything" },
           ].map((item, i) => (
-            <div key={i} className="flex items-center gap-3 group">
-              <div className={`w-2 h-12 rounded-full bg-gradient-to-b ${item.color}`} />
-              <div>
-                <p className={`font-mono text-lg font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
-                  {item.text}
-                </p>
-                <p className="text-slate-400 text-sm">{item.desc}</p>
-              </div>
+            <div key={i} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+              <p className="font-bold text-xl text-white mb-2">
+                {item.text}
+              </p>
+              <p className="text-blue-100 text-sm">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
     </Card>
 
+    {/* AI Architecture Patterns Introduction */}
+    <div className="my-8">
+      <h3 className="text-xl font-bold text-gray-900 mb-3">Understanding AI Architecture Patterns</h3>
+      <p className="text-gray-700 mb-4">
+        Before diving into MCP and RAG specifically, it's important to understand how they fit into the broader
+        landscape of AI architecture patterns. Each pattern solves different problems and has different tradeoffs.
+      </p>
+      <Callout type="insight" title="Why This Matters">
+        Many teams jump straight to building without understanding which pattern fits their use case.
+        This comparison helps you choose the right approach — or combination of approaches — for your needs.
+      </Callout>
+    </div>
+
     {/* AI Architecture Patterns Comparison */}
     <AIPatternComparison />
+
+    <div className="my-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+      <p className="text-sm text-blue-900">
+        <strong>Key Takeaway:</strong> Most production systems combine multiple patterns. For example,
+        you might use <strong>MCP</strong> to connect to tools, <strong>RAG</strong> to retrieve knowledge,
+        <strong>Context Engineering</strong> to shape outputs, and <strong>Agentic AI</strong> for complex workflows.
+      </p>
+    </div>
 
     <ProgressiveSection number="1" title="What is MCP?" subtitle="Model Context Protocol - the USB-C for AI" defaultOpen={true}>
       <p className="mb-4">
@@ -1301,8 +1316,29 @@ const ConceptsSection = () => (
 
 
 const DataShapeSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Data Shape: Garbage In, Garbage Out</h2>
+
+    <Callout type="danger" title="THE RULE: AI quality is capped by data quality">
+      No amount of prompt engineering or model selection can fix bad data.
+    </Callout>
+
+    <div className="my-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-3">Why Data Shape Matters More Than You Think</h3>
+      <p className="text-gray-700 mb-4">
+        Most teams focus on the AI model first. This is backwards. The model is the LAST thing that matters.
+      </p>
+      <p className="text-gray-700 mb-4">What actually matters:</p>
+      <ul className="list-disc ml-6 space-y-2 text-gray-700">
+        <li><strong>What data you have</strong> - Is it complete? Accurate? Up-to-date?</li>
+        <li><strong>How it's structured</strong> - Can you filter by metadata? Is it chunked properly?</li>
+        <li><strong>What metadata you capture</strong> - Speaker role? Date? Company? Topic?</li>
+      </ul>
+      <p className="text-gray-700 mt-4">
+        Think of it this way: if you ask "What did TPI's customer say about cameras?" but your data doesn't
+        track speaker roles or companies, the AI can't answer accurately no matter how smart the model is.
+      </p>
+    </div>
 
     <Callout type="warning" title="This is the Foundation">
       Your AI is only as good as the data it can access. Before thinking about RAG,
@@ -1426,13 +1462,25 @@ User gets:            Only customer statements (hopefully)`}
 );
 
 const ArchitectureSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Architecture: The Six Layers</h2>
 
     <Callout type="info" title="Before You Build">
       Building an agent isn't about picking tools first. Answer these questions BEFORE
       deciding on RAG, SQL, or any technology.
     </Callout>
+
+    <div className="my-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-3">The Router Pattern: Decision Before Execution</h3>
+      <p className="text-gray-700 mb-4">
+        The core of any AI system is the router - it decides WHAT to do before doing it. This separates
+        intent classification from execution, making the system predictable and debuggable.
+      </p>
+      <p className="text-gray-700">
+        Think of it like a restaurant: the host decides which section you sit in based on your party size,
+        BEFORE the waiter takes your order. The router is the host, the execution layer is the waiter.
+      </p>
+    </div>
 
     {/* Router Pattern Diagram */}
     <RouterPatternDiagram />
@@ -1448,6 +1496,18 @@ const ArchitectureSection = () => (
 
     <h3 className="text-lg font-bold mb-2">The Six-Layer Stack (Build Bottom-Up)</h3>
     <SixLayerArchitecture />
+
+    <div className="my-6">
+      <h3 className="text-xl font-bold text-gray-900 mb-3">The Ingestion Pipeline: From Raw Data to Searchable Knowledge</h3>
+      <p className="text-gray-700 mb-4">
+        Before you can retrieve anything, you need to ingest it. This is where raw transcripts and documents
+        become searchable, semantically-indexed knowledge.
+      </p>
+      <Callout type="warning" title="The Critical Principle">
+        You can only retrieve what you've properly ingested. Bad ingestion = bad retrieval = bad answers.
+        This is why ingestion is Layer 2 in the six-layer architecture - it's foundational.
+      </Callout>
+    </div>
 
     {/* Ingestion Pipeline Diagram */}
     <IngestionPipelineDiagram />
@@ -1611,7 +1671,7 @@ const ArchitectureSection = () => (
 );
 
 const DecisionsSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">When to Use What: SQL vs RAG vs Agentic AI</h2>
 
     <Callout type="insight" title="The Key Question">
@@ -1855,52 +1915,145 @@ const DecisionsSection = () => (
 );
 
 const ImplementationSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Implementation Details</h2>
 
-    <ProgressiveSection number="1" title="Chunking Strategy" subtitle="How to split your data" defaultOpen={true}>
-      <Callout type="info" title="Research Finding">
-        Studies show <strong>200-500 token chunks</strong> with <strong>10-20% overlap</strong> work well
-        for most use cases. For conversational data like transcripts, chunk by speaker turn.
+    <ProgressiveSection number="1" title="Chunking: The Art of Splitting Documents" subtitle="The foundation of good retrieval" defaultOpen={true}>
+      <Callout type="warning" title="The Tradeoff">
+        Chunk too small → lose context. Chunk too large → retrieve irrelevant content.
       </Callout>
 
-      <ComparisonTable
-        headers={["Content Type", "Chunk Size", "Overlap", "Strategy"]}
-        rows={[
-          ["Transcripts", "200-300 tokens", "10%", "By speaker turn"],
-          ["Documentation", "500 tokens", "10%", "Recursive character split"],
-          ["Legal documents", "1000 tokens", "20%", "By clause/section"],
-        ]}
-      />
+      <h4 className="font-bold mt-4 mb-3">Chunking by Speaker Turn (Best for Transcripts)</h4>
+      <p className="text-gray-700 mb-3">
+        Each time someone speaks becomes one chunk. This preserves:
+      </p>
+      <ul className="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+        <li><strong>Attribution</strong> - You know WHO said it</li>
+        <li><strong>Context</strong> - Complete thoughts, not mid-sentence cuts</li>
+        <li><strong>Metadata</strong> - Speaker role, company, date all stay attached</li>
+      </ul>
+      <p className="text-gray-700 mb-4">
+        <strong>Example:</strong> "Alan from TPI mentioned cameras going offline" is one chunk.
+        It's complete, attributable, and searchable.
+      </p>
 
-      <h4 className="font-bold mt-4 mb-2">For Your Transcripts (Speaker Turns)</h4>
-      <p className="text-gray-600 mb-4">Your transcripts follow "Speaker Name: content" format. This is ideal for chunking:</p>
-      <DiagramBox>
-        {`[Customer] "We're worried about the camera integration..."
-[Leverege] "Can you tell me more about that?"
-[Customer] "Our current POS doesn't support it..."
+      <h4 className="font-bold mt-6 mb-3">Chunking by Paragraph (Best for Documents)</h4>
+      <p className="text-gray-700 mb-3">
+        Each paragraph becomes one chunk. This preserves:
+      </p>
+      <ul className="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+        <li><strong>Topic coherence</strong> - Paragraphs discuss one idea</li>
+        <li><strong>Natural boundaries</strong> - Writers already chunked for you</li>
+        <li><strong>Readability</strong> - Citations point to complete thoughts</li>
+      </ul>
 
-→ 3 chunks, each with speaker_role metadata`}
-      </DiagramBox>
+      <h4 className="font-bold mt-6 mb-3">The Overlap Strategy</h4>
+      <p className="text-gray-700">
+        Include 1-2 sentences of overlap between chunks to preserve context across boundaries.
+        This prevents losing information that spans chunk edges.
+      </p>
+
+      <Callout type="info" title="Research Finding">
+        Studies show <strong>200-500 token chunks</strong> with <strong>10-20% overlap</strong> work well
+        for most use cases.
+      </Callout>
     </ProgressiveSection>
 
-    <ProgressiveSection number="2" title="Embedding Models" subtitle="Converting text to vectors">
+    <ProgressiveSection number="2" title="Embeddings: Turning Text Into Searchable Vectors" subtitle="How semantic search works">
+      <p className="text-gray-700 mb-4">
+        <strong>What they are:</strong> Mathematical representations of meaning. Similar meanings = similar vectors.
+      </p>
+      <p className="text-gray-700 mb-4">
+        <strong>Why they matter:</strong> They enable semantic search. You can search for "pricing concerns"
+        and find chunks that say "worried about cost" even though the words don't match.
+      </p>
+
+      <h4 className="font-bold mt-4 mb-3">The Key Decision: Which Embedding Model?</h4>
       <ComparisonTable
-        headers={["Model", "Dimensions", "Cost (per 1M tokens)", "Quality"]}
+        headers={["Model Type", "Dimensions", "Speed", "Best For"]}
         rows={[
-          ["OpenAI text-embedding-3-small", "1536", "$0.02", "Best value"],
-          ["OpenAI text-embedding-3-large", "3072", "$0.13", "Highest quality"],
-          ["Vertex AI text-embedding-004", "768", "~$0.10", "Good, GCP native"],
+          ["Smaller models", "384-768", "Faster, cheaper", "Good enough for most cases"],
+          ["Larger models", "1536-3072", "Slower, more expensive", "Higher accuracy needs"],
         ]}
       />
 
       <Callout type="success" title="Recommendation">
-        Start with <strong>OpenAI text-embedding-3-small</strong>. At ~$0.01 for 13k chunks,
-        cost is negligible. Quality is excellent.
+        Start small. Only upgrade if retrieval quality is poor. OpenAI text-embedding-3-small
+        (1536 dimensions) is the sweet spot for most use cases.
       </Callout>
     </ProgressiveSection>
 
-    <ProgressiveSection number="3" title="Vector Database Options" subtitle="Where embeddings live">
+    <ProgressiveSection number="3" title="Retrieval: Finding the Right Chunks" subtitle="Two powerful patterns">
+      <h4 className="font-bold mb-3">Pattern 1: Metadata Pre-filter + Vector Search (Recommended)</h4>
+
+      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+        <p className="font-semibold text-blue-900 mb-2">Step 1: Use SQL to filter by metadata</p>
+        <p className="text-sm text-blue-800">
+          Filter by company, date, speaker role. This is fast and precise.
+          Reduces 13,000 chunks to ~200.
+        </p>
+      </div>
+
+      <div className="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4">
+        <p className="font-semibold text-purple-900 mb-2">Step 2: Use vector search within that filtered set</p>
+        <p className="text-sm text-purple-800">
+          Find semantic matches. Returns the 10 most relevant chunks.
+        </p>
+      </div>
+
+      <Callout type="insight" title="Why This Works">
+        You get the speed of SQL filtering with the intelligence of semantic search.
+      </Callout>
+
+      <h4 className="font-bold mt-6 mb-3">Pattern 2: Hybrid Search (Vector + Keywords)</h4>
+      <p className="text-gray-700 mb-3">Combine two types of search:</p>
+      <ul className="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+        <li><strong>Vector search</strong> - Finds semantic matches ("pricing concerns" matches "worried about cost")</li>
+        <li><strong>Keyword search</strong> - Finds exact matches (catches specific product names, acronyms)</li>
+      </ul>
+      <p className="text-gray-700">
+        <strong>Why this works:</strong> Some queries need exact matches (product codes),
+        others need semantic understanding (concepts).
+      </p>
+    </ProgressiveSection>
+
+    <ProgressiveSection number="4" title="Error Handling: When Things Go Wrong" subtitle="Graceful degradation">
+      <h4 className="font-bold mb-3">Graceful Degradation</h4>
+      <p className="text-gray-700 mb-3">If the fancy hybrid search fails, fall back to simpler approaches:</p>
+
+      <div className="space-y-2 mb-4">
+        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm">1</div>
+          <span className="text-gray-700">Try hybrid search first</span>
+        </div>
+        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm">2</div>
+          <span className="text-gray-700">If that fails, try vector-only search</span>
+        </div>
+        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm">3</div>
+          <span className="text-gray-700">If that fails, try SQL-only search</span>
+        </div>
+        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm">4</div>
+          <span className="text-gray-700">If that fails, return "I don't know"</span>
+        </div>
+      </div>
+
+      <Callout type="success" title="The Principle">
+        A simple answer is better than an error message.
+      </Callout>
+
+      <h4 className="font-bold mt-6 mb-3">Empty Results</h4>
+      <p className="text-gray-700 mb-3">When no chunks are found:</p>
+      <ul className="list-disc ml-6 space-y-2 text-gray-700">
+        <li><strong>Don't hallucinate</strong> - Say "I don't have information about that"</li>
+        <li><strong>Suggest alternatives</strong> - "Try broadening your search" or "Check if the data has been ingested"</li>
+        <li><strong>Log it</strong> - Empty results indicate missing data or bad queries</li>
+      </ul>
+    </ProgressiveSection>
+
+    <ProgressiveSection number="5" title="Vector Database Options" subtitle="Where embeddings live">
       <ComparisonTable
         headers={["Option", "Best For", "Pros", "Cons"]}
         rows={[
@@ -1954,7 +2107,7 @@ const ImplementationSection = () => (
 );
 
 const HostingSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Hosting Your MCP Server</h2>
 
     <Callout type="info" title="Transport Protocol">
@@ -2030,7 +2183,7 @@ const HostingSection = () => (
 );
 
 const ZapierSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Zapier MCP: When to Use It</h2>
 
     <Card className="p-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200">
@@ -2143,7 +2296,7 @@ const ZapierSection = () => (
 );
 
 const PlanningSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Planning & Estimates</h2>
 
     <Callout type="warning" title="About Costs">
@@ -2405,7 +2558,7 @@ const PlanningSection = () => (
 );
 
 const EvaluationSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Evaluation: How to Know It's Working</h2>
 
     <Callout type="warning" title="Key Stat">
@@ -2413,21 +2566,69 @@ const EvaluationSection = () => (
       <strong> 17-33% of the time</strong>. Evaluation is essential, not optional.
     </Callout>
 
-    <ProgressiveSection number="1" title="RAGAS Framework" subtitle="Industry-standard RAG evaluation" defaultOpen={true}>
-      <p className="mb-4">
-        <strong>RAGAS</strong> (Retrieval Augmented Generation Assessment) provides metrics to
-        evaluate both retrieval and generation quality.
+    <ProgressiveSection number="1" title="The RAGAS Framework: Measuring RAG Quality" subtitle="Industry-standard evaluation metrics" defaultOpen={true}>
+      <p className="mb-4 text-gray-700">
+        RAGAS provides four metrics for evaluating RAG systems. Think of them as a health check.
       </p>
 
-      <ComparisonTable
-        headers={["Metric", "What It Measures", "Target"]}
-        rows={[
-          ["Faithfulness", "Is the answer grounded in retrieved context?", "> 0.9"],
-          ["Answer Relevancy", "Is the response relevant to the question?", "> 0.8"],
-          ["Context Precision", "Are relevant chunks ranked higher?", "> 0.8"],
-          ["Context Recall", "Does retrieved context contain needed info?", "> 0.8"],
-        ]}
-      />
+      <div className="space-y-4 mb-6">
+        <Card className="p-5 border-l-4 border-blue-500">
+          <h4 className="font-bold text-blue-900 mb-2">1. Context Precision: Did we retrieve the RIGHT chunks?</h4>
+          <p className="text-sm text-gray-700 mb-3">
+            <strong>The question:</strong> Of the chunks we retrieved, how many were actually relevant?
+          </p>
+          <p className="text-sm text-gray-700 mb-3">
+            <strong>Why it matters:</strong> Low precision means you're wasting context window space on irrelevant chunks.
+            The LLM has to sift through noise.
+          </p>
+          <div className="bg-blue-50 p-3 rounded-lg">
+            <p className="text-sm text-blue-900"><strong>Target:</strong> &gt;80% of retrieved chunks should be relevant</p>
+            <p className="text-sm text-red-700 mt-1"><strong>Red flag:</strong> Retrieving chunks from the wrong company or time period</p>
+          </div>
+        </Card>
+
+        <Card className="p-5 border-l-4 border-purple-500">
+          <h4 className="font-bold text-purple-900 mb-2">2. Context Recall: Did we retrieve ALL the relevant chunks?</h4>
+          <p className="text-sm text-gray-700 mb-3">
+            <strong>The question:</strong> Of all the relevant chunks that exist, how many did we find?
+          </p>
+          <p className="text-sm text-gray-700 mb-3">
+            <strong>Why it matters:</strong> Low recall means you're missing information. The answer will be incomplete.
+          </p>
+          <div className="bg-purple-50 p-3 rounded-lg">
+            <p className="text-sm text-purple-900"><strong>Target:</strong> &gt;70% of relevant chunks should be retrieved</p>
+            <p className="text-sm text-red-700 mt-1"><strong>Red flag:</strong> User asks about a topic you know exists in the data, but nothing is retrieved</p>
+          </div>
+        </Card>
+
+        <Card className="p-5 border-l-4 border-green-500">
+          <h4 className="font-bold text-green-900 mb-2">3. Faithfulness: Is the answer grounded in the retrieved chunks?</h4>
+          <p className="text-sm text-gray-700 mb-3">
+            <strong>The question:</strong> Can every claim in the answer be traced back to a retrieved chunk?
+          </p>
+          <p className="text-sm text-gray-700 mb-3">
+            <strong>Why it matters:</strong> This measures hallucination. If the answer includes information not in the chunks, it's made up.
+          </p>
+          <div className="bg-green-50 p-3 rounded-lg">
+            <p className="text-sm text-green-900"><strong>Target:</strong> &gt;90% of claims should be supported by chunks</p>
+            <p className="text-sm text-red-700 mt-1"><strong>Red flag:</strong> Answer includes specific details (dates, names, numbers) not in any chunk</p>
+          </div>
+        </Card>
+
+        <Card className="p-5 border-l-4 border-amber-500">
+          <h4 className="font-bold text-amber-900 mb-2">4. Answer Relevance: Does the answer actually address the question?</h4>
+          <p className="text-sm text-gray-700 mb-3">
+            <strong>The question:</strong> Is the answer on-topic and helpful?
+          </p>
+          <p className="text-sm text-gray-700 mb-3">
+            <strong>Why it matters:</strong> You can retrieve the right chunks but still generate an unhelpful answer.
+          </p>
+          <div className="bg-amber-50 p-3 rounded-lg">
+            <p className="text-sm text-amber-900"><strong>Target:</strong> High semantic similarity between question and answer</p>
+            <p className="text-sm text-red-700 mt-1"><strong>Red flag:</strong> User asks about pricing, answer talks about features</p>
+          </div>
+        </Card>
+      </div>
 
       <Callout type="info" title="Key Insight">
         <strong>Faithfulness</strong> is your most important metric. A low faithfulness score
@@ -2435,24 +2636,64 @@ const EvaluationSection = () => (
       </Callout>
     </ProgressiveSection>
 
-    <ProgressiveSection number="2" title="Create a Golden Test Set" subtitle="Before launch, validate with known answers">
-      <p className="mb-4">Create 20-30 questions with known answers:</p>
+    <ProgressiveSection number="2" title="Creating a Golden Test Set" subtitle="Your benchmark for quality">
+      <p className="mb-4 text-gray-700">
+        A golden test set is a curated collection of questions with known correct answers. It's your benchmark.
+      </p>
 
-      <ComparisonTable
-        headers={["Question", "Expected Source", "Expected Answer Contains"]}
-        rows={[
-          ['"What was our last meeting with TPI about?"', "March 28 transcript", "cycle time, cameras"],
-          ['"What concerns did Canadian Tire raise?"', "Canadian Tire transcripts", "in-shop flow"],
-          ['"Who mentioned Proxedo?"', "East Bay Tire transcript", "John Hulsey"],
-        ]}
-      />
+      <h4 className="font-bold mb-3">What to Include:</h4>
+      <div className="space-y-3 mb-6">
+        <Card className="p-4 bg-green-50 border-green-200">
+          <p className="font-semibold text-green-900">Easy questions - Should always work</p>
+          <ul className="text-sm text-green-800 mt-2 space-y-1">
+            <li>• "When was our last meeting with TPI?"</li>
+            <li>• "How many meetings with Les Schwab?"</li>
+          </ul>
+        </Card>
 
-      <Callout type="success" title="Run Periodically">
-        Run these tests after every major change. If answers change unexpectedly, something broke.
+        <Card className="p-4 bg-blue-50 border-blue-200">
+          <p className="font-semibold text-blue-900">Medium questions - Should work most of the time</p>
+          <ul className="text-sm text-blue-800 mt-2 space-y-1">
+            <li>• "What did TPI say about cameras?"</li>
+            <li>• "What concerns did customers raise in Q4?"</li>
+          </ul>
+        </Card>
+
+        <Card className="p-4 bg-purple-50 border-purple-200">
+          <p className="font-semibold text-purple-900">Hard questions - Stretch goals</p>
+          <ul className="text-sm text-purple-800 mt-2 space-y-1">
+            <li>• "Compare TPI and Les Schwab's feedback on integration"</li>
+            <li>• "What patterns do you see in customer concerns?"</li>
+          </ul>
+        </Card>
+      </div>
+
+      <h4 className="font-bold mb-3">How to Use It:</h4>
+      <div className="space-y-2 mb-4">
+        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm">1</div>
+          <span className="text-gray-700"><strong>Baseline</strong> - Run the test set, record scores</span>
+        </div>
+        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm">2</div>
+          <span className="text-gray-700"><strong>Make changes</strong> - Improve chunking, prompts, retrieval</span>
+        </div>
+        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm">3</div>
+          <span className="text-gray-700"><strong>Re-test</strong> - Did scores improve or degrade?</span>
+        </div>
+        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm">4</div>
+          <span className="text-gray-700"><strong>Track over time</strong> - Are you getting better?</span>
+        </div>
+      </div>
+
+      <Callout type="success" title="The Principle">
+        You can't improve what you don't measure. Run these tests after every major change.
       </Callout>
     </ProgressiveSection>
 
-    <ProgressiveSection number="3" title="Three Things to Validate" subtitle="Retrieval, Grounding, Trust">
+    <ProgressiveSection number="3" title="Three Validation Types" subtitle="Retrieval, Grounding, and Trust">
       <div className="space-y-4">
         <Card className="p-4">
           <h4 className="font-bold text-blue-600">1. Retrieval Quality</h4>
@@ -2504,7 +2745,7 @@ const EvaluationSection = () => (
 );
 
 const ResourcesSection = () => (
-  <div className="space-y-6">
+  <div className="space-y-10">
     <h2 className="text-2xl font-bold text-gray-900">Learning Resources</h2>
 
     <ProgressiveSection number="1" title="Official Documentation" subtitle="Start here" defaultOpen={true}>
@@ -2736,11 +2977,11 @@ export default function AgenticAIGuide() {
           }}
         >
           {/* Sidebar Header */}
-          <div className="p-4 border-b border-white/10">
+          <div className="p-6 border-b border-white/10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-white font-bold text-lg">LEVEREGE</span>
-                <span className="text-purple-400 font-bold">AI</span>
+                <span className="text-white font-bold text-xl">LEVEREGE</span>
+                <span className="text-purple-400 font-bold text-lg">AI</span>
               </div>
               {/* Close button for mobile */}
               <button
@@ -2752,26 +2993,26 @@ export default function AgenticAIGuide() {
                 </svg>
               </button>
             </div>
-            <p className="text-blue-200 text-xs mt-2">MCP & RAG Implementation Guide</p>
+            <p className="text-blue-200 text-sm mt-3">MCP & RAG Implementation Guide</p>
           </div>
 
           {/* Navigation Items */}
-          <nav className="p-2 flex-1 overflow-y-auto">
+          <nav className="p-3 flex-1 overflow-y-auto">
             {tabs.map((tab, index) => (
               <button
                 key={tab.id}
                 onClick={() => handleTabClick(tab.id)}
                 className={`
-                  w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
-                  transition-all duration-200 mb-1
+                  w-full flex items-center gap-3 px-4 py-3.5 rounded-lg text-base font-medium
+                  transition-all duration-200 mb-2
                   ${activeTab === tab.id
-                    ? 'bg-purple-500/30 text-white border-l-2 border-purple-400'
-                    : 'text-gray-300 hover:bg-white/10 hover:text-white border-l-2 border-transparent'
+                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg scale-105'
+                    : 'text-gray-200 hover:bg-white/10 hover:text-white hover:translate-x-1'
                   }
                 `}
               >
-                <tab.icon className="w-4 h-4 flex-shrink-0" />
-                <span className="truncate">{tab.label}</span>
+                <tab.icon className="w-5 h-5 flex-shrink-0" />
+                <span className="truncate text-left">{tab.label}</span>
               </button>
             ))}
           </nav>
@@ -2811,27 +3052,29 @@ export default function AgenticAIGuide() {
 
         {/* Desktop Header */}
         <div
-          className="hidden lg:block relative text-white py-6 px-8"
+          className="hidden lg:block relative text-white py-8 px-8"
           style={{
             background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
           }}
         >
-          <div className="absolute inset-0 opacity-20" style={{
+          <div className="absolute inset-0 opacity-10" style={{
             backgroundImage: `linear-gradient(rgba(100, 100, 255, 0.1) 1px, transparent 1px), 
                              linear-gradient(90deg, rgba(100, 100, 255, 0.1) 1px, transparent 1px)`,
             backgroundSize: '40px 40px'
           }} />
-          <div className="relative z-10">
-            <h1 className="text-2xl font-bold mb-1">MCP & RAG Implementation Guide</h1>
-            <p className="text-blue-200 text-sm">
+          <div className="relative z-10 max-w-4xl mx-auto">
+            <h1 className="text-3xl font-bold mb-2">MCP & RAG Implementation Guide</h1>
+            <p className="text-blue-200">
               Understand what you're building and why — then use AI to help with how.
             </p>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-4 lg:p-8 max-w-4xl mx-auto">
-          {renderContent()}
+        <div className="p-6 lg:p-12 max-w-6xl mx-auto bg-gray-50 min-h-screen">
+          <div className="bg-white rounded-2xl shadow-sm p-8 lg:p-12">
+            {renderContent()}
+          </div>
         </div>
 
         {/* Footer */}
