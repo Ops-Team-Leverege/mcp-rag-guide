@@ -1,22 +1,49 @@
-import { Target, Brain, Users, BookOpen, Database, Layers, GitBranch, Code, Cloud, Zap, Settings, Gauge, FileText, Sparkles, Bug, DollarSign } from 'lucide-react';
+import { Target, Brain, Users, BookOpen, Database, Layers, GitBranch, Code, Cloud, Zap, Settings, Gauge, FileText, Sparkles, Bug, DollarSign, Box } from 'lucide-react';
 
-export const tabs = [
-  { id: 'overview', label: 'Overview', icon: Target },
-  { id: 'mindset', label: 'Mindset', icon: Brain },
-  { id: 'businesscase', label: 'Business Case', icon: Users },
-  { id: 'concepts', label: 'Core Concepts', icon: BookOpen },
-  { id: 'data', label: 'Data Shape', icon: Database },
-  { id: 'architecture', label: 'Architecture', icon: Layers },
-  { id: 'decisions', label: 'When to Use What', icon: GitBranch },
-  { id: 'promptengineering', label: 'Prompt Engineering', icon: Sparkles },
-  { id: 'modelselection', label: 'Model Selection', icon: DollarSign },
-  { id: 'implementation', label: 'Implementation', icon: Code },
-  { id: 'debugging', label: 'Debugging', icon: Bug },
-  { id: 'hosting', label: 'Hosting', icon: Cloud },
-  { id: 'zapier', label: 'Zapier MCP', icon: Zap },
-  { id: 'planning', label: 'Planning', icon: Settings },
-  { id: 'evaluation', label: 'Evaluation', icon: Gauge },
-  { id: 'resources', label: 'Resources', icon: FileText },
+export const tabGroups = [
+  {
+    title: "Foundation",
+    tabs: [
+      { id: 'overview', label: 'Overview', icon: Target },
+      { id: 'mindset', label: 'Mindset', icon: Brain },
+      { id: 'businesscase', label: 'Business Case', icon: Users },
+    ]
+  },
+  {
+    title: "Concepts",
+    tabs: [
+      { id: 'concepts', label: 'Core Concepts', icon: BookOpen },
+      { id: 'promptengineering', label: 'Prompt Engineering', icon: Sparkles },
+      { id: 'modelselection', label: 'Model Selection', icon: DollarSign },
+      { id: 'data', label: 'Data Shape', icon: Database },
+    ]
+  },
+  {
+    title: "Architecture",
+    tabs: [
+      { id: 'architecture', label: 'Architecture Patterns', icon: Layers },
+      { id: 'decisions', label: 'When to Use What', icon: GitBranch },
+      { id: 'mvppath', label: 'The MVP Path', icon: Zap },
+      { id: 'implementation', label: 'Implementation', icon: Code },
+    ]
+  },
+  {
+    title: "Operations",
+    tabs: [
+      { id: 'debugging', label: 'Debugging', icon: Bug },
+      { id: 'evaluation', label: 'Evaluation', icon: Gauge },
+      { id: 'deployment', label: 'Deployment', icon: Cloud },
+    ]
+  },
+  {
+    title: "Case Study",
+    tabs: [
+      { id: 'pitcrew', label: 'PitCrew Sauce', icon: Box },
+    ]
+  },
 ];
 
-export default tabs;
+// Flatten for backward compatibility
+export const tabs = tabGroups.flatMap(group => group.tabs);
+
+export default tabGroups;

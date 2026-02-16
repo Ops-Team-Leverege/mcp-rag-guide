@@ -1,32 +1,16 @@
-// Note: For a production setup, each section would be in its own file.
-// This file shows the structure - the actual sections are in the main index.jsx
-// until they are individually extracted.
-
-// Example of what each section file would look like:
-// 
-// // sections/OverviewSection.jsx
-// import React from 'react';
-// import { CheckCircle } from 'lucide-react';
-// import { Card } from '../components/ui';
-// 
-// export const OverviewSection = () => (
-//   <div className="space-y-6">
-//     ...
-//   </div>
-// );
-
-export const sectionIds = [
-  'overview',
-  'mindset', 
-  'businesscase',
-  'concepts',
-  'data',
-  'architecture',
-  'decisions',
-  'implementation',
-  'hosting',
-  'zapier',
-  'planning',
-  'evaluation',
-  'resources'
-];
+// Export all section components
+export { OverviewSection } from './OverviewSection';
+export { MindsetSection } from './MindsetSection';
+export { BusinessCaseSection } from './BusinessCaseSection';
+export { ConceptsSection } from './ConceptsSection';
+export { DataShapeSection } from './DataShapeSection';
+export { ArchitectureSection } from './ArchitectureSection';
+export { DecisionsSection } from './DecisionsSection';
+export { MVPPathSection } from './MVPPathSection';
+export { ImplementationSection } from './ImplementationSection';
+export { PromptEngineeringSection } from './PromptEngineeringSection';
+export { ModelSelectionSection } from './ModelSelectionSection';
+export { DebuggingSection } from './DebuggingSection';
+export { EvaluationSection } from './EvaluationSection';
+export { DeploymentSection } from './DeploymentSection';
+export { PitCrewCaseStudy } from './PitCrewCaseStudy';

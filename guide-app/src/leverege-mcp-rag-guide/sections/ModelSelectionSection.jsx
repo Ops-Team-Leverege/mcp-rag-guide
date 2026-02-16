@@ -391,4 +391,4 @@ const ModelSelectionSection = () => {
     );
 };
 
-export default ModelSelectionSection;
+export { ModelSelectionSection };

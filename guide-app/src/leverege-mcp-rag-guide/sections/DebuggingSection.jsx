@@ -189,4 +189,4 @@ const DebuggingSection = () => {
     );
 };
 
-export default DebuggingSection;
+export { DebuggingSection };

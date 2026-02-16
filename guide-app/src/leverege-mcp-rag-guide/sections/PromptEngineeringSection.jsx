@@ -334,4 +334,4 @@ AUTHORITY RULES:
     );
 };
 
-export default PromptEngineeringSection;
+export { PromptEngineeringSection };

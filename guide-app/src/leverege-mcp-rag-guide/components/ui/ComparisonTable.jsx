@@ -1,20 +1,20 @@
 import React from 'react';
 
 export const ComparisonTable = ({ headers, rows }) => (
-  <div className="overflow-x-auto my-4">
-    <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
-      <thead className="bg-gray-50">
-        <tr>
+  <div className="overflow-x-auto my-6 rounded-xl border-2 border-gray-200 shadow-sm">
+    <table className="w-full">
+      <thead>
+        <tr className="bg-gradient-to-r from-gray-100 to-gray-50">
           {headers.map((h, i) => (
-            <th key={i} className="px-4 py-3 text-left font-semibold text-gray-700 border-b">{h}</th>
+            <th key={i} className="px-6 py-4 text-left font-bold text-gray-900 border-b-2 border-gray-200">{h}</th>
           ))}
         </tr>
       </thead>
       <tbody>
         {rows.map((row, i) => (
-          <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+          <tr key={i} className={`${i % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-blue-50 transition-colors`}>
             {row.map((cell, j) => (
-              <td key={j} className="px-4 py-3 border-b">{cell}</td>
+              <td key={j} className="px-6 py-4 border-b border-gray-200 text-gray-700">{cell}</td>
             ))}
           </tr>
         ))}
@@ -22,5 +22,3 @@ export const ComparisonTable = ({ headers, rows }) => (
     </table>
   </div>
 );
-
-export default ComparisonTable;
