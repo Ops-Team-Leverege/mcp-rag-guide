@@ -375,6 +375,103 @@ export const PitCrewCaseStudy = () => (
             </Card>
         </div>
 
+        {/* The Adjacency Anchoring Strategy */}
+        <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">The Adjacency Anchoring Strategy</h2>
+            <p className="text-gray-600 mb-6">
+                Moving intelligence from LLM to deterministic code — a real engineering fix for context-dependent questions.
+            </p>
+
+            <Card className="p-5 bg-red-50 border-l-4 border-red-500 mb-4">
+                <h3 className="font-bold text-red-900 mb-2">The Problem</h3>
+                <p className="text-sm text-gray-700 mb-2">
+                    Context-dependent questions like "Is that compatible?" or "What about the other one?" are 70% useless
+                    without knowing what "that" and "the other one" refer to.
+                </p>
+                <p className="text-sm text-gray-600">
+                    Early approach: Ask the LLM to resolve references → hallucinated connections between unrelated topics.
+                </p>
+            </Card>
+
+            <Card className="p-5 bg-green-50 border-l-4 border-green-500 mb-4">
+                <h3 className="font-bold text-green-900 mb-2">The Fix: Deterministic Sliding Window</h3>
+                <div className="space-y-2 text-sm text-gray-700">
+                    <p><strong>Step 1:</strong> Regex detects pronouns and demonstratives ("that", "it", "the other", "this one")</p>
+                    <p><strong>Step 2:</strong> Code mechanically attaches the preceding 2 speaker turns as context</p>
+                    <p><strong>Step 3:</strong> The expanded context goes to the LLM for interpretation</p>
+                </div>
+                <p className="text-sm text-gray-600 mt-3">
+                    No LLM involved in the reference resolution step — pure deterministic code.
+                </p>
+            </Card>
+
+            <Card className="p-5 bg-blue-50 border-blue-200">
+                <h3 className="font-bold text-blue-900 mb-3">Results (Validated on 98 meetings, 1,245 questions)</h3>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div className="text-2xl font-bold text-green-600">0%</div>
+                        <div className="text-xs text-gray-600">Hallucination rate</div>
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-blue-600">99.2%</div>
+                        <div className="text-xs text-gray-600">Context recovery</div>
+                    </div>
+                    <div>
+                        <div className="text-2xl font-bold text-purple-600">100%</div>
+                        <div className="text-xs text-gray-600">Trigger accuracy</div>
+                    </div>
+                </div>
+            </Card>
+        </div>
+
+        {/* The Coreference Problem */}
+        <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">The Coreference Problem</h2>
+            <p className="text-gray-600 mb-6">
+                Why 100% deterministic answering fails — and why you still need an LLM.
+            </p>
+
+            <Card className="p-5 bg-amber-50 border-l-4 border-amber-500 mb-4">
+                <h3 className="font-bold text-amber-900 mb-2">The Limitation</h3>
+                <p className="text-sm text-gray-700 mb-2">
+                    Users do conceptual reference: "What was the Nvidia appliance?" → expects "Jetson"
+                </p>
+                <p className="text-sm text-gray-700">
+                    Keyword matching can't resolve this. The word "Jetson" doesn't appear in the question.
+                    You <strong>need</strong> an LLM for semantic understanding.
+                </p>
+            </Card>
+
+            <Card className="p-5 bg-blue-50 border-blue-200 mb-4">
+                <h3 className="font-bold text-blue-900 mb-2">The Lesson</h3>
+                <p className="text-sm text-gray-700">
+                    Use <strong>deterministic code for retrieval</strong> (what data to look at) and
+                    <strong> LLM for understanding</strong> (what the data means). This is the core insight
+                    behind the Router Pattern: code handles the predictable parts, LLM handles the parts
+                    that require reasoning.
+                </p>
+            </Card>
+
+            <Card className="p-5 bg-gradient-to-r from-gray-100 to-gray-200 border-gray-300">
+                <h3 className="font-bold text-gray-900 mb-3">The Architecture Cost Question</h3>
+                <p className="text-sm text-gray-700 mb-3">"Who bears the cost of failure?"</p>
+                <div className="grid md:grid-cols-3 gap-3 text-sm">
+                    <div className="bg-white p-3 rounded-lg">
+                        <p className="font-semibold text-amber-700">LLM-driven</p>
+                        <p className="text-gray-600 text-xs mt-1">Flexible but unpredictable. Failures are hard to reproduce.</p>
+                    </div>
+                    <div className="bg-white p-3 rounded-lg">
+                        <p className="font-semibold text-blue-700">Code-driven</p>
+                        <p className="text-gray-600 text-xs mt-1">Rigid but auditable. Failures are reproducible and fixable.</p>
+                    </div>
+                    <div className="bg-white p-3 rounded-lg border-2 border-green-300">
+                        <p className="font-semibold text-green-700">PitCrew's answer</p>
+                        <p className="text-gray-600 text-xs mt-1">Code routes (predictable), LLM generates (flexible), contracts constrain (safe).</p>
+                    </div>
+                </div>
+            </Card>
+        </div>
+
         {/* Lessons Summary */}
         <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Key Takeaways</h2>

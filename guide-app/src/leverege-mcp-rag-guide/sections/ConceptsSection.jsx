@@ -229,13 +229,13 @@ export const ConceptsSection = () => (
             </div>
         </ProgressiveSection>
 
-        <ProgressiveSection number="3" title="The Layer Cake" subtitle="How the pieces fit together">
+        <ProgressiveSection number="3" title="The Query Stack" subtitle="How the layers fit together">
             <div className="my-6">
                 <div className="flex flex-col items-center gap-2">
                     {[
-                        { layer: "MCP", desc: "Reasoning + Orchestration", tech: "Tools, capabilities, contracts", color: "purple", icon: Brain },
-                        { layer: "RAG", desc: "Meaning + Language", tech: "Embeddings, vector search", color: "blue", icon: Search },
-                        { layer: "Postgres", desc: "Facts + Relationships", tech: "SQL, joins, indexes", color: "green", icon: Database },
+                        { layer: "Orchestration", desc: "Routes + orchestrates", tech: "Router Pattern or MCP", color: "purple", icon: Brain },
+                        { layer: "Semantic", desc: "Meaning-based retrieval", tech: "RAG, embeddings, vector search", color: "blue", icon: Search },
+                        { layer: "Data", desc: "Structured facts", tech: "SQL, databases, APIs", color: "green", icon: Database },
                     ].map((item, i) => {
                         const colors = {
                             purple: "bg-purple-100 border-purple-300 text-purple-800",
@@ -271,11 +271,11 @@ export const ConceptsSection = () => (
                 </h4>
                 <div className="space-y-3">
                     {[
-                        { step: 1, layer: "MCP", action: "Receives question, chooses 'search_customer_feedback' capability", color: "purple" },
-                        { step: 2, layer: "RAG", action: "Vector search + SQL filter: WHERE company='TPI' AND role='customer'", color: "blue" },
-                        { step: 3, layer: "Postgres", action: "Returns matching chunks with metadata", color: "green" },
-                        { step: 4, layer: "Composer", action: "Builds grounded prompt with citations", color: "amber" },
-                        { step: 5, layer: "Output", action: '"Alan mentioned cameras go offline [March 28 meeting]"', color: "gray" },
+                        { step: 1, layer: "Router", action: "Classifies intent: SINGLE_MEETING → customer feedback search", color: "purple" },
+                        { step: 2, layer: "Retrieval", action: "SQL filter: WHERE company='TPI' AND role='customer' + vector search for 'cameras'", color: "blue" },
+                        { step: 3, layer: "Data", action: "Returns matching chunks with metadata (speaker, date, meeting)", color: "green" },
+                        { step: 4, layer: "Generation", action: "Builds grounded prompt with citations — cite or abstain", color: "amber" },
+                        { step: 5, layer: "Output", action: '"Alan mentioned cameras go offline during peak hours [March 28 meeting]"', color: "gray" },
                     ].map((item, i) => {
                         const dotColors = {
                             purple: "bg-purple-500",
@@ -301,6 +301,10 @@ export const ConceptsSection = () => (
         </ProgressiveSection>
 
         <ProgressiveSection number="4" title="What the AI Sees" subtitle="Capabilities, not infrastructure">
+            <p className="text-gray-600 mb-4">
+                Regardless of which pattern you use (Router, MCP, Agentic), the AI should see
+                <strong> capabilities and contracts</strong>, never raw infrastructure.
+            </p>
             <div className="grid md:grid-cols-2 gap-4 mb-6">
                 <Card className="p-5 border-2 border-red-200 bg-gradient-to-br from-red-50 to-rose-50">
                     <div className="flex items-center gap-2 mb-3">

@@ -236,6 +236,33 @@ export const DecisionsSection = () => (
             />
         </ProgressiveSection>
 
+        <ProgressiveSection number="7" title="The Control Decision" subtitle="Code-driven vs LLM-driven routing">
+            <p className="text-gray-600 mb-4">
+                Beyond choosing SQL vs RAG vs Agentic, you need to decide <strong>who controls the routing</strong>.
+                This is the most consequential architectural decision you'll make.
+            </p>
+
+            <ComparisonTable
+                headers={["", "Code-Driven (Router Pattern)", "LLM-Driven (MCP / Agentic)"]}
+                rows={[
+                    ["Who decides?", "LLM classifies intent → code routes deterministically", "LLM picks tools and decides flow autonomously"],
+                    ["Predictability", "✅ Same input → same route every time", "⚠️ LLM may choose differently each time"],
+                    ["Audit trail", "✅ Every decision logged with contract ID", "⚠️ Harder to trace why a tool was chosen"],
+                    ["Debugging", "✅ Check intent classification → check handler", "⚠️ Multi-step reasoning harder to debug"],
+                    ["Team access", "✅ Safe for non-technical users (Slack, etc.)", "⚠️ Better for developer tools (Cursor, Claude)"],
+                    ["Flexibility", "⚠️ New intents require code changes", "✅ LLM adapts to novel questions"],
+                    ["Cost", "$$ (one LLM call for classification)", "$$$ (multiple LLM calls for reasoning)"],
+                    ["Best for", "Production systems, team-wide access, high-stakes", "Developer tools, exploration, prototyping"],
+                ]}
+            />
+
+            <Callout type="insight" title="PitCrew's Choice">
+                PitCrew uses the <strong>Router Pattern</strong> for Slack (team-wide, high-stakes) and exposes
+                <strong> MCP</strong> for Claude Desktop / Cursor (developer exploration). Same capabilities,
+                different control models. You don't have to choose one — you can offer both.
+            </Callout>
+        </ProgressiveSection>
+
         <Card className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 mt-6">
             <h3 className="font-bold text-lg mb-4">📋 Quick Reference</h3>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
@@ -271,6 +298,14 @@ export const DecisionsSection = () => (
                         <li>• Actions beyond just answering</li>
                     </ul>
                 </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-gray-200">
+                <h4 className="font-bold text-indigo-600 mb-2">The Control Decision:</h4>
+                <p className="text-sm text-gray-600">
+                    <strong>Router Pattern</strong> (code routes) for production, team-wide, high-stakes.
+                    <strong> MCP/Agentic</strong> (LLM routes) for developer tools, exploration, prototyping.
+                    Many systems offer both.
+                </p>
             </div>
         </Card>
     </div>
