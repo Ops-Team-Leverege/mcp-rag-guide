@@ -63,9 +63,9 @@ const IngestionPipelineDiagram = () => {
     };
 
     return (
-        <div className="my-6 p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-            <h4 className="text-center font-bold text-gray-800 mb-2">Data Ingestion Pipeline</h4>
-            <p className="text-center text-sm text-gray-600 mb-6">
+        <div className="my-6 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200">
+            <h4 className="text-center font-semibold text-slate-800 mb-2">Data Ingestion Pipeline</h4>
+            <p className="text-center text-sm text-slate-500 mb-6">
                 Ingestion is deterministic. Interpretation is AI. Never mix the two.
             </p>
 
@@ -74,7 +74,7 @@ const IngestionPipelineDiagram = () => {
                     const Icon = step.icon;
                     return (
                         <React.Fragment key={index}>
-                            <div className={`w-full max-w-2xl ${colorClasses[step.color]} border-2 rounded-lg p-4 shadow-sm transition-all hover:shadow-md hover:scale-[1.02]`}>
+                            <div className={`w-full max-w-2xl ${colorClasses[step.color]} border rounded-lg p-4 shadow-sm transition-all hover:shadow-md hover:scale-[1.02]`}>
                                 <div className="flex items-start gap-4">
                                     <div className="flex-shrink-0">
                                         <div className="w-12 h-12 bg-white/50 rounded-full flex items-center justify-center">
@@ -83,7 +83,7 @@ const IngestionPipelineDiagram = () => {
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex items-center justify-between mb-1">
-                                            <h5 className="font-bold">{step.title}</h5>
+                                            <h5 className="font-semibold">{step.title}</h5>
                                             <span className="text-xs font-semibold px-2 py-1 bg-white/50 rounded">
                                                 {step.subtitle}
                                             </span>
@@ -99,7 +99,7 @@ const IngestionPipelineDiagram = () => {
                             {index < steps.length - 1 && (
                                 <div className="flex flex-col items-center">
                                     <div className="w-0.5 h-4 bg-gray-400"></div>
-                                    <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg className="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M10 3a1 1 0 011 1v10.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V4a1 1 0 011-1z" clipRule="evenodd" />
                                     </svg>
                                 </div>
@@ -110,8 +110,8 @@ const IngestionPipelineDiagram = () => {
             </div>
 
             <div className="mt-6 grid md:grid-cols-2 gap-4">
-                <div className="bg-green-50 border-2 border-green-300 rounded-lg p-4">
-                    <div className="font-bold text-green-800 mb-2">✓ Ingestion (Steps 1-4, 6)</div>
+                <div className="bg-green-50 border border-green-300 rounded-lg p-4">
+                    <div className="font-semibold text-green-800 mb-2">✓ Ingestion (Steps 1-4, 6)</div>
                     <ul className="text-sm text-green-700 space-y-1">
                         <li>• Deterministic and reproducible</li>
                         <li>• No LLM randomness</li>
@@ -119,8 +119,8 @@ const IngestionPipelineDiagram = () => {
                         <li>• Foundation of trust</li>
                     </ul>
                 </div>
-                <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-4">
-                    <div className="font-bold text-amber-800 mb-2">⚠ Interpretation (Step 5)</div>
+                <div className="bg-amber-50 border border-amber-300 rounded-lg p-4">
+                    <div className="font-semibold text-amber-800 mb-2">⚠ Interpretation (Step 5)</div>
                     <ul className="text-sm text-amber-700 space-y-1">
                         <li>• Uses LLM for extraction</li>
                         <li>• Stored separately from source</li>

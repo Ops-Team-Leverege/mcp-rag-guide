@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, Callout, ProgressiveSection, ComparisonTable, DiagramBox } from '../components/ui';
+import { NextSectionNav } from '../index';
 
 // Inline diagram components
 const ComplexitySpectrum = () => (
-    <div className="my-6 p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200 overflow-x-auto">
+    <div className="my-6 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200 overflow-x-auto">
         <div className="flex items-end justify-between gap-2 min-w-max md:min-w-0">
             {[
                 { label: "SQL Only", examples: "Lookups, Counts, Lists", speed: "Fastest", cost: "Cheapest", color: "green", height: "h-20" },
@@ -20,17 +21,17 @@ const ComplexitySpectrum = () => (
                 return (
                     <div key={i} className="flex flex-col items-center flex-1 min-w-24">
                         <div className={`w-full ${item.height} ${colors[item.color]} rounded-t-lg flex items-end justify-center pb-2`}>
-                            <span className="text-white font-bold text-xs text-center px-1">{item.label}</span>
+                            <span className="text-white font-semibold text-xs text-center px-1">{item.label}</span>
                         </div>
-                        <div className="w-full bg-white border border-gray-200 rounded-b-lg p-2 text-center">
-                            <div className="text-xs text-gray-600">{item.examples}</div>
-                            <div className="text-xs text-gray-400 mt-1">{item.speed} • {item.cost}</div>
+                        <div className="w-full bg-white border border-slate-200 rounded-b-lg p-2 text-center">
+                            <div className="text-xs text-slate-500">{item.examples}</div>
+                            <div className="text-xs text-slate-400 mt-1">{item.speed} • {item.cost}</div>
                         </div>
                     </div>
                 );
             })}
         </div>
-        <div className="flex justify-between mt-3 text-xs text-gray-500">
+        <div className="flex justify-between mt-3 text-xs text-slate-400">
             <span>← Simpler</span>
             <span>More Complex →</span>
         </div>
@@ -38,25 +39,25 @@ const ComplexitySpectrum = () => (
 );
 
 const SQLRagFlowDiagram = () => (
-    <div className="my-6 p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-        <p className="text-sm text-gray-600 mb-4 text-center font-medium">
+    <div className="my-6 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200">
+        <p className="text-sm text-slate-500 mb-4 text-center font-medium">
             "What did TPI's customer say about cameras?"
         </p>
         <div className="flex flex-col items-center gap-1">
-            <div className="w-full max-w-sm bg-blue-100 border-2 border-blue-300 rounded-lg p-3">
+            <div className="w-full max-w-sm bg-blue-100 border border-blue-300 rounded-lg p-3">
                 <div className="font-semibold text-blue-800 text-sm">1. SQL Filter (fast, precise)</div>
                 <div className="text-xs text-blue-700 mt-1 font-mono">WHERE company='TPI' AND role='customer'</div>
                 <div className="text-xs text-blue-600 mt-1">→ Narrows 13k chunks to ~200</div>
             </div>
-            <div className="w-0.5 h-3 bg-gray-300" />
-            <div className="w-full max-w-sm bg-purple-100 border-2 border-purple-300 rounded-lg p-3">
+            <div className="w-0.5 h-3 bg-slate-300" />
+            <div className="w-full max-w-sm bg-purple-100 border border-purple-300 rounded-lg p-3">
                 <div className="font-semibold text-purple-800 text-sm">2. Vector Search (semantic)</div>
                 <div className="text-xs text-purple-700 mt-1 font-mono">ORDER BY embedding similarity</div>
                 <div className="text-xs text-purple-600 mt-1">→ Finds 10 most relevant about "cameras"</div>
             </div>
 
-            <div className="w-0.5 h-3 bg-gray-300" />
-            <div className="w-full max-w-sm bg-green-100 border-2 border-green-300 rounded-lg p-3 text-center">
+            <div className="w-0.5 h-3 bg-slate-300" />
+            <div className="w-full max-w-sm bg-green-100 border border-green-300 rounded-lg p-3 text-center">
                 <div className="font-semibold text-green-800 text-sm">Return chunks with citations</div>
             </div>
         </div>
@@ -64,30 +65,30 @@ const SQLRagFlowDiagram = () => (
 );
 
 const AgenticFlowDiagram = () => (
-    <div className="my-6 p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-        <p className="text-sm text-gray-600 mb-4 text-center font-medium">
+    <div className="my-6 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200">
+        <p className="text-sm text-slate-500 mb-4 text-center font-medium">
             "Compare TPI and Les Schwab on cameras, then draft follow-up"
         </p>
         <div className="flex flex-col items-center gap-1">
-            <div className="w-full max-w-md bg-amber-100 border-2 border-amber-300 rounded-lg p-3 text-center">
+            <div className="w-full max-w-md bg-amber-100 border border-amber-300 rounded-lg p-3 text-center">
                 <div className="font-semibold text-amber-800 text-sm flex items-center justify-center gap-2">
                     Router (LLM decides plan)
                 </div>
             </div>
-            <div className="w-0.5 h-3 bg-gray-300" />
+            <div className="w-0.5 h-3 bg-slate-300" />
             <div className="flex gap-3 flex-wrap justify-center">
-                <div className="bg-blue-100 border-2 border-blue-300 rounded-lg px-4 py-2">
+                <div className="bg-blue-100 border border-blue-300 rounded-lg px-4 py-2">
                     <div className="font-semibold text-blue-800 text-xs">Search TPI</div>
                 </div>
-                <div className="bg-blue-100 border-2 border-blue-300 rounded-lg px-4 py-2">
+                <div className="bg-blue-100 border border-blue-300 rounded-lg px-4 py-2">
                     <div className="font-semibold text-blue-800 text-xs">Search LS</div>
                 </div>
-                <div className="bg-purple-100 border-2 border-purple-300 rounded-lg px-4 py-2">
+                <div className="bg-purple-100 border border-purple-300 rounded-lg px-4 py-2">
                     <div className="font-semibold text-purple-800 text-xs">Draft Email</div>
                 </div>
             </div>
-            <div className="w-0.5 h-3 bg-gray-300" />
-            <div className="w-full max-w-md bg-green-100 border-2 border-green-300 rounded-lg p-3 text-center">
+            <div className="w-0.5 h-3 bg-slate-300" />
+            <div className="w-full max-w-md bg-green-100 border border-green-300 rounded-lg p-3 text-center">
                 <div className="font-semibold text-green-800 text-sm">Synthesizer (combines results)</div>
             </div>
         </div>
@@ -96,7 +97,7 @@ const AgenticFlowDiagram = () => (
 
 export const DecisionsSection = () => (
     <div className="space-y-10">
-        <h2 className="text-2xl font-bold text-gray-900">When to Use What: Choosing Your Architecture</h2>
+        <h2 className="text-2xl font-semibold text-slate-900">{"When to Use What: Choosing Your Architecture"}</h2>
 
         <Callout type="insight" title="The Key Question">
             Not every question needs AI. The right approach depends on <strong>what you're asking</strong>
@@ -104,7 +105,7 @@ export const DecisionsSection = () => (
         </Callout>
 
         <ProgressiveSection number="1" title="The Complexity Spectrum" subtitle="From simple to sophisticated" defaultOpen={true}>
-            <p className="text-sm text-gray-600 mb-2">Choose the Simplest Approach That Works</p>
+            <p className="text-sm text-slate-500 mb-2">Choose the Simplest Approach That Works</p>
             <ComplexitySpectrum />
 
             <Callout type="warning" title="Golden Rule">
@@ -115,7 +116,7 @@ export const DecisionsSection = () => (
 
         <ProgressiveSection number="2" title="SQL Only" subtitle="When you need facts, not interpretation">
             <Card className="p-4 bg-blue-50 border-blue-200 mb-4">
-                <h4 className="font-bold text-blue-800">Use SQL When:</h4>
+                <h4 className="font-semibold text-blue-800">Use SQL When:</h4>
                 <ul className="mt-2 space-y-1 text-sm">
                     <li>• The answer is a <strong>fact</strong> that exists in a column</li>
                     <li>• You need <strong>counts, lists, or aggregations</strong></li>
@@ -143,7 +144,7 @@ export const DecisionsSection = () => (
 
         <ProgressiveSection number="3" title="SQL + RAG (Hybrid)" subtitle="When you need to find AND filter">
             <Card className="p-4 bg-green-50 border-green-200 mb-4">
-                <h4 className="font-bold text-green-800">Use SQL + RAG When:</h4>
+                <h4 className="font-semibold text-green-800">Use SQL + RAG When:</h4>
                 <ul className="mt-2 space-y-1 text-sm">
                     <li>• You need to <strong>search by meaning</strong> (semantic search)</li>
                     <li>• AND <strong>filter by metadata</strong> (company, date, speaker role)</li>
@@ -166,7 +167,7 @@ export const DecisionsSection = () => (
 
         <ProgressiveSection number="4" title="RAG + LLM" subtitle="When you need interpretation or synthesis">
             <Card className="p-4 bg-purple-50 border-purple-200 mb-4">
-                <h4 className="font-bold text-purple-800">Use RAG + LLM When:</h4>
+                <h4 className="font-semibold text-purple-800">Use RAG + LLM When:</h4>
                 <ul className="mt-2 space-y-1 text-sm">
                     <li>• You need to <strong>summarize</strong> multiple chunks</li>
                     <li>• You need to <strong>interpret</strong> or <strong>analyze</strong> content</li>
@@ -193,7 +194,7 @@ export const DecisionsSection = () => (
 
         <ProgressiveSection number="5" title="Agentic AI with Router" subtitle="When you need multi-step reasoning">
             <Card className="p-4 bg-amber-50 border-amber-200 mb-4">
-                <h4 className="font-bold text-amber-800">Use Agentic AI When:</h4>
+                <h4 className="font-semibold text-amber-800">Use Agentic AI When:</h4>
                 <ul className="mt-2 space-y-1 text-sm">
                     <li>• The question requires <strong>multiple steps</strong> to answer</li>
                     <li>• You need to <strong>chain tools together</strong></li>
@@ -204,7 +205,7 @@ export const DecisionsSection = () => (
 
             <AgenticFlowDiagram />
 
-            <h4 className="font-bold mt-4 mb-2">When You Need a Router</h4>
+            <h4 className="font-semibold mt-4 mb-2">When You Need a Router</h4>
             <ComparisonTable
                 headers={["Scenario", "Why Router", "Tools Chained"]}
                 rows={[
@@ -237,7 +238,7 @@ export const DecisionsSection = () => (
         </ProgressiveSection>
 
         <ProgressiveSection number="7" title="The Control Decision" subtitle="Code-driven vs LLM-driven routing">
-            <p className="text-gray-600 mb-4">
+            <p className="text-slate-500 mb-4">
                 Beyond choosing SQL vs RAG vs Agentic, you need to decide <strong>who controls the routing</strong>.
                 This is the most consequential architectural decision you'll make.
             </p>
@@ -264,10 +265,10 @@ export const DecisionsSection = () => (
         </ProgressiveSection>
 
         <Card className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 mt-6">
-            <h3 className="font-bold text-lg mb-4">📋 Quick Reference</h3>
+            <h3 className="font-semibold text-lg mb-4">📋 Quick Reference</h3>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div>
-                    <h4 className="font-bold text-blue-600 mb-2">Use SQL When:</h4>
+                    <h4 className="font-semibold text-blue-600 mb-2">Use SQL When:</h4>
                     <ul className="space-y-1">
                         <li>• Facts, dates, counts, lists</li>
                         <li>• No interpretation needed</li>
@@ -275,7 +276,7 @@ export const DecisionsSection = () => (
                     </ul>
                 </div>
                 <div>
-                    <h4 className="font-bold text-green-600 mb-2">Use SQL + RAG When:</h4>
+                    <h4 className="font-semibold text-green-600 mb-2">Use SQL + RAG When:</h4>
                     <ul className="space-y-1">
                         <li>• Search by meaning + filter by metadata</li>
                         <li>• "What did X say about Y?"</li>
@@ -283,7 +284,7 @@ export const DecisionsSection = () => (
                     </ul>
                 </div>
                 <div>
-                    <h4 className="font-bold text-purple-600 mb-2">Use RAG + LLM When:</h4>
+                    <h4 className="font-semibold text-purple-600 mb-2">Use RAG + LLM When:</h4>
                     <ul className="space-y-1">
                         <li>• Summarization or synthesis</li>
                         <li>• Interpretation or analysis</li>
@@ -291,7 +292,7 @@ export const DecisionsSection = () => (
                     </ul>
                 </div>
                 <div>
-                    <h4 className="font-bold text-amber-600 mb-2">Use Agentic + Router When:</h4>
+                    <h4 className="font-semibold text-amber-600 mb-2">Use Agentic + Router When:</h4>
                     <ul className="space-y-1">
                         <li>• Multi-step reasoning</li>
                         <li>• Tool chaining required</li>
@@ -299,14 +300,16 @@ export const DecisionsSection = () => (
                     </ul>
                 </div>
             </div>
-            <div className="mt-4 pt-4 border-t border-gray-200">
-                <h4 className="font-bold text-indigo-600 mb-2">The Control Decision:</h4>
-                <p className="text-sm text-gray-600">
+            <div className="mt-4 pt-4 border-t border-slate-200">
+                <h4 className="font-semibold text-indigo-600 mb-2">The Control Decision:</h4>
+                <p className="text-sm text-slate-500">
                     <strong>Router Pattern</strong> (code routes) for production, team-wide, high-stakes.
                     <strong> MCP/Agentic</strong> (LLM routes) for developer tools, exploration, prototyping.
                     Many systems offer both.
                 </p>
             </div>
         </Card>
+
+        <NextSectionNav currentId="decisions" />
     </div>
 );

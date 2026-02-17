@@ -2,14 +2,14 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   line-height: 1.7;
-  color: #1f2937;
+  color: #334155;
 }
 
 h1,
@@ -19,27 +19,24 @@ h4,
 h5,
 h6 {
   line-height: 1.3;
-  font-weight: 700;
-}
-
-h1 {
-  font-size: 2.25rem;
+  font-weight: 600;
+  color: #0f172a;
 }
 
 h2 {
-  font-size: 1.875rem;
+  font-size: 1.75rem;
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
 }
 
 h4 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 strong {
@@ -47,14 +44,32 @@ strong {
 }
 
 a {
-  color: #2563eb;
+  color: #4f46e5;
   text-decoration: underline;
-  text-decoration-color: #93c5fd;
+  text-decoration-color: #c7d2fe;
   text-underline-offset: 2px;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
 
 a:hover {
-  color: #1d4ed8;
-  text-decoration-color: #2563eb;
+  color: #4338ca;
+  text-decoration-color: #4f46e5;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

@@ -10,7 +10,7 @@ const DiagramNode = ({ children, color = "blue", icon: Icon, subtitle }) => {
   };
   
   return (
-    <div className={`px-4 py-3 rounded-lg border-2 ${colors[color]} text-center`}>
+    <div className={`px-4 py-3 rounded-lg border ${colors[color]} text-center`}>
       <div className="flex items-center justify-center gap-2">
         {Icon && <Icon className="w-4 h-4" />}
         <span className="font-semibold text-sm">{children}</span>
@@ -21,26 +21,26 @@ const DiagramNode = ({ children, color = "blue", icon: Icon, subtitle }) => {
 };
 
 export const MCPArchitectureDiagram = () => (
-  <div className="my-6 p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200 overflow-x-auto">
+  <div className="my-6 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200 overflow-x-auto">
     {/* Desktop: Horizontal flow */}
     <div className="hidden md:flex items-center justify-center gap-3 min-w-max">
       <DiagramNode color="blue" icon={Brain} subtitle="Claude, Cursor, etc.">AI Host</DiagramNode>
-      <ChevronRight className="w-6 h-6 text-gray-400" />
+      <ChevronRight className="w-6 h-6 text-slate-400" />
       <DiagramNode color="purple" subtitle="Connects host to server">MCP Client</DiagramNode>
-      <ChevronRight className="w-6 h-6 text-gray-400" />
+      <ChevronRight className="w-6 h-6 text-slate-400" />
       <DiagramNode color="green" icon={Server} subtitle="Your tools & logic">MCP Server</DiagramNode>
-      <ChevronRight className="w-6 h-6 text-gray-400" />
+      <ChevronRight className="w-6 h-6 text-slate-400" />
       <DiagramNode color="amber" icon={Database} subtitle="Databases, APIs, Services">External Systems</DiagramNode>
     </div>
     
     {/* Mobile: Vertical flow */}
     <div className="md:hidden flex flex-col items-center gap-2">
       <DiagramNode color="blue" icon={Brain} subtitle="Claude, Cursor, etc.">AI Host</DiagramNode>
-      <ChevronDown className="w-5 h-5 text-gray-400" />
+      <ChevronDown className="w-5 h-5 text-slate-400" />
       <DiagramNode color="purple" subtitle="Connects host to server">MCP Client</DiagramNode>
-      <ChevronDown className="w-5 h-5 text-gray-400" />
+      <ChevronDown className="w-5 h-5 text-slate-400" />
       <DiagramNode color="green" icon={Server} subtitle="Your tools & logic">MCP Server</DiagramNode>
-      <ChevronDown className="w-5 h-5 text-gray-400" />
+      <ChevronDown className="w-5 h-5 text-slate-400" />
       <DiagramNode color="amber" icon={Database} subtitle="Databases, APIs, Services">External Systems</DiagramNode>
     </div>
   </div>

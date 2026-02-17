@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { tabGroups } from './config/tabs';
+import React, { useState, createContext, useContext } from 'react';
+import { Menu, X, ChevronRight } from 'lucide-react';
+import { tabGroups, tabs } from './config/tabs';
+
+export const NavigationContext = createContext(null);
+
 import {
   OverviewSection,
   MindsetSection,
@@ -18,6 +21,38 @@ import {
   DeploymentSection,
   PitCrewCaseStudy
 } from './sections';
+
+// Next Section navigation component
+export const NextSectionNav = ({ currentId }) => {
+  const { navigateTo } = useContext(NavigationContext);
+  const currentIndex = tabs.findIndex(t => t.id === currentId);
+  const next = tabs[currentIndex + 1];
+  const prev = tabs[currentIndex - 1];
+  if (!next && !prev) return null;
+
+  return (
+    <div className="mt-12 pt-8 border-t border-gray-200 flex items-center justify-between">
+      {prev ? (
+        <button
+          onClick={() => navigateTo(prev.id)}
+          className="group flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all"
+        >
+          <ChevronRight className="w-4 h-4 rotate-180 group-hover:-translate-x-0.5 transition-transform" />
+          {prev.label}
+        </button>
+      ) : <div />}
+      {next && (
+        <button
+          onClick={() => navigateTo(next.id)}
+          className="group flex items-center gap-2 px-5 py-3 rounded-xl bg-indigo-50 text-sm font-medium text-indigo-700 hover:bg-indigo-100 transition-all"
+        >
+          Next: {next.label}
+          <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+        </button>
+      )}
+    </div>
+  );
+};
 
 export default function AIArchitectureGuide() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -47,73 +82,74 @@ export default function AIArchitectureGuide() {
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
     setSidebarOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-slate-50 flex">
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar — light, clean */}
       <aside
         className={`
           fixed lg:sticky top-0 left-0 h-screen
-          w-72 bg-gradient-to-b from-slate-900 to-slate-800
-          border-r border-slate-700 overflow-y-auto z-50
+          w-64 bg-white border-r border-slate-200 overflow-y-auto z-50
           transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
         {/* Header */}
-        <div className="p-6 border-b border-slate-700">
+        <div className="px-5 py-5 border-b border-slate-100">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-xl font-bold text-white mb-1">
+              <h1 className="text-base font-semibold text-slate-900 leading-tight">
                 AI Architecture Guide
               </h1>
-              <p className="text-sm text-slate-400">
+              <p className="text-xs text-slate-400 mt-0.5">
                 Building Production AI Systems
               </p>
             </div>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-slate-400 hover:text-white"
+              className="lg:hidden text-slate-400 hover:text-slate-600"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        {/* Navigation - Grouped */}
-        <nav className="p-4">
+        {/* Navigation */}
+        <nav className="px-3 py-4">
           {tabGroups.map((group, groupIndex) => (
-            <div key={groupIndex} className="mb-6">
-              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 px-4">
+            <div key={groupIndex} className="mb-5">
+              <h3 className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5 px-3">
                 {group.title}
               </h3>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {group.tabs.map((tab) => {
                   const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
                   return (
                     <button
                       key={tab.id}
                       onClick={() => handleTabClick(tab.id)}
                       className={`
-                        w-full flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium
-                        transition-all duration-200
-                        ${activeTab === tab.id
-                          ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg'
-                          : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                        w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium
+                        transition-all duration-150
+                        ${isActive
+                          ? 'bg-indigo-50 text-indigo-700 border-l-2 border-indigo-500'
+                          : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border-l-2 border-transparent'
                         }
                       `}
                     >
-                      <Icon className="w-5 h-5 flex-shrink-0" />
-                      <span className="text-left">{tab.label}</span>
+                      <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-indigo-500' : 'text-slate-400'}`} />
+                      <span>{tab.label}</span>
                     </button>
                   );
                 })}
@@ -123,30 +159,30 @@ export default function AIArchitectureGuide() {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-700 text-center text-sm text-slate-400">
-          <p>14 sections · ~45 min read</p>
+        <div className="px-5 py-3 border-t border-slate-100 text-center text-[11px] text-slate-400">
+          15 sections · ~45 min read
         </div>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 min-w-0">
         {/* Mobile Header */}
-        <div className="lg:hidden sticky top-0 z-30 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+        <div className="lg:hidden sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 hover:bg-gray-100 rounded-lg"
+            className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-5 h-5 text-slate-600" />
           </button>
-          <h2 className="font-semibold text-gray-900">AI Architecture Guide</h2>
-          <div className="w-10" /> {/* Spacer for centering */}
+          <h2 className="text-sm font-semibold text-slate-800">AI Architecture Guide</h2>
+          <div className="w-9" />
         </div>
 
         {/* Content Area */}
-        <div className="max-w-6xl mx-auto p-6 lg:p-12">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 lg:p-12">
+        <div className="mx-auto px-6 py-8 lg:px-16 lg:py-10 max-w-none">
+          <NavigationContext.Provider value={{ navigateTo: handleTabClick }}>
             {renderContent()}
-          </div>
+          </NavigationContext.Provider>
         </div>
       </main>
     </div>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Cloud, Database, Box, Brain } from 'lucide-react';
 import { Card, Callout, ProgressiveSection, ComparisonTable } from '../components/ui';
+import { NextSectionNav } from '../index';
 
 export const DeploymentSection = () => (
     <div className="space-y-10">
-        <h2 className="text-2xl font-bold text-gray-900">Deployment & Hosting</h2>
+        <h2 className="text-2xl font-semibold text-slate-900">{"Deployment & Hosting"}</h2>
 
         <Callout type="info" title="The Quick Decision">
             Prototyping? → Replit / Railway / Render<br />
@@ -33,8 +34,8 @@ export const DeploymentSection = () => (
                 ]}
             />
 
-            <h4 className="font-bold mt-4 mb-2">Estimated Costs</h4>
-            <p className="text-gray-600 text-sm">
+            <h4 className="font-semibold mt-4 mb-2">Estimated Costs</h4>
+            <p className="text-slate-500 text-sm">
                 A workload handling 10M requests/month at 400ms average: ~$14/month
             </p>
         </ProgressiveSection>
@@ -58,7 +59,7 @@ export const DeploymentSection = () => (
                 Never expose your MCP server publicly without auth.
             </Callout>
 
-            <h4 className="font-bold mt-4 mb-2">Key Security Practices</h4>
+            <h4 className="font-semibold mt-4 mb-2">Key Security Practices</h4>
             <ul className="list-disc ml-6">
                 <li><strong>Never store secrets in environment variables</strong> — use Secret Manager</li>
                 <li>Implement proper authentication (OAuth, API keys, etc.)</li>
@@ -79,8 +80,8 @@ export const DeploymentSection = () => (
                     <Card key={i} className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
-                                <h5 className="font-bold text-gray-900">{item.metric}</h5>
-                                <p className="text-sm text-gray-600">{item.why}</p>
+                                <h5 className="font-semibold text-slate-900">{item.metric}</h5>
+                                <p className="text-sm text-slate-500">{item.why}</p>
                             </div>
                             <div className="text-sm font-mono text-blue-600">{item.target}</div>
                         </div>
@@ -88,5 +89,7 @@ export const DeploymentSection = () => (
                 ))}
             </div>
         </ProgressiveSection>
+
+        <NextSectionNav currentId="deployment" />
     </div>
 );

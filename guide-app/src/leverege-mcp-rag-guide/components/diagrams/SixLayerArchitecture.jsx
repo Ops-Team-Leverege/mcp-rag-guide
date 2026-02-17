@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const SixLayerArchitecture = () => (
-  <div className="my-6 p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+  <div className="my-6 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200">
     <div className="flex flex-col items-center gap-1">
       {[
         { num: 6, label: "MCP", desc: "Interface Layer — Exposes capabilities", color: "purple" },
@@ -15,13 +15,13 @@ export const SixLayerArchitecture = () => (
           blue: "bg-blue-100 border-blue-300 text-blue-800",
           green: "bg-green-100 border-green-300 text-green-800",
           amber: "bg-amber-100 border-amber-300 text-amber-800",
-          gray: "bg-gray-200 border-gray-400 text-gray-800",
+          gray: "bg-slate-200 border-slate-400 text-slate-800",
         };
         return (
           <div key={i} className="flex flex-col items-center w-full max-w-md">
-            {i > 0 && <div className="w-0.5 h-3 bg-gray-300" />}
-            <div className={`w-full ${colors[layer.color]} border-2 rounded-lg px-4 py-3 flex items-center gap-3`}>
-              <div className="w-8 h-8 rounded-full bg-white/50 flex items-center justify-center font-bold text-sm">
+            {i > 0 && <div className="w-0.5 h-3 bg-slate-300" />}
+            <div className={`w-full ${colors[layer.color]} border rounded-lg px-4 py-3 flex items-center gap-3`}>
+              <div className="w-8 h-8 rounded-full bg-white/50 flex items-center justify-center font-semibold text-sm">
                 {layer.num}
               </div>
               <div>
@@ -33,7 +33,7 @@ export const SixLayerArchitecture = () => (
         );
       })}
     </div>
-    <p className="text-center text-sm text-gray-500 mt-4">↑ Build from bottom up</p>
+    <p className="text-center text-sm text-slate-400 mt-4">↑ Build from bottom up</p>
   </div>
 );
 

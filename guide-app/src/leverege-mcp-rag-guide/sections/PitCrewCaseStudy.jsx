@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, CheckCircle, AlertTriangle, XCircle } from 'lucide-react';
 import { Card, Callout } from '../components/ui';
+import { NextSectionNav } from '../index';
 
 export const PitCrewCaseStudy = () => (
     <div className="space-y-10">
@@ -11,26 +12,26 @@ export const PitCrewCaseStudy = () => (
                     <Box className="w-8 h-8" />
                 </div>
                 <div>
-                    <h1 className="text-3xl font-extrabold">PitCrew Sauce: A Real-World Case Study</h1>
+                    <h1 className="text-3xl font-semibold">PitCrew Sauce: A Real-World Case Study</h1>
                     <p className="text-blue-200 mt-2">Meeting intelligence bot for Leverege · Production since Feb 2026 · Slack-native</p>
                 </div>
             </div>
 
             <div className="grid md:grid-cols-4 gap-4 mt-6">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <div className="text-2xl font-bold">8</div>
+                    <div className="text-2xl font-semibold">8</div>
                     <div className="text-sm text-blue-200">Intent Types</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <div className="text-2xl font-bold">30+</div>
+                    <div className="text-2xl font-semibold">30+</div>
                     <div className="text-sm text-blue-200">Contracts</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <div className="text-2xl font-bold">8-20s</div>
+                    <div className="text-2xl font-semibold">8-20s</div>
                     <div className="text-sm text-blue-200">Response Time</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <div className="text-2xl font-bold">10</div>
+                    <div className="text-2xl font-semibold">10</div>
                     <div className="text-sm text-blue-200">Active Users</div>
                 </div>
             </div>
@@ -38,8 +39,8 @@ export const PitCrewCaseStudy = () => (
 
         {/* Architecture Decision Table */}
         <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Architecture Decisions</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Architecture Decisions</h2>
+            <p className="text-slate-500 mb-6">
                 How PitCrew combines multiple AI paradigms to solve real business problems.
             </p>
 
@@ -98,10 +99,10 @@ export const PitCrewCaseStudy = () => (
                             <div className="flex items-start justify-between gap-4">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <h3 className="font-bold text-lg text-gray-900">{item.paradigm}</h3>
-                                        <span className="text-sm font-medium text-gray-600">{item.decision}</span>
+                                        <h3 className="font-semibold text-lg text-slate-900">{item.paradigm}</h3>
+                                        <span className="text-sm font-medium text-slate-500">{item.decision}</span>
                                     </div>
-                                    <p className="text-sm text-gray-600">{item.reasoning}</p>
+                                    <p className="text-sm text-slate-500">{item.reasoning}</p>
                                 </div>
                             </div>
                         </Card>
@@ -112,18 +113,18 @@ export const PitCrewCaseStudy = () => (
 
         {/* Design Principles That Held Up */}
         <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Design Principles That Held Up</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Design Principles That Held Up</h2>
+            <p className="text-slate-500 mb-6">
                 Five principles that guided every architectural decision in PitCrew.
             </p>
 
             <div className="space-y-4">
                 <Card className="p-5 border-l-4 border-blue-500">
-                    <h3 className="font-bold text-blue-900 mb-2">1. Trust &gt; Verbosity</h3>
-                    <p className="text-sm text-gray-700 mb-3">
+                    <h3 className="font-semibold text-blue-900 mb-2">1. Trust &gt; Verbosity</h3>
+                    <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Short and accurate beats long and uncertain.
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-slate-500 mb-2">
                         Every extractive query has an explicit fallback. If we can't find the answer with high confidence,
                         we say "I couldn't find that" instead of generating a plausible-sounding answer.
                     </p>
@@ -134,11 +135,11 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 border-l-4 border-purple-500">
-                    <h3 className="font-bold text-purple-900 mb-2">2. Extraction &gt; Summarization</h3>
-                    <p className="text-sm text-gray-700 mb-3">
+                    <h3 className="font-semibold text-purple-900 mb-2">2. Extraction &gt; Summarization</h3>
+                    <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Pulling exact quotes is more reliable than generating summaries.
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-slate-500 mb-2">
                         When users ask "What did the customer say about X?", we return verbatim quotes with citations,
                         not LLM-generated summaries. Summaries invite hallucination.
                     </p>
@@ -149,11 +150,11 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 border-l-4 border-green-500">
-                    <h3 className="font-bold text-green-900 mb-2">3. Bounded Capabilities &gt; Open-Ended Chat</h3>
-                    <p className="text-sm text-gray-700 mb-3">
+                    <h3 className="font-semibold text-green-900 mb-2">3. Bounded Capabilities &gt; Open-Ended Chat</h3>
+                    <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Every response maps to a defined capability with known behavior.
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-slate-500 mb-2">
                         PitCrew isn't a chatbot. It's a Q&A system with 8 intent types and 30+ contracts.
                         Users know what it can do, and we can test every capability independently.
                     </p>
@@ -164,11 +165,11 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 border-l-4 border-amber-500">
-                    <h3 className="font-bold text-amber-900 mb-2">4. Canonical Data is Authoritative</h3>
-                    <p className="text-sm text-gray-700 mb-3">
+                    <h3 className="font-semibold text-amber-900 mb-2">4. Canonical Data is Authoritative</h3>
+                    <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Product features come from SSOT. LLM never invents them.
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-slate-500 mb-2">
                         When users ask about product capabilities, we query the product database (SSOT).
                         The LLM formats the response but doesn't generate feature descriptions from memory.
                     </p>
@@ -179,11 +180,11 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 border-l-4 border-red-500">
-                    <h3 className="font-bold text-red-900 mb-2">5. Fewer, High-Quality Capabilities &gt; Many Fuzzy Ones</h3>
-                    <p className="text-sm text-gray-700 mb-3">
+                    <h3 className="font-semibold text-red-900 mb-2">5. Fewer, High-Quality Capabilities &gt; Many Fuzzy Ones</h3>
+                    <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Delayed cross-meeting analysis until single-meeting was solid.
                     </p>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-slate-500 mb-2">
                         We shipped with 5 intents, not 20. Each one was tested thoroughly.
                         Adding new capabilities is easy once the foundation is solid.
                     </p>
@@ -197,24 +198,24 @@ export const PitCrewCaseStudy = () => (
 
         {/* Mistakes We Made And Fixed */}
         <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Mistakes We Made (And Fixed)</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Mistakes We Made (And Fixed)</h2>
+            <p className="text-slate-500 mb-6">
                 Four real mistakes from PitCrew development, with before/after fixes.
             </p>
 
             <div className="space-y-4">
                 <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-bold text-red-900 mb-3">❌ Mistake 1: LLM in the Retrieval Path</h3>
+                    <h3 className="font-semibold text-red-900 mb-3">❌ Mistake 1: LLM in the Retrieval Path</h3>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">What we did wrong:</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">What we did wrong:</p>
+                        <p className="text-sm text-slate-500">
                             Early version asked the LLM to "find the relevant meeting" based on the user's question.
                             The LLM hallucinated meeting dates that didn't exist.
                         </p>
                     </div>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">The fix:</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">The fix:</p>
+                        <p className="text-sm text-slate-500">
                             Company resolution and transcript selection are now pure SQL.
                             LLM only sees data that actually exists in the database.
                         </p>
@@ -226,17 +227,17 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-bold text-red-900 mb-3">❌ Mistake 2: Aggressive Speaker Role Inference</h3>
+                    <h3 className="font-semibold text-red-900 mb-3">❌ Mistake 2: Aggressive Speaker Role Inference</h3>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">What we did wrong:</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">What we did wrong:</p>
+                        <p className="text-sm text-slate-500">
                             LLM guessed speaker roles when names didn't match exactly. 20% of guesses were wrong,
                             leading to misattributed quotes.
                         </p>
                     </div>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">The fix:</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">The fix:</p>
+                        <p className="text-sm text-slate-500">
                             Conservative role assignment with fuzzy matching. If we can't match with high confidence,
                             role = 'unknown'. Users can filter by 'unknown' and improve matching logic.
                         </p>
@@ -248,16 +249,16 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-bold text-red-900 mb-3">❌ Mistake 3: Token-Based Chunking</h3>
+                    <h3 className="font-semibold text-red-900 mb-3">❌ Mistake 3: Token-Based Chunking</h3>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">What we did wrong:</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">What we did wrong:</p>
+                        <p className="text-sm text-slate-500">
                             500-token chunks broke speaker turns mid-sentence. Context was lost, citations were confusing.
                         </p>
                     </div>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">The fix:</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">The fix:</p>
+                        <p className="text-sm text-slate-500">
                             Speaker-turn chunking preserving context. Each chunk = one speaker's complete turn.
                             Metadata includes previous/next speaker for context.
                         </p>
@@ -269,17 +270,17 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-bold text-red-900 mb-3">❌ Mistake 4: Returning [object Object] to Slack</h3>
+                    <h3 className="font-semibold text-red-900 mb-3">❌ Mistake 4: Returning [object Object] to Slack</h3>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">What we did wrong:</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">What we did wrong:</p>
+                        <p className="text-sm text-slate-500">
                             Handler stringified the entire response object instead of extracting result.answer.
                             Users saw "[object Object]" in Slack.
                         </p>
                     </div>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">The fix:</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">The fix:</p>
+                        <p className="text-sm text-slate-500">
                             Explicit result.answer extraction with type safety. TypeScript interfaces enforce correct structure.
                         </p>
                     </div>
@@ -293,23 +294,23 @@ export const PitCrewCaseStudy = () => (
 
         {/* Why GPT Wrappers Fail */}
         <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Case Study: Why GPT Wrappers Fail</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Case Study: Why GPT Wrappers Fail</h2>
+            <p className="text-slate-500 mb-6">
                 Three real hallucination patterns from actual PitCrew Q&A extraction attempts, and why "just prompt better" doesn't fix them.
             </p>
 
             <div className="space-y-4">
                 <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-bold text-red-900 mb-3">Pattern 1: Fake Specificity</h3>
+                    <h3 className="font-semibold text-red-900 mb-3">Pattern 1: Fake Specificity</h3>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">What happened:</p>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">What happened:</p>
+                        <p className="text-sm text-slate-500 mb-2">
                             User asked: "What TV model did the customer mention?"
                         </p>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-slate-500 mb-2">
                             Transcript said: "I don't see a brand on the TV"
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-slate-500">
                             LLM returned: "55-inch TCL Google TV"
                         </p>
                     </div>
@@ -320,13 +321,13 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-bold text-red-900 mb-3">Pattern 2: Context Collapse</h3>
+                    <h3 className="font-semibold text-red-900 mb-3">Pattern 2: Context Collapse</h3>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">What happened:</p>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">What happened:</p>
+                        <p className="text-sm text-slate-500 mb-2">
                             Transcript: "Calum mentioned the integration issue. Corey will handle the technical side."
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-slate-500">
                             LLM returned: "Calum is handling the technical integration" (wrong — Corey is the tech lead)
                         </p>
                     </div>
@@ -337,13 +338,13 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-bold text-red-900 mb-3">Pattern 3: Ghost Questions</h3>
+                    <h3 className="font-semibold text-red-900 mb-3">Pattern 3: Ghost Questions</h3>
                     <div className="mb-3">
-                        <p className="text-sm font-semibold text-gray-700 mb-1">What happened:</p>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm font-semibold text-slate-600 mb-1">What happened:</p>
+                        <p className="text-sm text-slate-500 mb-2">
                             Prompt: "Extract all Q&A pairs from this meeting"
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-slate-500">
                             LLM returned: "Q: When will the feature ship? A: August 15th" (neither question nor date appeared in transcript)
                         </p>
                     </div>
@@ -361,8 +362,8 @@ export const PitCrewCaseStudy = () => (
             </Callout>
 
             <Card className="p-5 bg-green-50 border-l-4 border-green-500 mt-4">
-                <h3 className="font-bold text-green-900 mb-3">✅ The Fix: Evidence-First Architecture</h3>
-                <div className="space-y-2 text-sm text-gray-700">
+                <h3 className="font-semibold text-green-900 mb-3">✅ The Fix: Evidence-First Architecture</h3>
+                <div className="space-y-2 text-sm text-slate-600">
                     <p><strong>1. Extractive citation:</strong> Return exact quotes with line numbers, not summaries</p>
                     <p><strong>2. Strict quoting:</strong> LLM formats but doesn't paraphrase. Quotes are verbatim.</p>
                     <p><strong>3. Null states:</strong> "I couldn't find that" is a valid answer. No guessing.</p>
@@ -377,48 +378,48 @@ export const PitCrewCaseStudy = () => (
 
         {/* The Adjacency Anchoring Strategy */}
         <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">The Adjacency Anchoring Strategy</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">The Adjacency Anchoring Strategy</h2>
+            <p className="text-slate-500 mb-6">
                 Moving intelligence from LLM to deterministic code — a real engineering fix for context-dependent questions.
             </p>
 
             <Card className="p-5 bg-red-50 border-l-4 border-red-500 mb-4">
-                <h3 className="font-bold text-red-900 mb-2">The Problem</h3>
-                <p className="text-sm text-gray-700 mb-2">
+                <h3 className="font-semibold text-red-900 mb-2">The Problem</h3>
+                <p className="text-sm text-slate-600 mb-2">
                     Context-dependent questions like "Is that compatible?" or "What about the other one?" are 70% useless
                     without knowing what "that" and "the other one" refer to.
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-slate-500">
                     Early approach: Ask the LLM to resolve references → hallucinated connections between unrelated topics.
                 </p>
             </Card>
 
             <Card className="p-5 bg-green-50 border-l-4 border-green-500 mb-4">
-                <h3 className="font-bold text-green-900 mb-2">The Fix: Deterministic Sliding Window</h3>
-                <div className="space-y-2 text-sm text-gray-700">
+                <h3 className="font-semibold text-green-900 mb-2">The Fix: Deterministic Sliding Window</h3>
+                <div className="space-y-2 text-sm text-slate-600">
                     <p><strong>Step 1:</strong> Regex detects pronouns and demonstratives ("that", "it", "the other", "this one")</p>
                     <p><strong>Step 2:</strong> Code mechanically attaches the preceding 2 speaker turns as context</p>
                     <p><strong>Step 3:</strong> The expanded context goes to the LLM for interpretation</p>
                 </div>
-                <p className="text-sm text-gray-600 mt-3">
+                <p className="text-sm text-slate-500 mt-3">
                     No LLM involved in the reference resolution step — pure deterministic code.
                 </p>
             </Card>
 
             <Card className="p-5 bg-blue-50 border-blue-200">
-                <h3 className="font-bold text-blue-900 mb-3">Results (Validated on 98 meetings, 1,245 questions)</h3>
+                <h3 className="font-semibold text-blue-900 mb-3">Results (Validated on 98 meetings, 1,245 questions)</h3>
                 <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                        <div className="text-2xl font-bold text-green-600">0%</div>
-                        <div className="text-xs text-gray-600">Hallucination rate</div>
+                        <div className="text-2xl font-semibold text-green-600">0%</div>
+                        <div className="text-xs text-slate-500">Hallucination rate</div>
                     </div>
                     <div>
-                        <div className="text-2xl font-bold text-blue-600">99.2%</div>
-                        <div className="text-xs text-gray-600">Context recovery</div>
+                        <div className="text-2xl font-semibold text-blue-600">99.2%</div>
+                        <div className="text-xs text-slate-500">Context recovery</div>
                     </div>
                     <div>
-                        <div className="text-2xl font-bold text-purple-600">100%</div>
-                        <div className="text-xs text-gray-600">Trigger accuracy</div>
+                        <div className="text-2xl font-semibold text-purple-600">100%</div>
+                        <div className="text-xs text-slate-500">Trigger accuracy</div>
                     </div>
                 </div>
             </Card>
@@ -426,25 +427,25 @@ export const PitCrewCaseStudy = () => (
 
         {/* The Coreference Problem */}
         <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">The Coreference Problem</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">The Coreference Problem</h2>
+            <p className="text-slate-500 mb-6">
                 Why 100% deterministic answering fails — and why you still need an LLM.
             </p>
 
             <Card className="p-5 bg-amber-50 border-l-4 border-amber-500 mb-4">
-                <h3 className="font-bold text-amber-900 mb-2">The Limitation</h3>
-                <p className="text-sm text-gray-700 mb-2">
+                <h3 className="font-semibold text-amber-900 mb-2">The Limitation</h3>
+                <p className="text-sm text-slate-600 mb-2">
                     Users do conceptual reference: "What was the Nvidia appliance?" → expects "Jetson"
                 </p>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-slate-600">
                     Keyword matching can't resolve this. The word "Jetson" doesn't appear in the question.
                     You <strong>need</strong> an LLM for semantic understanding.
                 </p>
             </Card>
 
             <Card className="p-5 bg-blue-50 border-blue-200 mb-4">
-                <h3 className="font-bold text-blue-900 mb-2">The Lesson</h3>
-                <p className="text-sm text-gray-700">
+                <h3 className="font-semibold text-blue-900 mb-2">The Lesson</h3>
+                <p className="text-sm text-slate-600">
                     Use <strong>deterministic code for retrieval</strong> (what data to look at) and
                     <strong> LLM for understanding</strong> (what the data means). This is the core insight
                     behind the Router Pattern: code handles the predictable parts, LLM handles the parts
@@ -452,21 +453,21 @@ export const PitCrewCaseStudy = () => (
                 </p>
             </Card>
 
-            <Card className="p-5 bg-gradient-to-r from-gray-100 to-gray-200 border-gray-300">
-                <h3 className="font-bold text-gray-900 mb-3">The Architecture Cost Question</h3>
-                <p className="text-sm text-gray-700 mb-3">"Who bears the cost of failure?"</p>
+            <Card className="p-5 bg-gradient-to-r from-slate-100 to-slate-200 border-slate-300">
+                <h3 className="font-semibold text-slate-900 mb-3">The Architecture Cost Question</h3>
+                <p className="text-sm text-slate-600 mb-3">"Who bears the cost of failure?"</p>
                 <div className="grid md:grid-cols-3 gap-3 text-sm">
                     <div className="bg-white p-3 rounded-lg">
                         <p className="font-semibold text-amber-700">LLM-driven</p>
-                        <p className="text-gray-600 text-xs mt-1">Flexible but unpredictable. Failures are hard to reproduce.</p>
+                        <p className="text-slate-500 text-xs mt-1">Flexible but unpredictable. Failures are hard to reproduce.</p>
                     </div>
                     <div className="bg-white p-3 rounded-lg">
                         <p className="font-semibold text-blue-700">Code-driven</p>
-                        <p className="text-gray-600 text-xs mt-1">Rigid but auditable. Failures are reproducible and fixable.</p>
+                        <p className="text-slate-500 text-xs mt-1">Rigid but auditable. Failures are reproducible and fixable.</p>
                     </div>
-                    <div className="bg-white p-3 rounded-lg border-2 border-green-300">
+                    <div className="bg-white p-3 rounded-lg border border-green-300">
                         <p className="font-semibold text-green-700">PitCrew's answer</p>
-                        <p className="text-gray-600 text-xs mt-1">Code routes (predictable), LLM generates (flexible), contracts constrain (safe).</p>
+                        <p className="text-slate-500 text-xs mt-1">Code routes (predictable), LLM generates (flexible), contracts constrain (safe).</p>
                     </div>
                 </div>
             </Card>
@@ -474,7 +475,7 @@ export const PitCrewCaseStudy = () => (
 
         {/* Lessons Summary */}
         <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Key Takeaways</h2>
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Key Takeaways</h2>
 
             <div className="grid md:grid-cols-2 gap-4">
                 {[
@@ -520,8 +521,8 @@ export const PitCrewCaseStudy = () => (
                             <div className="flex items-start gap-3">
                                 <item.icon className={`w-6 h-6 ${iconColors[item.color]} flex-shrink-0 mt-1`} />
                                 <div>
-                                    <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                                    <p className="text-sm text-gray-600">{item.desc}</p>
+                                    <h3 className="font-semibold text-slate-900 mb-2">{item.title}</h3>
+                                    <p className="text-sm text-slate-500">{item.desc}</p>
                                 </div>
                             </div>
                         </Card>
@@ -529,5 +530,7 @@ export const PitCrewCaseStudy = () => (
                 })}
             </div>
         </div>
+
+        <NextSectionNav currentId="pitcrew" />
     </div>
 );

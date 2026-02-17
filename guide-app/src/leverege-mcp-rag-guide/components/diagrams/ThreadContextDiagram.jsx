@@ -3,18 +3,18 @@ import { MessageSquare, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
 
 const ThreadContextDiagram = () => {
     return (
-        <div className="my-6 p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-            <h4 className="text-center font-bold text-gray-800 mb-2">Thread Context Pattern</h4>
-            <p className="text-center text-sm text-gray-600 mb-6">
+        <div className="my-6 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200">
+            <h4 className="text-center font-semibold text-slate-800 mb-2">Thread Context Pattern</h4>
+            <p className="text-center text-sm text-slate-500 mb-6">
                 THE RULE: Reuse entity IDs, never prior answers
             </p>
 
             <div className="grid md:grid-cols-2 gap-6">
                 {/* Correct Pattern */}
-                <div className="bg-white rounded-lg border-2 border-green-300 p-5 shadow-sm">
+                <div className="bg-white rounded-lg border border-green-300 p-5 shadow-sm">
                     <div className="flex items-center gap-2 mb-4">
                         <CheckCircle className="w-6 h-6 text-green-600" />
-                        <h5 className="font-bold text-green-800">✓ Correct: Reuse Entity IDs</h5>
+                        <h5 className="font-semibold text-green-800">✓ Correct: Reuse Entity IDs</h5>
                     </div>
 
                     <div className="space-y-3">
@@ -27,7 +27,7 @@ const ThreadContextDiagram = () => {
                         </div>
 
                         <div className="flex justify-center">
-                            <div className="text-gray-400">↓</div>
+                            <div className="text-slate-400">↓</div>
                         </div>
 
                         <div className="bg-purple-50 border border-purple-200 rounded p-3">
@@ -39,7 +39,7 @@ const ThreadContextDiagram = () => {
                         </div>
 
                         <div className="flex justify-center">
-                            <div className="text-gray-400">↓</div>
+                            <div className="text-slate-400">↓</div>
                         </div>
 
                         <div className="bg-green-50 border border-green-200 rounded p-3">
@@ -62,7 +62,7 @@ const ThreadContextDiagram = () => {
                             </div>
 
                             <div className="flex justify-center my-2">
-                                <div className="text-gray-400">↓</div>
+                                <div className="text-slate-400">↓</div>
                             </div>
 
                             <div className="bg-purple-50 border border-purple-200 rounded p-3">
@@ -78,7 +78,7 @@ const ThreadContextDiagram = () => {
                             </div>
 
                             <div className="flex justify-center my-2">
-                                <div className="text-gray-400">↓</div>
+                                <div className="text-slate-400">↓</div>
                             </div>
 
                             <div className="bg-green-50 border border-green-200 rounded p-3">
@@ -101,10 +101,10 @@ const ThreadContextDiagram = () => {
                 </div>
 
                 {/* Wrong Pattern */}
-                <div className="bg-white rounded-lg border-2 border-red-300 p-5 shadow-sm">
+                <div className="bg-white rounded-lg border border-red-300 p-5 shadow-sm">
                     <div className="flex items-center gap-2 mb-4">
                         <XCircle className="w-6 h-6 text-red-600" />
-                        <h5 className="font-bold text-red-800">✗ Wrong: Include Prior Answers</h5>
+                        <h5 className="font-semibold text-red-800">✗ Wrong: Include Prior Answers</h5>
                     </div>
 
                     <div className="space-y-3">
@@ -117,7 +117,7 @@ const ThreadContextDiagram = () => {
                         </div>
 
                         <div className="flex justify-center">
-                            <div className="text-gray-400">↓</div>
+                            <div className="text-slate-400">↓</div>
                         </div>
 
                         <div className="bg-green-50 border border-green-200 rounded p-3">
@@ -140,7 +140,7 @@ const ThreadContextDiagram = () => {
                             </div>
 
                             <div className="flex justify-center my-2">
-                                <div className="text-gray-400">↓</div>
+                                <div className="text-slate-400">↓</div>
                             </div>
 
                             <div className="bg-red-50 border border-red-200 rounded p-3">
@@ -156,10 +156,10 @@ const ThreadContextDiagram = () => {
                             </div>
 
                             <div className="flex justify-center my-2">
-                                <div className="text-gray-400">↓</div>
+                                <div className="text-slate-400">↓</div>
                             </div>
 
-                            <div className="bg-red-100 border-2 border-red-300 rounded p-3">
+                            <div className="bg-red-100 border border-red-300 rounded p-3">
                                 <div className="flex items-center gap-2 mb-1">
                                     <RefreshCw className="w-4 h-4 text-red-600" />
                                     <span className="text-xs font-semibold text-red-600">AI RESPONDS:</span>
@@ -185,8 +185,8 @@ const ThreadContextDiagram = () => {
             </div>
 
             {/* What to Carry Forward */}
-            <div className="mt-6 p-4 bg-blue-50 border-2 border-blue-300 rounded-lg">
-                <h5 className="font-bold text-blue-900 mb-3">Thread Context (What to Carry Forward):</h5>
+            <div className="mt-6 p-4 bg-blue-50 border border-blue-300 rounded-lg">
+                <h5 className="font-semibold text-blue-900 mb-3">Thread Context (What to Carry Forward):</h5>
                 <div className="grid md:grid-cols-2 gap-4">
                     <div>
                         <div className="font-semibold text-green-700 mb-2">✓ DO Carry Forward:</div>
@@ -207,8 +207,8 @@ const ThreadContextDiagram = () => {
                 </div>
             </div>
 
-            <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-300 rounded-lg">
-                <h5 className="font-bold text-purple-900 mb-2">How It Works in Practice:</h5>
+            <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-300 rounded-lg">
+                <h5 className="font-semibold text-purple-900 mb-2">How It Works in Practice:</h5>
                 <ol className="text-sm text-purple-800 space-y-2">
                     <li><strong>1.</strong> User asks: "Summarize the Acme meeting" → system resolves <code className="bg-purple-100 px-1 rounded">meetingId</code>, generates summary</li>
                     <li><strong>2.</strong> User follows up: "What were the action items?" → system reuses <code className="bg-purple-100 px-1 rounded">meetingId</code>, queries meeting data directly (not the summary it just generated)</li>
