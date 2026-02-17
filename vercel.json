@@ -1,6 +1,3 @@
 {
-    "buildCommand": "cd guide-app && npm install && npm run build",
-    "outputDirectory": "guide-app/dist",
-    "framework": "vite",
-    "installCommand": "cd guide-app && npm install"
+    "framework": null
 }
