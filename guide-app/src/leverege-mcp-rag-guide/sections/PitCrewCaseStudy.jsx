@@ -1,41 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, CheckCircle, AlertTriangle, XCircle } from 'lucide-react';
 import { Card, Callout } from '../components/ui';
 import { NextSectionNav } from '../index';
 
-export const PitCrewCaseStudy = () => (
-    <div className="space-y-10">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
-            <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
-                    <Box className="w-8 h-8" />
+export const PitCrewCaseStudy = () => {
+    const [activeTab, setActiveTab] = useState('overview');
+
+    return (
+        <div className="space-y-10">
+            {/* Hero Section */}
+            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
+                <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <Box className="w-8 h-8" />
+                    </div>
+                    <div>
+                        <h1 className="text-3xl font-semibold">PitCrew Sauce: A Real-World Case Study</h1>
+                        <p className="text-blue-200 mt-2">Meeting intelligence bot for Leverege · Production since Feb 2026 · Slack-native</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 className="text-3xl font-semibold">PitCrew Sauce: A Real-World Case Study</h1>
-                    <p className="text-blue-200 mt-2">Meeting intelligence bot for Leverege · Production since Feb 2026 · Slack-native</p>
+
+                <div className="grid md:grid-cols-4 gap-4 mt-6">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                        <div className="text-2xl font-semibold">8</div>
+                        <div className="text-sm text-blue-200">Intent Types</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                        <div className="text-2xl font-semibold">30+</div>
+                        <div className="text-sm text-blue-200">Contracts</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                        <div className="text-2xl font-semibold">8-20s</div>
+                        <div className="text-sm text-blue-200">Response Time</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                        <div className="text-2xl font-semibold">10</div>
+                        <div className="text-sm text-blue-200">Active Users</div>
+                    </div>
                 </div>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-4 mt-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <div className="text-2xl font-semibold">8</div>
-                    <div className="text-sm text-blue-200">Intent Types</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <div className="text-2xl font-semibold">30+</div>
-                    <div className="text-sm text-blue-200">Contracts</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <div className="text-2xl font-semibold">8-20s</div>
-                    <div className="text-sm text-blue-200">Response Time</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <div className="text-2xl font-semibold">10</div>
-                    <div className="text-sm text-blue-200">Active Users</div>
+            {/* Tab Navigation */}
+            <div className="border-b border-slate-200">
+                <div className="flex gap-1">
+                    <button
+                        onClick={() => setActiveTab('overview')}
+                        className={`px-6 py-3 font-medium text-sm transition-all ${activeTab === 'overview'
+                            ? 'text-indigo-600 border-b-2 border-indigo-600'
+                            : 'text-slate-500 hover:text-slate-700'
+                            }`}
+                    >
+                        High-Level Overview
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('ops')}
+                        className={`px-6 py-3 font-medium text-sm transition-all ${activeTab === 'ops'
+                            ? 'text-indigo-600 border-b-2 border-indigo-600'
+                            : 'text-slate-500 hover:text-slate-700'
+                            }`}
+                    >
+                        Ops Reference
+                    </button>
                 </div>
             </div>
+
+            {/* Tab Content */}
+            {activeTab === 'overview' ? <HighLevelOverview /> : <OpsReference />}
+
+            <NextSectionNav currentId="pitcrew" />
         </div>
+    );
+};
+
+// High-Level Overview Tab
+const HighLevelOverview = () => (
+    <div className="space-y-10">
+        <Callout type="info" title="What This Section Covers">
+            {"Strategic lessons from building PitCrew: architecture decisions, design principles, and why certain patterns were chosen over others."}
+        </Callout>
 
         {/* Architecture Decision Table */}
         <div>
@@ -120,7 +162,7 @@ export const PitCrewCaseStudy = () => (
 
             <div className="space-y-4">
                 <Card className="p-5 border-l-4 border-blue-500">
-                    <h3 className="font-semibold text-blue-900 mb-2">1. Trust &gt; Verbosity</h3>
+                    <h3 className="font-semibold text-blue-900 mb-2">1. Trust {"> "}Verbosity</h3>
                     <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Short and accurate beats long and uncertain.
                     </p>
@@ -129,13 +171,13 @@ export const PitCrewCaseStudy = () => (
                         we say "I couldn't find that" instead of generating a plausible-sounding answer.
                     </p>
                     <div className="bg-blue-50 p-3 rounded-lg text-sm">
-                        <p className="text-blue-900"><strong>Implementation:</strong> REFUSE intent fires when confidence &lt; threshold.
+                        <p className="text-blue-900"><strong>Implementation:</strong> REFUSE intent fires when confidence {"<"} threshold.
                             Better to admit uncertainty than hallucinate.</p>
                     </div>
                 </Card>
 
                 <Card className="p-5 border-l-4 border-purple-500">
-                    <h3 className="font-semibold text-purple-900 mb-2">2. Extraction &gt; Summarization</h3>
+                    <h3 className="font-semibold text-purple-900 mb-2">2. Extraction {"> "}Summarization</h3>
                     <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Pulling exact quotes is more reliable than generating summaries.
                     </p>
@@ -150,7 +192,7 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 border-l-4 border-green-500">
-                    <h3 className="font-semibold text-green-900 mb-2">3. Bounded Capabilities &gt; Open-Ended Chat</h3>
+                    <h3 className="font-semibold text-green-900 mb-2">3. Bounded Capabilities {"> "}Open-Ended Chat</h3>
                     <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Every response maps to a defined capability with known behavior.
                     </p>
@@ -180,7 +222,7 @@ export const PitCrewCaseStudy = () => (
                 </Card>
 
                 <Card className="p-5 border-l-4 border-red-500">
-                    <h3 className="font-semibold text-red-900 mb-2">5. Fewer, High-Quality Capabilities &gt; Many Fuzzy Ones</h3>
+                    <h3 className="font-semibold text-red-900 mb-2">5. Fewer, High-Quality Capabilities {"> "}Many Fuzzy Ones</h3>
                     <p className="text-sm text-slate-600 mb-3">
                         <strong>Principle:</strong> Delayed cross-meeting analysis until single-meeting was solid.
                     </p>
@@ -196,6 +238,73 @@ export const PitCrewCaseStudy = () => (
             </div>
         </div>
 
+        {/* Lessons Summary */}
+        <div>
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Key Takeaways</h2>
+
+            <div className="grid md:grid-cols-2 gap-4">
+                {[
+                    {
+                        title: "90% of bad answers are retrieval problems",
+                        desc: "Not the LLM. Check what data was retrieved before blaming the model.",
+                        icon: CheckCircle,
+                        color: "blue"
+                    },
+                    {
+                        title: "REFUSE and CLARIFY are first-class intents",
+                        desc: "Not afterthoughts. If you can't answer well, say so. If the question is ambiguous, ask.",
+                        icon: AlertTriangle,
+                        color: "amber"
+                    },
+                    {
+                        title: "Contract distribution reveals design flaws",
+                        desc: "Early testing showed GENERAL_RESPONSE fired for 32% of queries — too broad. Tightening intents fixed it.",
+                        icon: XCircle,
+                        color: "red"
+                    },
+                    {
+                        title: "The ingestion pipeline takes longer than the AI code",
+                        desc: "Data preparation consistently takes the largest share of effort — cleaning, ingestion, metadata mapping. Plan for the boring stuff.",
+                        icon: CheckCircle,
+                        color: "green"
+                    },
+                ].map((item, i) => {
+                    const bgColors = {
+                        blue: "bg-blue-50 border-blue-200",
+                        amber: "bg-amber-50 border-amber-200",
+                        red: "bg-red-50 border-red-200",
+                        green: "bg-green-50 border-green-200"
+                    };
+                    const iconColors = {
+                        blue: "text-blue-600",
+                        amber: "text-amber-600",
+                        red: "text-red-600",
+                        green: "text-green-600"
+                    };
+                    return (
+                        <Card key={i} className={`p-5 ${bgColors[item.color]}`}>
+                            <div className="flex items-start gap-3">
+                                <item.icon className={`w-6 h-6 ${iconColors[item.color]} flex-shrink-0 mt-1`} />
+                                <div>
+                                    <h3 className="font-semibold text-slate-900 mb-2">{item.title}</h3>
+                                    <p className="text-sm text-slate-500">{item.desc}</p>
+                                </div>
+                            </div>
+                        </Card>
+                    );
+                })}
+            </div>
+        </div>
+    </div>
+);
+
+// Ops Reference Tab
+const OpsReference = () => (
+    <div className="space-y-10">
+        <Callout type="warning" title="Ops Reference - Detailed Technical Guide">
+            {"This section contains detailed implementation notes, common mistakes, and maintenance guidance. It's more technical and verbose than the overview — intended for the team maintaining PitCrew."}
+        </Callout>
+
         {/* Mistakes We Made And Fixed */}
         <div>
             <h2 className="text-2xl font-semibold text-slate-900 mb-4">Mistakes We Made (And Fixed)</h2>
@@ -204,8 +313,8 @@ export const PitCrewCaseStudy = () => (
             </p>
 
             <div className="space-y-4">
-                <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-semibold text-red-900 mb-3">❌ Mistake 1: LLM in the Retrieval Path</h3>
+                <Card className="p-5 bg-rose-50 border-l-4 border-rose-500">
+                    <h3 className="font-semibold text-rose-900 mb-3">❌ Mistake 1: LLM in the Retrieval Path</h3>
                     <div className="mb-3">
                         <p className="text-sm font-semibold text-slate-600 mb-1">What we did wrong:</p>
                         <p className="text-sm text-slate-500">
@@ -226,8 +335,8 @@ export const PitCrewCaseStudy = () => (
                     </div>
                 </Card>
 
-                <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-semibold text-red-900 mb-3">❌ Mistake 2: Aggressive Speaker Role Inference</h3>
+                <Card className="p-5 bg-rose-50 border-l-4 border-rose-500">
+                    <h3 className="font-semibold text-rose-900 mb-3">❌ Mistake 2: Aggressive Speaker Role Inference</h3>
                     <div className="mb-3">
                         <p className="text-sm font-semibold text-slate-600 mb-1">What we did wrong:</p>
                         <p className="text-sm text-slate-500">
@@ -243,13 +352,13 @@ export const PitCrewCaseStudy = () => (
                         </p>
                     </div>
                     <div className="bg-white p-3 rounded-lg">
-                        <p className="text-sm text-green-700"><strong>Lesson:</strong> Explicit 'unknown' state &gt; wrong guess.
+                        <p className="text-sm text-green-700"><strong>Lesson:</strong> Explicit 'unknown' state {"> "}wrong guess.
                             Users trust "I don't know" more than wrong attribution.</p>
                     </div>
                 </Card>
 
-                <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-semibold text-red-900 mb-3">❌ Mistake 3: Token-Based Chunking</h3>
+                <Card className="p-5 bg-rose-50 border-l-4 border-rose-500">
+                    <h3 className="font-semibold text-rose-900 mb-3">❌ Mistake 3: Token-Based Chunking</h3>
                     <div className="mb-3">
                         <p className="text-sm font-semibold text-slate-600 mb-1">What we did wrong:</p>
                         <p className="text-sm text-slate-500">
@@ -269,8 +378,8 @@ export const PitCrewCaseStudy = () => (
                     </div>
                 </Card>
 
-                <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-semibold text-red-900 mb-3">❌ Mistake 4: Returning [object Object] to Slack</h3>
+                <Card className="p-5 bg-rose-50 border-l-4 border-rose-500">
+                    <h3 className="font-semibold text-rose-900 mb-3">❌ Mistake 4: Returning [object Object] to Slack</h3>
                     <div className="mb-3">
                         <p className="text-sm font-semibold text-slate-600 mb-1">What we did wrong:</p>
                         <p className="text-sm text-slate-500">
@@ -300,8 +409,8 @@ export const PitCrewCaseStudy = () => (
             </p>
 
             <div className="space-y-4">
-                <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-semibold text-red-900 mb-3">Pattern 1: Fake Specificity</h3>
+                <Card className="p-5 bg-rose-50 border-l-4 border-rose-500">
+                    <h3 className="font-semibold text-rose-900 mb-3">Pattern 1: Fake Specificity</h3>
                     <div className="mb-3">
                         <p className="text-sm font-semibold text-slate-600 mb-1">What happened:</p>
                         <p className="text-sm text-slate-500 mb-2">
@@ -315,13 +424,13 @@ export const PitCrewCaseStudy = () => (
                         </p>
                     </div>
                     <div className="bg-white p-3 rounded-lg">
-                        <p className="text-sm text-red-700"><strong>Why it happened:</strong> LLM filled in "reasonable" details
+                        <p className="text-sm text-rose-700"><strong>Why it happened:</strong> LLM filled in "reasonable" details
                             from training data when the transcript was vague. The answer sounds plausible but is completely fabricated.</p>
                     </div>
                 </Card>
 
-                <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-semibold text-red-900 mb-3">Pattern 2: Context Collapse</h3>
+                <Card className="p-5 bg-rose-50 border-l-4 border-rose-500">
+                    <h3 className="font-semibold text-rose-900 mb-3">Pattern 2: Context Collapse</h3>
                     <div className="mb-3">
                         <p className="text-sm font-semibold text-slate-600 mb-1">What happened:</p>
                         <p className="text-sm text-slate-500 mb-2">
@@ -332,13 +441,13 @@ export const PitCrewCaseStudy = () => (
                         </p>
                     </div>
                     <div className="bg-white p-3 rounded-lg">
-                        <p className="text-sm text-red-700"><strong>Why it happened:</strong> LLM collapsed two separate statements
+                        <p className="text-sm text-rose-700"><strong>Why it happened:</strong> LLM collapsed two separate statements
                             into one, assigning tech ownership to the wrong person. Subtle but dangerous for follow-ups.</p>
                     </div>
                 </Card>
 
-                <Card className="p-5 bg-red-50 border-l-4 border-red-500">
-                    <h3 className="font-semibold text-red-900 mb-3">Pattern 3: Ghost Questions</h3>
+                <Card className="p-5 bg-rose-50 border-l-4 border-rose-500">
+                    <h3 className="font-semibold text-rose-900 mb-3">Pattern 3: Ghost Questions</h3>
                     <div className="mb-3">
                         <p className="text-sm font-semibold text-slate-600 mb-1">What happened:</p>
                         <p className="text-sm text-slate-500 mb-2">
@@ -349,7 +458,7 @@ export const PitCrewCaseStudy = () => (
                         </p>
                     </div>
                     <div className="bg-white p-3 rounded-lg">
-                        <p className="text-sm text-red-700"><strong>Why it happened:</strong> "Summarize Q&A" prompt → LLM invents
+                        <p className="text-sm text-rose-700"><strong>Why it happened:</strong> "Summarize Q&A" prompt → LLM invents
                             Socratic dialogue. It creates questions that "should have been asked" based on context.</p>
                     </div>
                 </Card>
@@ -383,8 +492,8 @@ export const PitCrewCaseStudy = () => (
                 Moving intelligence from LLM to deterministic code — a real engineering fix for context-dependent questions.
             </p>
 
-            <Card className="p-5 bg-red-50 border-l-4 border-red-500 mb-4">
-                <h3 className="font-semibold text-red-900 mb-2">The Problem</h3>
+            <Card className="p-5 bg-rose-50 border-l-4 border-rose-500 mb-4">
+                <h3 className="font-semibold text-rose-900 mb-2">The Problem</h3>
                 <p className="text-sm text-slate-600 mb-2">
                     Context-dependent questions like "Is that compatible?" or "What about the other one?" are 70% useless
                     without knowing what "that" and "the other one" refer to.
@@ -472,65 +581,5 @@ export const PitCrewCaseStudy = () => (
                 </div>
             </Card>
         </div>
-
-        {/* Lessons Summary */}
-        <div>
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Key Takeaways</h2>
-
-            <div className="grid md:grid-cols-2 gap-4">
-                {[
-                    {
-                        title: "90% of bad answers are retrieval problems",
-                        desc: "Not the LLM. Check what data was retrieved before blaming the model.",
-                        icon: CheckCircle,
-                        color: "blue"
-                    },
-                    {
-                        title: "REFUSE and CLARIFY are first-class intents",
-                        desc: "Not afterthoughts. If you can't answer well, say so. If the question is ambiguous, ask.",
-                        icon: AlertTriangle,
-                        color: "amber"
-                    },
-                    {
-                        title: "Contract distribution reveals design flaws",
-                        desc: "Early testing showed GENERAL_RESPONSE fired for 32% of queries — too broad. Tightening intents fixed it.",
-                        icon: XCircle,
-                        color: "red"
-                    },
-                    {
-                        title: "The ingestion pipeline takes longer than the AI code",
-                        desc: "Data preparation consistently takes the largest share of effort — cleaning, ingestion, metadata mapping. Plan for the boring stuff.",
-                        icon: CheckCircle,
-                        color: "green"
-                    },
-                ].map((item, i) => {
-                    const bgColors = {
-                        blue: "bg-blue-50 border-blue-200",
-                        amber: "bg-amber-50 border-amber-200",
-                        red: "bg-red-50 border-red-200",
-                        green: "bg-green-50 border-green-200"
-                    };
-                    const iconColors = {
-                        blue: "text-blue-600",
-                        amber: "text-amber-600",
-                        red: "text-red-600",
-                        green: "text-green-600"
-                    };
-                    return (
-                        <Card key={i} className={`p-5 ${bgColors[item.color]}`}>
-                            <div className="flex items-start gap-3">
-                                <item.icon className={`w-6 h-6 ${iconColors[item.color]} flex-shrink-0 mt-1`} />
-                                <div>
-                                    <h3 className="font-semibold text-slate-900 mb-2">{item.title}</h3>
-                                    <p className="text-sm text-slate-500">{item.desc}</p>
-                                </div>
-                            </div>
-                        </Card>
-                    );
-                })}
-            </div>
-        </div>
-
-        <NextSectionNav currentId="pitcrew" />
     </div>
 );
