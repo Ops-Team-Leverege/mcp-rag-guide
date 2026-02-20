@@ -108,7 +108,146 @@ export const DebuggingSection = () => (
             </div>
         </ProgressiveSection>
 
-        <ProgressiveSection number="5" title="When to Escalate to Humans" subtitle="Not every problem should be solved by the AI">
+        <ProgressiveSection number="6" title="Common Failure Patterns" subtitle="And how to fix them">
+            <p className="text-slate-600 mb-4">
+                Most AI system failures fall into predictable categories. Recognizing the pattern helps you fix it faster.
+            </p>
+
+            <div className="space-y-4">
+                <Card className="p-4 border-l-4 border-rose-400">
+                    <h5 className="font-semibold text-rose-900 mb-2">1. Wrong Retrieval (Most Common)</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Symptom:</strong> AI gives plausible but wrong answer, or says "I don't know" when data exists
+                    </p>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Root Cause:</strong> Retrieved chunks don't contain the answer
+                    </p>
+                    <div className="bg-rose-50 p-3 rounded-lg text-xs">
+                        <p className="font-semibold text-rose-800 mb-1">Debug Steps:</p>
+                        <ul className="text-rose-700 space-y-1">
+                            <li>{"• Check what chunks were retrieved (log them)"}</li>
+                            <li>{"• Verify the answer exists in your database"}</li>
+                            <li>{"• Test your embedding similarity (is the query embedding close to the answer embedding?)"}</li>
+                            <li>{"• Check metadata filters (are you filtering out the right data?)"}</li>
+                        </ul>
+                    </div>
+                    <p className="text-xs text-emerald-600 mt-2">
+                        <strong>Fix:</strong> Adjust chunking strategy, improve metadata tagging, or tune similarity threshold
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-amber-400">
+                    <h5 className="font-semibold text-amber-900 mb-2">2. Context Overload</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Symptom:</strong> AI gives generic answers or misses key details despite having the data
+                    </p>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Root Cause:</strong> Too many chunks in context, model loses focus (lost-in-the-middle effect)
+                    </p>
+                    <div className="bg-amber-50 p-3 rounded-lg text-xs">
+                        <p className="font-semibold text-amber-800 mb-1">Debug Steps:</p>
+                        <ul className="text-amber-700 space-y-1">
+                            <li>{"• Count how many chunks you're sending (log it)"}</li>
+                            <li>{"• Check if answer is in the middle of a long context"}</li>
+                            <li>{"• Test with fewer, more relevant chunks"}</li>
+                        </ul>
+                    </div>
+                    <p className="text-xs text-emerald-600 mt-2">
+                        <strong>Fix:</strong> Reduce chunk count (top 5-10), rerank by relevance, or put critical info at start/end
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-purple-400">
+                    <h5 className="font-semibold text-purple-900 mb-2">3. Prompt Instruction Ignored</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Symptom:</strong> AI doesn't follow your instructions (e.g., still hallucinates despite "cite or abstain")
+                    </p>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Root Cause:</strong> Instructions buried in middle of prompt, or conflicting instructions
+                    </p>
+                    <div className="bg-purple-50 p-3 rounded-lg text-xs">
+                        <p className="font-semibold text-purple-800 mb-1">Debug Steps:</p>
+                        <ul className="text-purple-700 space-y-1">
+                            <li>{"• Check prompt structure (where are critical instructions?)"}</li>
+                            <li>{"• Look for conflicting instructions (\"be helpful\" vs \"say I don't know\")"}</li>
+                            <li>{"• Test with instructions at the very end of prompt"}</li>
+                        </ul>
+                    </div>
+                    <p className="text-xs text-emerald-600 mt-2">
+                        <strong>Fix:</strong> Move critical instructions to end, remove conflicting guidance, add examples
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-blue-400">
+                    <h5 className="font-semibold text-blue-900 mb-2">4. Metadata Mismatch</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Symptom:</strong> {"Query for \"TPI\" returns nothing, but you know TPI data exists"}
+                    </p>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Root Cause:</strong> Metadata values don't match (e.g., "TPI" vs "TPI Inc" vs "tpi")
+                    </p>
+                    <div className="bg-blue-50 p-3 rounded-lg text-xs">
+                        <p className="font-semibold text-blue-800 mb-1">Debug Steps:</p>
+                        <ul className="text-blue-700 space-y-1">
+                            <li>{"• Check exact metadata values in database"}</li>
+                            <li>{"• Test with LIKE or case-insensitive matching"}</li>
+                            <li>{"• Look for whitespace or special characters"}</li>
+                        </ul>
+                    </div>
+                    <p className="text-xs text-emerald-600 mt-2">
+                        <strong>Fix:</strong> Normalize metadata during ingestion, use fuzzy matching, or maintain a company alias table
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-green-400">
+                    <h5 className="font-semibold text-green-900 mb-2">5. Stale Embeddings</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Symptom:</strong> New data exists in database but isn't being retrieved
+                    </p>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Root Cause:</strong> Data was added but embeddings weren't regenerated
+                    </p>
+                    <div className="bg-green-50 p-3 rounded-lg text-xs">
+                        <p className="font-semibold text-green-800 mb-1">Debug Steps:</p>
+                        <ul className="text-green-700 space-y-1">
+                            <li>{"• Check if embedding column is NULL for new rows"}</li>
+                            <li>{"• Verify ingestion pipeline ran successfully"}</li>
+                            <li>{"• Test with SQL-only query (does data exist?)"}</li>
+                        </ul>
+                    </div>
+                    <p className="text-xs text-emerald-600 mt-2">
+                        <strong>Fix:</strong> Trigger embedding generation, check ingestion logs, add monitoring for NULL embeddings
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-indigo-400">
+                    <h5 className="font-semibold text-indigo-900 mb-2">6. Model Behavior Change</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Symptom:</strong> System worked yesterday, fails today with same inputs
+                    </p>
+                    <p className="text-sm text-slate-600 mb-2">
+                        <strong>Root Cause:</strong> LLM provider updated model, changed behavior
+                    </p>
+                    <div className="bg-indigo-50 p-3 rounded-lg text-xs">
+                        <p className="font-semibold text-indigo-800 mb-1">Debug Steps:</p>
+                        <ul className="text-indigo-700 space-y-1">
+                            <li>{"• Check provider's changelog or status page"}</li>
+                            <li>{"• Test with temperature=0 (more deterministic)"}</li>
+                            <li>{"• Compare responses from different model versions"}</li>
+                        </ul>
+                    </div>
+                    <p className="text-xs text-emerald-600 mt-2">
+                        <strong>Fix:</strong> Pin to specific model version, adjust prompts for new behavior, or switch providers
+                    </p>
+                </Card>
+            </div>
+
+            <Callout type="success" title="The Debug Checklist">
+                {"When something fails: 1) Check retrieval logs, 2) Verify data exists, 3) Test embeddings, 4) Review prompt, 5) Check metadata, 6) Confirm model version. Most issues are in steps 1-3."}
+            </Callout>
+        </ProgressiveSection>
+
+        <ProgressiveSection number="7" title="When to Escalate to Humans" subtitle="Not every problem should be solved by the AI">
             <div className="space-y-2">
                 {[
                     "User asks for something outside your defined scope",
