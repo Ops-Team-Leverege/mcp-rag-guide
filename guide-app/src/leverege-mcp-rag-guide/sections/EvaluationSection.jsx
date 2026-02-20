@@ -160,7 +160,182 @@ export const EvaluationSection = () => (
             </div>
         </ProgressiveSection>
 
-        <ProgressiveSection number="4" title="When Things Go Wrong" subtitle="Debug flow">
+        <ProgressiveSection number="5" title="AI-as-a-Judge: Automated Evaluation at Scale" subtitle="Using LLMs to evaluate LLM outputs">
+            <p className="text-slate-600 mb-4">
+                Manual evaluation doesn't scale. You can't manually review every answer. AI-as-a-Judge uses one LLM
+                to evaluate another LLM's outputs automatically.
+            </p>
+
+            <Card className="p-5 bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-200 mb-4">
+                <h5 className="font-semibold text-indigo-900 mb-2">How It Works</h5>
+                <div className="space-y-2 text-sm text-slate-600">
+                    <p><strong>1. Your system generates an answer</strong> (the "candidate")</p>
+                    <p><strong>2. You send the answer + context + question to a judge LLM</strong></p>
+                    <p><strong>3. Judge LLM scores it</strong> on faithfulness, relevance, completeness</p>
+                    <p><strong>4. You aggregate scores across your test set</strong></p>
+                </div>
+            </Card>
+
+            <h4 className="font-semibold mb-3">Example Judge Prompt</h4>
+            <pre className="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs overflow-x-auto font-mono mb-4">
+                {`You are evaluating an AI assistant's answer for faithfulness.
+
+Question: {question}
+Retrieved Context: {context_chunks}
+AI Answer: {answer}
+
+Task: Determine if every claim in the AI Answer is supported by the Retrieved Context.
+
+For each claim in the answer:
+1. Identify the claim
+2. Find supporting evidence in context (or note if missing)
+3. Mark as SUPPORTED or UNSUPPORTED
+
+Output JSON:
+{
+  "claims": [
+    {"claim": "...", "supported": true/false, "evidence": "..."}
+  ],
+  "faithfulness_score": 0.0-1.0,
+  "explanation": "..."
+}`}
+            </pre>
+
+            <h4 className="font-semibold mb-3">What to Evaluate</h4>
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+                <Card className="p-4 border-l-4 border-green-400">
+                    <h5 className="font-semibold text-green-900 mb-2">Faithfulness (Most Critical)</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        Is every claim in the answer supported by the retrieved context?
+                    </p>
+                    <p className="text-xs text-green-700">
+                        <strong>Judge checks:</strong> Can each statement be traced to a specific chunk?
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-blue-400">
+                    <h5 className="font-semibold text-blue-900 mb-2">Relevance</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        Does the answer actually address the question asked?
+                    </p>
+                    <p className="text-xs text-blue-700">
+                        <strong>Judge checks:</strong> Is the answer on-topic and helpful?
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-purple-400">
+                    <h5 className="font-semibold text-purple-900 mb-2">Completeness</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        Did the answer cover all relevant information from the context?
+                    </p>
+                    <p className="text-xs text-purple-700">
+                        <strong>Judge checks:</strong> Were important details omitted?
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-amber-400">
+                    <h5 className="font-semibold text-amber-900 mb-2">Citation Quality</h5>
+                    <p className="text-sm text-slate-600 mb-2">
+                        Are citations present, accurate, and properly formatted?
+                    </p>
+                    <p className="text-xs text-amber-700">
+                        <strong>Judge checks:</strong> Does each claim have a source reference?
+                    </p>
+                </Card>
+            </div>
+
+            <Callout type="warning" title="Judge LLM Biases">
+                {"AI judges aren't perfect. They have biases: they prefer longer answers, favor certain phrasings, and can be inconsistent. Always validate judge scores with manual spot-checks."}
+            </Callout>
+
+            <h4 className="font-semibold mt-6 mb-3">Common Judge Biases to Watch For</h4>
+            <div className="space-y-2">
+                {[
+                    { bias: "Length Bias", desc: "Judges favor longer, more detailed answers even if shorter ones are better", fix: "Normalize for length or explicitly instruct judge to prefer conciseness" },
+                    { bias: "Position Bias", desc: "Judges favor information that appears first in the context", fix: "Shuffle context order in test cases" },
+                    { bias: "Self-Preference", desc: "If judge and generator are the same model, judge may favor its own style", fix: "Use different models for generation and judging" },
+                    { bias: "Leniency Bias", desc: "Judges may be too generous, giving high scores to mediocre answers", fix: "Calibrate with human-labeled examples" },
+                ].map((item, i) => (
+                    <Card key={i} className="p-3 bg-slate-50">
+                        <p className="font-semibold text-slate-800 text-sm">{item.bias}</p>
+                        <p className="text-xs text-slate-600 mt-1">{item.desc}</p>
+                        <p className="text-xs text-emerald-600 mt-1"><strong>Fix:</strong> {item.fix}</p>
+                    </Card>
+                ))}
+            </div>
+        </ProgressiveSection>
+
+        <ProgressiveSection number="6" title="Calibrating Your Judge" subtitle="Making sure the judge is accurate">
+            <p className="text-slate-600 mb-4">
+                Before trusting AI-as-a-Judge scores, you need to calibrate: compare judge scores to human scores
+                on a sample set.
+            </p>
+
+            <h4 className="font-semibold mb-3">The Calibration Process</h4>
+            <div className="space-y-3 mb-4">
+                <Card className="p-4 bg-blue-50 border-l-4 border-blue-500">
+                    <div className="flex items-start gap-3">
+                        <div className="w-7 h-7 rounded-full bg-blue-500 text-white text-sm flex items-center justify-center flex-shrink-0 font-semibold">1</div>
+                        <div>
+                            <p className="font-semibold text-blue-900">Create a calibration set</p>
+                            <p className="text-sm text-blue-800 mt-1">
+                                Take 50-100 question/answer pairs from your system
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+
+                <Card className="p-4 bg-purple-50 border-l-4 border-purple-500">
+                    <div className="flex items-start gap-3">
+                        <div className="w-7 h-7 rounded-full bg-purple-500 text-white text-sm flex items-center justify-center flex-shrink-0 font-semibold">2</div>
+                        <div>
+                            <p className="font-semibold text-purple-900">Get human scores</p>
+                            <p className="text-sm text-purple-800 mt-1">
+                                Have domain experts rate each answer on faithfulness, relevance, completeness (1-5 scale)
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+
+                <Card className="p-4 bg-green-50 border-l-4 border-green-500">
+                    <div className="flex items-start gap-3">
+                        <div className="w-7 h-7 rounded-full bg-green-500 text-white text-sm flex items-center justify-center flex-shrink-0 font-semibold">3</div>
+                        <div>
+                            <p className="font-semibold text-green-900">Get judge scores</p>
+                            <p className="text-sm text-green-800 mt-1">
+                                Run the same pairs through your AI judge
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+
+                <Card className="p-4 bg-amber-50 border-l-4 border-amber-500">
+                    <div className="flex items-start gap-3">
+                        <div className="w-7 h-7 rounded-full bg-amber-500 text-white text-sm flex items-center justify-center flex-shrink-0 font-semibold">4</div>
+                        <div>
+                            <p className="font-semibold text-amber-900">Compare and adjust</p>
+                            <p className="text-sm text-amber-800 mt-1">
+                                Calculate correlation. If judge scores don't match human scores, adjust judge prompt or switch models
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+
+            <Card className="p-5 bg-gradient-to-r from-slate-50 to-blue-50 border-slate-200">
+                <h5 className="font-semibold text-slate-800 mb-2">Target Correlation</h5>
+                <p className="text-sm text-slate-600">
+                    Aim for <strong>Pearson correlation &gt; 0.7</strong> between human and judge scores.
+                    Below 0.6 means the judge isn't reliable enough for automated evaluation.
+                </p>
+            </Card>
+
+            <Callout type="success" title="Best Practice">
+                {"Re-calibrate periodically (every 3-6 months) as your system evolves. Judge accuracy can drift over time."}
+            </Callout>
+        </ProgressiveSection>
+
+        <ProgressiveSection number="7" title="When Things Go Wrong" subtitle="Debug flow">
             <ol className="space-y-3">
                 {[
                     { step: "What question was asked?", check: "Check MCP logs" },
