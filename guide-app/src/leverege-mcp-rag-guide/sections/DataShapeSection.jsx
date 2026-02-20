@@ -194,6 +194,190 @@ Result:       Only customer statements (hopefully)`}
             </Card>
         </ProgressiveSection>
 
+        <ProgressiveSection number="5" title="Structured vs. Unstructured Data" subtitle="Your data has two natures — and you need both">
+            <p className="text-slate-600 mb-4">
+                Most AI systems need to work with data that is both structurally stored (in tables) and semantically
+                unstructured (natural language). Understanding this duality is critical.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+                <Card className="p-5 border-l-4 border-blue-400">
+                    <h5 className="font-semibold text-blue-900 mb-2">Structurally Stored</h5>
+                    <p className="text-sm text-slate-600 mb-3">
+                        Data organized in tables with columns, types, and relationships. Queryable with SQL.
+                    </p>
+                    <div className="bg-blue-50 p-3 rounded-lg mb-3">
+                        <pre className="text-xs font-mono text-blue-800">
+                            {`meeting_chunks
+├─ id (int)
+├─ meeting_id (int)
+├─ speaker_name (text)
+├─ speaker_role (text)
+├─ text (text)
+└─ timestamp (datetime)`}
+                        </pre>
+                    </div>
+                    <p className="text-xs text-slate-500">
+                        <strong>Good for:</strong> Filtering, counting, temporal queries, exact lookups
+                    </p>
+                </Card>
+
+                <Card className="p-5 border-l-4 border-purple-400">
+                    <h5 className="font-semibold text-purple-900 mb-2">Semantically Unstructured</h5>
+                    <p className="text-sm text-slate-600 mb-3">
+                        Meaning is in natural language, not in schema. Requires embeddings for semantic search.
+                    </p>
+                    <div className="bg-purple-50 p-3 rounded-lg mb-3">
+                        <pre className="text-xs font-mono text-purple-800">
+                            {`"We're worried about camera 
+reliability during peak hours. 
+The system goes offline and 
+we lose footage."`}
+                        </pre>
+                    </div>
+                    <p className="text-xs text-slate-500">
+                        <strong>Good for:</strong> Semantic search, finding similar concepts, understanding intent
+                    </p>
+                </Card>
+            </div>
+
+            <Card className="p-5 bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-200">
+                <h5 className="font-semibold text-indigo-900 mb-2">The Hybrid Approach (What You Actually Need)</h5>
+                <p className="text-sm text-slate-600 mb-3">
+                    Store data in a structured database (PostgreSQL, MySQL) with proper metadata columns.
+                    Generate embeddings for the text content and store them alongside the structured data.
+                    Query with SQL for filtering, then use vector similarity for semantic ranking.
+                </p>
+                <div className="bg-white/60 p-3 rounded-lg text-xs font-mono text-slate-700">
+                    {`SELECT * FROM meeting_chunks
+WHERE company_id = 'TPI' 
+  AND speaker_role = 'customer'
+  AND meeting_date > '2024-01-01'
+ORDER BY embedding <-> query_embedding
+LIMIT 5`}
+                </div>
+                <p className="text-xs text-slate-500 mt-2">
+                    SQL filters by metadata (company, role, date), vector similarity ranks by semantic relevance.
+                </p>
+            </Card>
+
+            <Callout type="insight" title="Key Insight">
+                {"A table can store text, but it cannot understand text. That's why you need both: SQL for structure, embeddings for semantics."}
+            </Callout>
+        </ProgressiveSection>
+
+        <ProgressiveSection number="6" title="The Data Pipeline" subtitle="From raw data to AI-ready knowledge">
+            <p className="text-slate-600 mb-4">
+                Getting data into a shape that AI can use requires a pipeline. Here's the typical flow:
+            </p>
+
+            <div className="space-y-3 mb-6">
+                {[
+                    {
+                        step: 1,
+                        title: "Ingestion",
+                        desc: "Pull raw data from source systems (APIs, databases, files)",
+                        example: "Fetch meeting transcripts from Zoom, Gong, or your CRM",
+                        color: "blue"
+                    },
+                    {
+                        step: 2,
+                        title: "Cleaning & Normalization",
+                        desc: "Fix formatting, remove duplicates, standardize fields",
+                        example: "Convert timestamps to UTC, normalize speaker names, remove system messages",
+                        color: "sky"
+                    },
+                    {
+                        step: 3,
+                        title: "Enrichment",
+                        desc: "Add metadata, classify content, extract entities",
+                        example: "Tag speaker_role (customer vs internal), extract company_id, classify topic",
+                        color: "violet"
+                    },
+                    {
+                        step: 4,
+                        title: "Chunking",
+                        desc: "Split into atomic units based on your retrieval needs",
+                        example: "Split by speaker turn for transcripts, by section for docs",
+                        color: "purple"
+                    },
+                    {
+                        step: 5,
+                        title: "Embedding Generation",
+                        desc: "Convert text chunks into vector representations",
+                        example: "Use OpenAI embeddings, Cohere, or open-source models",
+                        color: "indigo"
+                    },
+                    {
+                        step: 6,
+                        title: "Storage",
+                        desc: "Store structured data + embeddings in database",
+                        example: "PostgreSQL with pgvector, or dedicated vector DB",
+                        color: "emerald"
+                    },
+                ].map((item) => {
+                    const bgColors = {
+                        blue: "bg-blue-50 border-blue-300",
+                        sky: "bg-sky-50 border-sky-300",
+                        violet: "bg-violet-50 border-violet-300",
+                        purple: "bg-purple-50 border-purple-300",
+                        indigo: "bg-indigo-50 border-indigo-300",
+                        emerald: "bg-emerald-50 border-emerald-300"
+                    };
+                    const dotColors = {
+                        blue: "bg-blue-500",
+                        sky: "bg-sky-500",
+                        violet: "bg-violet-500",
+                        purple: "bg-purple-500",
+                        indigo: "bg-indigo-500",
+                        emerald: "bg-emerald-500"
+                    };
+                    return (
+                        <Card key={item.step} className={`${bgColors[item.color]} border-l-4`}>
+                            <div className="flex items-start gap-3">
+                                <div className={`w-7 h-7 rounded-full ${dotColors[item.color]} text-white text-sm flex items-center justify-center flex-shrink-0 font-semibold`}>
+                                    {item.step}
+                                </div>
+                                <div className="flex-1">
+                                    <h5 className="font-semibold text-slate-800">{item.title}</h5>
+                                    <p className="text-sm text-slate-600 mt-1">{item.desc}</p>
+                                    <div className="mt-2 bg-white/60 p-2 rounded text-xs text-slate-700">
+                                        <strong>Example:</strong> {item.example}
+                                    </div>
+                                </div>
+                            </div>
+                        </Card>
+                    );
+                })}
+            </div>
+
+            <Card className="p-5 bg-amber-50 border-amber-200">
+                <h5 className="font-semibold text-amber-900 mb-2">Pipeline Considerations</h5>
+                <div className="space-y-2 text-sm text-slate-600">
+                    <div className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <p><strong>Incremental updates:</strong> Can you process only new/changed data, or do you need to reprocess everything?</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <p><strong>Error handling:</strong> What happens when ingestion fails? Do you retry, skip, or alert?</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <p><strong>Versioning:</strong> If your chunking strategy changes, can you regenerate embeddings without losing data?</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <p><strong>Monitoring:</strong> How do you know if data quality degrades over time?</p>
+                    </div>
+                </div>
+            </Card>
+
+            <Callout type="warning" title="Don't Underestimate This">
+                {"The data pipeline is often 70% of the work in a production AI system. Get this right before worrying about model selection or prompt engineering."}
+            </Callout>
+        </ProgressiveSection>
+
         <NextSectionNav currentId="data" />
     </div>
 );
