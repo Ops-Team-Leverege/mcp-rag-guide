@@ -18,6 +18,9 @@ import {
   ModelSelectionSection,
   DebuggingSection,
   EvaluationSection,
+  GoldenSetSection,
+  HybridSearchSection,
+  AIJudgeSection,
   DeploymentSection,
   PitCrewCaseStudy
 } from './sections';
@@ -73,6 +76,9 @@ export default function AIArchitectureGuide() {
       case 'implementation': return <ImplementationSection />;
       case 'debugging': return <DebuggingSection />;
       case 'evaluation': return <EvaluationSection />;
+      case 'goldenset': return <GoldenSetSection />;
+      case 'hybridsearch': return <HybridSearchSection />;
+      case 'aijudge': return <AIJudgeSection />;
       case 'deployment': return <DeploymentSection />;
       case 'pitcrew': return <PitCrewCaseStudy />;
       default: return <OverviewSection />;

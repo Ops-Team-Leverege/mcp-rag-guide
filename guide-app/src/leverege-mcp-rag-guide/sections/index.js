@@ -12,5 +12,8 @@ export { PromptEngineeringSection } from './PromptEngineeringSection';
 export { ModelSelectionSection } from './ModelSelectionSection';
 export { DebuggingSection } from './DebuggingSection';
 export { EvaluationSection } from './EvaluationSection';
+export { GoldenSetSection } from './GoldenSetSection';
+export { HybridSearchSection } from './HybridSearchSection';
+export { AIJudgeSection } from './AIJudgeSection';
 export { DeploymentSection } from './DeploymentSection';
 export { PitCrewCaseStudy } from './PitCrewCaseStudy';

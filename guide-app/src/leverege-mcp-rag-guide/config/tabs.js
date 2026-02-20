@@ -1,4 +1,4 @@
-import { Target, Brain, Users, BookOpen, Database, Layers, GitBranch, Code, Cloud, Zap, Settings, Gauge, FileText, Sparkles, Bug, DollarSign, Box } from 'lucide-react';
+import { Target, Brain, Users, BookOpen, Database, Layers, GitBranch, Code, Cloud, Zap, Settings, Gauge, FileText, Sparkles, Bug, DollarSign, Box, TestTube, Search, Scale } from 'lucide-react';
 
 export const tabGroups = [
   {
@@ -32,6 +32,9 @@ export const tabGroups = [
     tabs: [
       { id: 'debugging', label: 'Debugging', icon: Bug },
       { id: 'evaluation', label: 'Evaluation', icon: Gauge },
+      { id: 'goldenset', label: 'Golden Set', icon: TestTube },
+      { id: 'hybridsearch', label: 'Hybrid Search', icon: Search },
+      { id: 'aijudge', label: 'AI-as-a-Judge', icon: Scale },
       { id: 'deployment', label: 'Deployment', icon: Cloud },
     ]
   },
