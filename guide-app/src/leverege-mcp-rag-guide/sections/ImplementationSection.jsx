@@ -145,7 +145,101 @@ export const ImplementationSection = () => (
             </ul>
         </ProgressiveSection>
 
-        <ProgressiveSection number="5" title="Vector Database Options" subtitle="Where embeddings live">
+        <ProgressiveSection number="6" title="Retrieval vs. Transformation" subtitle="When to fetch vs when to process">
+            <p className="text-slate-600 mb-4">
+                A common mistake is confusing retrieval (finding data) with transformation (processing data).
+                Understanding the difference helps you build more efficient systems.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+                <Card className="p-5 border-l-4 border-blue-400">
+                    <h5 className="font-semibold text-blue-900 mb-2">Retrieval</h5>
+                    <p className="text-sm text-slate-600 mb-3">
+                        Finding and fetching the right data from storage. This is about <strong>selection</strong>.
+                    </p>
+                    <div className="bg-blue-50 p-3 rounded-lg mb-3">
+                        <p className="text-xs font-semibold text-blue-800 mb-1">Examples:</p>
+                        <ul className="text-xs text-blue-700 space-y-1">
+                            <li>{"• Get last 5 meetings with TPI"}</li>
+                            <li>{"• Find chunks mentioning \"cameras\""}</li>
+                            <li>{"• Fetch customer feedback from Q4"}</li>
+                        </ul>
+                    </div>
+                    <p className="text-xs text-slate-500">
+                        <strong>Tools:</strong> SQL queries, vector search, metadata filtering
+                    </p>
+                </Card>
+
+                <Card className="p-5 border-l-4 border-purple-400">
+                    <h5 className="font-semibold text-purple-900 mb-2">Transformation</h5>
+                    <p className="text-sm text-slate-600 mb-3">
+                        Processing and reshaping data after retrieval. This is about <strong>manipulation</strong>.
+                    </p>
+                    <div className="bg-purple-50 p-3 rounded-lg mb-3">
+                        <p className="text-xs font-semibold text-purple-800 mb-1">Examples:</p>
+                        <ul className="text-xs text-purple-700 space-y-1">
+                            <li>{"• Summarize 50 chunks into 3 paragraphs"}</li>
+                            <li>{"• Extract action items from meeting text"}</li>
+                            <li>{"• Classify sentiment as positive/negative"}</li>
+                        </ul>
+                    </div>
+                    <p className="text-xs text-slate-500">
+                        <strong>Tools:</strong> LLMs, code logic, aggregation functions
+                    </p>
+                </Card>
+            </div>
+
+            <h4 className="font-semibold mb-3">The Pattern: Retrieve First, Transform Second</h4>
+            <div className="space-y-3 mb-4">
+                <Card className="p-4 bg-slate-50">
+                    <div className="flex items-start gap-3">
+                        <div className="w-7 h-7 rounded-full bg-blue-500 text-white text-sm flex items-center justify-center flex-shrink-0 font-semibold">1</div>
+                        <div>
+                            <p className="font-semibold text-slate-800">Retrieval: Get the right data</p>
+                            <p className="text-sm text-slate-600 mt-1">Use SQL + vector search to find relevant chunks. Filter by metadata, rank by similarity.</p>
+                        </div>
+                    </div>
+                </Card>
+
+                <Card className="p-4 bg-slate-50">
+                    <div className="flex items-start gap-3">
+                        <div className="w-7 h-7 rounded-full bg-purple-500 text-white text-sm flex items-center justify-center flex-shrink-0 font-semibold">2</div>
+                        <div>
+                            <p className="font-semibold text-slate-800">Transformation: Process what you found</p>
+                            <p className="text-sm text-slate-600 mt-1">Use LLM or code to summarize, extract, classify, or synthesize the retrieved chunks.</p>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+
+            <Callout type="warning" title="Common Mistake">
+                {"Asking the LLM to \"find and summarize\" in one step. This conflates retrieval and transformation. Instead: retrieve with SQL/vector search (fast, precise), then transform with LLM (slow, interpretive)."}
+            </Callout>
+
+            <h4 className="font-semibold mt-6 mb-3">When to Use Code vs LLM for Transformation</h4>
+            <ComparisonTable
+                headers={["Task", "Use Code When", "Use LLM When"]}
+                rows={[
+                    ["Counting", "Always (COUNT(*) in SQL)", "Never"],
+                    ["Filtering", "Always (WHERE clauses)", "Never"],
+                    ["Sorting", "Always (ORDER BY)", "Never"],
+                    ["Extracting structured data", "If format is predictable", "If format varies or is complex"],
+                    ["Summarization", "Never (code can't understand meaning)", "Always"],
+                    ["Sentiment analysis", "If you have a trained model", "If you need nuanced understanding"],
+                    ["Classification", "If categories are rule-based", "If categories require judgment"],
+                ]}
+            />
+
+            <Card className="p-5 bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200 mt-4">
+                <h5 className="font-semibold text-emerald-900 mb-2">The Efficiency Rule</h5>
+                <p className="text-sm text-slate-600">
+                    Use code (SQL, Python) for deterministic operations. Use LLMs only for tasks that genuinely
+                    require language understanding. This keeps your system fast, cheap, and predictable.
+                </p>
+            </Card>
+        </ProgressiveSection>
+
+        <ProgressiveSection number="7" title="Vector Database Options" subtitle="Where embeddings live">
             <ComparisonTable
                 headers={["Option", "Best For", "Pros", "Cons"]}
                 rows={[
