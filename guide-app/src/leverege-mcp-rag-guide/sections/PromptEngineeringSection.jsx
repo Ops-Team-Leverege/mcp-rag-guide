@@ -223,7 +223,188 @@ AUTHORITY RULES:
                 </Callout>
             </ProgressiveSection>
 
-            <ProgressiveSection number="7" title="The Fine-Tuning Trap" subtitle="Why most teams don't need it">
+            <ProgressiveSection number="8" title="Anthropic's Technique Order" subtitle="The sequence matters — apply these in order">
+                <p className="text-slate-600 mb-4">
+                    Anthropic's research shows that prompt engineering techniques work best when applied in a specific order.
+                    Start simple, add complexity only when needed.
+                </p>
+
+                <div className="space-y-3">
+                    {[
+                        {
+                            step: 1,
+                            technique: "Clear and Direct Instructions",
+                            desc: "Write explicit, unambiguous instructions. Most problems are solved here.",
+                            example: "\"Extract the customer name from this email. Return only the name, nothing else.\"",
+                            color: "emerald"
+                        },
+                        {
+                            step: 2,
+                            technique: "Examples (Few-Shot)",
+                            desc: "Show 1-3 examples of correct input/output pairs.",
+                            example: "\"Input: 'Hi, I'm Sarah from Acme Corp' → Output: 'Sarah'\"",
+                            color: "sky"
+                        },
+                        {
+                            step: 3,
+                            technique: "Let the Model Think (Chain-of-Thought)",
+                            desc: "Add \"Think step-by-step\" or \"Explain your reasoning\" for complex tasks.",
+                            example: "\"Before answering, list the key facts from the context that support your answer.\"",
+                            color: "violet"
+                        },
+                        {
+                            step: 4,
+                            technique: "Use Tools and External Knowledge",
+                            desc: "Provide retrieved context, enable function calling, or use RAG.",
+                            example: "Inject relevant meeting transcripts before asking the question.",
+                            color: "amber"
+                        },
+                        {
+                            step: 5,
+                            technique: "Agentic Workflows",
+                            desc: "Multi-step reasoning where the model decides which tools to use.",
+                            example: "\"Research this topic by searching the knowledge base, then draft a summary.\"",
+                            color: "rose"
+                        },
+                    ].map((item) => {
+                        const bgColors = {
+                            emerald: "bg-emerald-50 border-emerald-300",
+                            sky: "bg-sky-50 border-sky-300",
+                            violet: "bg-violet-50 border-violet-300",
+                            amber: "bg-amber-50 border-amber-300",
+                            rose: "bg-rose-50 border-rose-300"
+                        };
+                        const dotColors = {
+                            emerald: "bg-emerald-500",
+                            sky: "bg-sky-500",
+                            violet: "bg-violet-500",
+                            amber: "bg-amber-500",
+                            rose: "bg-rose-500"
+                        };
+                        return (
+                            <Card key={item.step} className={`${bgColors[item.color]} border-l-4`}>
+                                <div className="flex items-start gap-3">
+                                    <div className={`w-7 h-7 rounded-full ${dotColors[item.color]} text-white text-sm flex items-center justify-center flex-shrink-0 font-semibold`}>
+                                        {item.step}
+                                    </div>
+                                    <div className="flex-1">
+                                        <h5 className="font-semibold text-slate-800">{item.technique}</h5>
+                                        <p className="text-sm text-slate-600 mt-1">{item.desc}</p>
+                                        <div className="mt-2 bg-white/60 p-2 rounded text-xs font-mono text-slate-700">
+                                            {item.example}
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+                        );
+                    })}
+                </div>
+
+                <Callout type="success" title="The key insight">
+                    {"Don't jump to step 5 (agentic workflows) when step 1 (clear instructions) would solve the problem. Each step adds complexity and cost. Start simple, add complexity only when the simpler approach fails."}
+                </Callout>
+            </ProgressiveSection>
+
+            <ProgressiveSection number="9" title="Model-Specific Behavior" subtitle="Claude, GPT, and others behave differently">
+                <p className="text-slate-600 mb-4">
+                    Different models have different strengths, weaknesses, and quirks. What works for Claude might not work for GPT-4.
+                </p>
+
+                <div className="space-y-4">
+                    <Card className="p-5 border-l-4 border-indigo-400">
+                        <h5 className="font-semibold text-indigo-900 mb-2">Claude (Anthropic)</h5>
+                        <div className="grid md:grid-cols-2 gap-3 text-sm">
+                            <div>
+                                <p className="font-semibold text-slate-700 mb-1">Strengths:</p>
+                                <ul className="text-slate-600 space-y-1 text-xs">
+                                    <li>{"• Excellent at following complex instructions"}</li>
+                                    <li>{"• Strong refusal behavior (says \"I don't know\" well)"}</li>
+                                    <li>{"• Good at structured output (JSON, XML)"}</li>
+                                    <li>{"• Longer context windows (200K+)"}</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-slate-700 mb-1">Quirks:</p>
+                                <ul className="text-slate-600 space-y-1 text-xs">
+                                    <li>{"• Prefers XML tags over markdown for structure"}</li>
+                                    <li>{"• More verbose by default"}</li>
+                                    <li>{"• Better with explicit role definitions"}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </Card>
+
+                    <Card className="p-5 border-l-4 border-green-400">
+                        <h5 className="font-semibold text-green-900 mb-2">GPT-4 (OpenAI)</h5>
+                        <div className="grid md:grid-cols-2 gap-3 text-sm">
+                            <div>
+                                <p className="font-semibold text-slate-700 mb-1">Strengths:</p>
+                                <ul className="text-slate-600 space-y-1 text-xs">
+                                    <li>{"• Strong general knowledge"}</li>
+                                    <li>{"• Good at creative tasks"}</li>
+                                    <li>{"• Function calling is well-developed"}</li>
+                                    <li>{"• Faster inference (generally)"}</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-slate-700 mb-1">Quirks:</p>
+                                <ul className="text-slate-600 space-y-1 text-xs">
+                                    <li>{"• More likely to hallucinate confidently"}</li>
+                                    <li>{"• Needs stronger grounding instructions"}</li>
+                                    <li>{"• Shorter context windows (128K)"}</li>
+                                    <li>{"• Can be overly helpful (guesses instead of refusing)"}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </Card>
+
+                    <Card className="p-5 border-l-4 border-purple-400">
+                        <h5 className="font-semibold text-purple-900 mb-2">Gemini (Google)</h5>
+                        <div className="grid md:grid-cols-2 gap-3 text-sm">
+                            <div>
+                                <p className="font-semibold text-slate-700 mb-1">Strengths:</p>
+                                <ul className="text-slate-600 space-y-1 text-xs">
+                                    <li>{"• Multimodal (text, images, video)"}</li>
+                                    <li>{"• Very long context (1M+ tokens)"}</li>
+                                    <li>{"• Good at code generation"}</li>
+                                    <li>{"• Fast inference"}</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-slate-700 mb-1">Quirks:</p>
+                                <ul className="text-slate-600 space-y-1 text-xs">
+                                    <li>{"• Less consistent with structured output"}</li>
+                                    <li>{"• Instruction following can be weaker"}</li>
+                                    <li>{"• Better for search/retrieval than reasoning"}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </Card>
+                </div>
+
+                <Card className="p-5 bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-200 mt-4">
+                    <div className="flex items-start gap-3">
+                        <Zap className="w-6 h-6 text-amber-600 flex-shrink-0" />
+                        <div>
+                            <h5 className="font-semibold text-amber-900 mb-1">Practical Advice</h5>
+                            <p className="text-sm text-amber-800">
+                                Don't optimize prompts for one model and assume they'll work for another. Test your prompts
+                                across models if you plan to switch. Claude needs more explicit structure, GPT needs stronger
+                                grounding, Gemini needs simpler instructions.
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+
+                <div className="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+                    <p className="text-sm text-slate-600">
+                        <strong>Temperature behavior also varies:</strong> Temperature=0 on Claude is more deterministic than
+                        temperature=0 on GPT-4. If you need true determinism, test with the same input multiple times.
+                    </p>
+                </div>
+            </ProgressiveSection>
+
+            <ProgressiveSection number="10" title="The Fine-Tuning Trap" subtitle="Why most teams don't need it">
                 <Callout type="warning" title="Common misconception">
                     {"Teams hear \"fine-tuning\" and think it's how you make AI better. For most use cases, it's not."}
                 </Callout>
