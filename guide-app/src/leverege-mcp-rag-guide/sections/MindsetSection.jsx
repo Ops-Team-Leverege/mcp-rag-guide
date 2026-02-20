@@ -336,7 +336,10 @@ Validation → Answer`}
         <Card className="p-6 bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
             <h3 className="font-semibold text-lg mb-4">🎯 The Bottom Line</h3>
             <p className="text-slate-600 mb-4">
-                <strong>You're not building a chatbot. You're building a system that can be trusted.</strong>
+                <strong>You're not building a chatbot. You're engineering a system that can be trusted.</strong>
+            </p>
+            <p className="text-slate-600 mb-4">
+                The mindset shift is from "AI is magic" to "AI needs engineering for trustworthiness."
             </p>
             <div className="grid md:grid-cols-2 gap-2">
                 {[

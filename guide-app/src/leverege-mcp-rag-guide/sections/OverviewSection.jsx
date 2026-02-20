@@ -7,7 +7,7 @@ export const OverviewSection = () => {
   const nav = useContext(NavigationContext);
 
   const learningPath = [
-    { num: 1, title: "Mindset Shift", desc: "Why production AI is different from ChatGPT. Before You Build checklist.", tab: "mindset" },
+    { num: 1, title: "Mindset Shift", desc: "From 'AI is magic' to 'AI needs engineering for trust'. Hallucinations, grounding, guardrails.", tab: "mindset" },
     { num: 2, title: "Business Case", desc: "Start here — what questions need answers? Define success metrics.", tab: "businesscase" },
     { num: 3, title: "Core Concepts", desc: "The 7 AI paradigms, protocols, and the mental model.", tab: "concepts" },
     { num: 4, title: "Prompt Engineering", desc: "The 70% rule. System prompts, few-shot examples, temperature.", tab: "promptengineering" },
