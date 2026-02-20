@@ -125,6 +125,8 @@ export const BusinessCaseSection = () => (
                     { bad: '"We\'ll figure out use cases after launch"', why: "You'll build generic infrastructure that fits nothing well.", better: "Start with one specific use case, nail it, then expand" },
                     { bad: '"AI will understand what they mean"', why: "AI needs structure. Garbage in = garbage out.", better: "Design prompts and capabilities around specific patterns" },
                     { bad: '"It\'s like ChatGPT but for our data"', why: "That's a feature, not a business case.", better: "What decisions will this help people make?" },
+                    { bad: '"We need RAG" or "We need agents"', why: "You're starting with a solution, not a problem.", better: "Start with the questions, then choose the right pattern" },
+                    { bad: '"Everyone will use this for everything"', why: "Unfocused systems serve no one well.", better: "Build for one team's specific workflow first" },
                 ].map((item, i) => (
                     <Card key={i}>
                         <p className="text-rose-600 font-medium text-sm">{"\u274C "}{item.bad}</p>

@@ -79,7 +79,39 @@ Validation → Answer`}
                 </div>
             </Card>
 
-            <h4 className="font-semibold mb-3">Common Hallucination Patterns</h4>
+            <h4 className="font-semibold mb-3">Why Hallucinations Happen: The Three Mechanisms</h4>
+            <p className="text-slate-500 mb-4">
+                Before we look at how hallucinations manifest, it helps to understand the underlying mechanisms.
+                These aren't bugs you can fix — they're inherent to how LLMs work.
+            </p>
+            <div className="space-y-3 mb-6">
+                <Card className="p-4 border-l-4 border-rose-400">
+                    <h5 className="font-semibold text-slate-800 mb-1">1. Attention Collapse</h5>
+                    <p className="text-sm text-slate-600">
+                        The model loses track of which part of the context to focus on. When you have 50 meeting transcripts
+                        in context, the model might blend details from multiple meetings or miss the specific one you asked about.
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-rose-400">
+                    <h5 className="font-semibold text-slate-800 mb-1">2. Recency Bias</h5>
+                    <p className="text-sm text-slate-600">
+                        Later tokens in the context get more weight than earlier ones. If the answer is buried at the top
+                        of a long context window, the model might ignore it in favor of more recent (but less relevant) information.
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-rose-400">
+                    <h5 className="font-semibold text-slate-800 mb-1">3. Parametric Memory Interference</h5>
+                    <p className="text-sm text-slate-600">
+                        The model's training data conflicts with your retrieved context. If you ask about "Apple's revenue"
+                        and your context says "$100M" but the model was trained on public data saying "$400B", it might
+                        blend the two or favor its training data.
+                    </p>
+                </Card>
+            </div>
+
+            <h4 className="font-semibold mb-3">How Hallucinations Manifest: Common Patterns</h4>
             <div className="space-y-3">
                 <Card className="p-4 border-l-4 border-amber-400">
                     <h5 className="font-semibold text-slate-800 mb-1">1. Fake Specificity</h5>
@@ -171,6 +203,69 @@ Validation → Answer`}
                     ['"Magic"', '"Engineering"'],
                 ]}
             />
+
+            <h4 className="font-semibold mt-6 mb-3">The Four Levers You Control</h4>
+            <p className="text-slate-500 mb-4">
+                In production AI, you don't control the model's internal behavior. But you do control four critical levers
+                that determine whether your system is reliable or not.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+                <Card className="p-4 border-l-4 border-blue-500">
+                    <h5 className="font-semibold text-blue-900 mb-1">1. What Context You Provide</h5>
+                    <p className="text-sm text-slate-600">
+                        The model only knows what you give it. Retrieval quality, metadata filtering, and chunk relevance
+                        determine whether the model has the right information to work with.
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-purple-500">
+                    <h5 className="font-semibold text-purple-900 mb-1">2. How You Prompt</h5>
+                    <p className="text-sm text-slate-600">
+                        Instructions, examples, constraints, and output format shape the model's behavior. A well-crafted
+                        prompt can enforce grounding, citations, and {"\"I don't know\""} responses.
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-green-500">
+                    <h5 className="font-semibold text-green-900 mb-1">3. What Constraints You Enforce</h5>
+                    <p className="text-sm text-slate-600">
+                        Structured outputs (JSON schemas), validation rules, and post-processing checks prevent the model
+                        from generating invalid or unsupported responses.
+                    </p>
+                </Card>
+
+                <Card className="p-4 border-l-4 border-amber-500">
+                    <h5 className="font-semibold text-amber-900 mb-1">4. How You Verify</h5>
+                    <p className="text-sm text-slate-600">
+                        Evaluation, testing, and monitoring catch failures before they reach users. Golden sets, AI-as-a-judge,
+                        and human review loops ensure quality over time.
+                    </p>
+                </Card>
+            </div>
+
+            <Card className="p-5 bg-gradient-to-r from-slate-50 to-blue-50 border-blue-200 mt-6">
+                <h5 className="font-semibold text-slate-800 mb-2">Probabilistic vs. Deterministic Thinking</h5>
+                <p className="text-sm text-slate-600 mb-3">
+                    Traditional software is deterministic: same input → same output, every time. AI systems are probabilistic:
+                    same input → similar output, most of the time.
+                </p>
+                <div className="grid md:grid-cols-2 gap-3 text-sm">
+                    <div className="bg-white p-3 rounded-lg border border-slate-200">
+                        <p className="font-semibold text-slate-700 mb-1">Deterministic (Traditional Code)</p>
+                        <p className="text-slate-500">{"if (x > 10) return \"high\""}</p>
+                        <p className="text-xs text-slate-400 mt-1">Always returns the same result</p>
+                    </div>
+                    <div className="bg-white p-3 rounded-lg border border-blue-200">
+                        <p className="font-semibold text-blue-700 mb-1">Probabilistic (AI)</p>
+                        <p className="text-slate-500">{"LLM(\"Is this feedback positive?\")"}</p>
+                        <p className="text-xs text-slate-400 mt-1">Might vary slightly across runs</p>
+                    </div>
+                </div>
+                <p className="text-sm text-slate-600 mt-3">
+                    This means you can't test AI systems the same way you test traditional code. You need statistical evaluation,
+                    golden sets, and continuous monitoring — not just unit tests.
+                </p>
+            </Card>
         </ProgressiveSection>
 
         <ProgressiveSection number="5" title="The Solution: Grounding & Guardrails" subtitle="A toolkit for preventing hallucinations">
