@@ -222,17 +222,17 @@ export const DecisionsSection = () => (
             </Callout>
         </ProgressiveSection>
 
-        <ProgressiveSection number="6" title="Real Examples from Leverege" subtitle="Mapping questions to approaches">
+        <ProgressiveSection number="6" title="Real-World Examples" subtitle="Mapping questions to approaches">
             <ComparisonTable
                 headers={["Question", "Approach", "Why"]}
                 rows={[
-                    ['"When was our last meeting with TPI?"', "SQL Only", "Date lookup, no interpretation"],
-                    ['"What did TPI say about cameras?"', "SQL + RAG", "Filter (TPI) + Search (cameras)"],
-                    ['"What\'s TPI\'s biggest concern?"', "RAG + LLM", "Needs interpretation of concerns"],
-                    ['"Summarize last meeting with TPI"', "RAG + LLM", "Needs summarization"],
-                    ['"How many companies mentioned pricing?"', "SQL + RAG", "Count + semantic filter"],
-                    ['"Compare tire companies\' feedback"', "RAG + LLM", "Multi-source synthesis"],
-                    ['"Find concerns and draft follow-up"', "Agentic", "Search + compose action chain"],
+                    ['"When was our last meeting with Acme Corp?"', "SQL Only", "Date lookup, no interpretation"],
+                    ['"What did the customer say about pricing?"', "SQL + RAG", "Filter (customer role) + Search (pricing)"],
+                    ['"What\'s the main concern from recent feedback?"', "RAG + LLM", "Needs interpretation of concerns"],
+                    ['"Summarize last customer meeting"', "RAG + LLM", "Needs summarization"],
+                    ['"How many customers mentioned integration issues?"', "SQL + RAG", "Count + semantic filter"],
+                    ['"Compare enterprise vs SMB customer feedback"', "RAG + LLM", "Multi-source synthesis"],
+                    ['"Find action items and draft follow-up email"', "Agentic", "Search + compose action chain"],
                 ]}
             />
         </ProgressiveSection>

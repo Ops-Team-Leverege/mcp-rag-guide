@@ -18,9 +18,12 @@ export const OverviewSection = () => {
     { num: 9, title: "The MVP Path", desc: "Off-the-shelf before custom. When managed solutions make sense.", tab: "mvppath" },
     { num: 10, title: "Implementation", desc: "Chunking, embeddings, retrieval patterns, ingestion pipeline.", tab: "implementation" },
     { num: 11, title: "Debugging", desc: "Systematic debugging for AI systems. What to log, when to escalate.", tab: "debugging" },
-    { num: 12, title: "Evaluation", desc: "Measuring quality, intent accuracy, end-to-end testing, user trust.", tab: "evaluation" },
-    { num: 13, title: "Deployment", desc: "Hosting options from serverless to dedicated. Security essentials.", tab: "deployment" },
-    { num: 14, title: "PitCrew Sauce", desc: "Real-world case study: meeting intelligence bot in production.", tab: "pitcrew" },
+    { num: 12, title: "Evaluation", desc: "RAGAS metrics, measuring quality, intent accuracy, end-to-end testing.", tab: "evaluation" },
+    { num: 13, title: "Golden Set", desc: "Building test sets, synthetic data generation, quality benchmarks.", tab: "goldenset" },
+    { num: 14, title: "Hybrid Search", desc: "Vector + BM25, RRF, reranking for better retrieval quality.", tab: "hybridsearch" },
+    { num: 15, title: "AI-as-a-Judge", desc: "Automated evaluation at scale, judge prompts, calibration.", tab: "aijudge" },
+    { num: 16, title: "Deployment", desc: "Hosting options from serverless to dedicated. Security essentials.", tab: "deployment" },
+    { num: 17, title: "PitCrew Sauce", desc: "Real-world case study: meeting intelligence bot in production.", tab: "pitcrew" },
   ];
 
   return (
