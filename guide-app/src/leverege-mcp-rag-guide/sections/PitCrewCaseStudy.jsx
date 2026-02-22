@@ -7,7 +7,7 @@ export const PitCrewCaseStudy = () => {
     const [activeTab, setActiveTab] = useState('overview');
 
     return (
-        <div className="space-y-10">
+        <div className="space-y-10">{/* PitCrew Case Study */}
             {/* Hero Section */}
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white">
                 <div className="flex items-center gap-4 mb-4">
