@@ -991,8 +991,5 @@ const OpsReference = () => (
                 </Card>
             </div>
         </div>
-
-        <NextSectionNav currentId="pitcrew" />
     </div>
 );
-};
