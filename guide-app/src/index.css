@@ -89,3 +89,84 @@ body {
 .d3 {
   animation-delay: 0.15s;
 }
+
+/* Content layer - better typography and spacing */
+@layer base {
+
+  /* Only style elements that don't have Tailwind classes */
+  .content-area h1 {
+    @apply text-3xl font-bold text-slate-900 mb-6 leading-tight;
+  }
+
+  .content-area h2 {
+    @apply text-2xl font-semibold text-slate-900 mb-4 mt-8 leading-tight;
+  }
+
+  .content-area h3 {
+    @apply text-xl font-semibold text-slate-800 mb-3 mt-6 leading-snug;
+  }
+
+  .content-area h4 {
+    @apply text-lg font-semibold text-slate-800 mb-2 mt-4 leading-snug;
+  }
+
+  .content-area h5 {
+    @apply text-base font-semibold text-slate-700 mb-2 mt-3 leading-normal;
+  }
+
+  .content-area p {
+    @apply text-slate-600 leading-relaxed mb-4;
+  }
+
+  .content-area ul,
+  .content-area ol {
+    @apply ml-6 mb-4 space-y-2;
+  }
+
+  .content-area ul li {
+    @apply list-disc text-slate-600 leading-relaxed;
+  }
+
+  .content-area ol li {
+    @apply list-decimal text-slate-600 leading-relaxed;
+  }
+
+  .content-area strong {
+    @apply font-semibold text-slate-900;
+  }
+
+  .content-area em {
+    @apply italic;
+  }
+
+  .content-area code {
+    @apply font-mono text-sm bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded;
+  }
+
+  .content-area pre {
+    @apply bg-slate-800 text-slate-200 p-4 rounded-lg overflow-x-auto mb-4 font-mono text-sm leading-relaxed;
+  }
+
+  .content-area pre code {
+    @apply bg-transparent text-slate-200 p-0;
+  }
+
+  .content-area blockquote {
+    @apply border-l-4 border-slate-300 pl-4 italic text-slate-600 my-4;
+  }
+
+  .content-area hr {
+    @apply border-slate-200 my-8;
+  }
+
+  /* Better spacing for nested elements */
+  .content-area>*+* {
+    @apply mt-4;
+  }
+
+  .content-area>h2+*,
+  .content-area>h3+*,
+  .content-area>h4+* {
+    @apply mt-3;
+  }
+}

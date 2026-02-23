@@ -233,7 +233,7 @@ export default function AIArchitectureGuide() {
         </div>
 
         {/* Content */}
-        <main className="flex-1 px-6 py-11 lg:px-12 max-w-[860px] w-full">
+        <main className="flex-1 px-6 py-11 lg:px-12 max-w-[860px] w-full content-area">
           <NavigationContext.Provider value={{ navigateTo: handleTabClick }}>
             {renderContent()}
           </NavigationContext.Provider>
