@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext } from 'react';
-import { Menu, X, ChevronRight, ChevronLeft, CheckCircle } from 'lucide-react';
+import { Menu, X, ChevronRight, ChevronLeft } from 'lucide-react';
 import { tabGroups, tabs } from './config/tabs';
 
 export const NavigationContext = createContext(null);
@@ -67,7 +67,6 @@ export const NextSectionNav = ({ currentId }) => {
 export default function AIArchitectureGuide() {
   const [activeTab, setActiveTab] = useState('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [completedSections, setCompletedSections] = useState(new Set(['overview', 'mindset']));
 
   const renderContent = () => {
     switch (activeTab) {
@@ -111,7 +110,6 @@ export default function AIArchitectureGuide() {
   const nextTab = tabs[currentTabIndex + 1];
   const prevTab = tabs[currentTabIndex - 1];
   const currentGroup = tabGroups.find(g => g.tabs.some(t => t.id === activeTab));
-  const progressPercent = Math.round((completedSections.size / tabs.length) * 100);
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -138,11 +136,11 @@ export default function AIArchitectureGuide() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-                <span className="text-white text-xl font-bold">🎓</span>
+                <span className="text-white text-xl font-bold">⚡</span>
               </div>
               <div>
                 <h1 className="text-lg font-bold text-gray-900">AI Architecture</h1>
-                <p className="text-xs text-gray-500">Professional Course</p>
+                <p className="text-xs text-gray-500">Implementation Guide</p>
               </div>
             </div>
             <button
@@ -152,23 +150,6 @@ export default function AIArchitectureGuide() {
               <X className="w-5 h-5 text-gray-500" />
             </button>
           </div>
-        </div>
-
-        {/* Progress Overview */}
-        <div className="px-6 py-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-b border-gray-200">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-semibold text-gray-700">Course Progress</span>
-            <span className="text-sm font-bold text-indigo-600">{progressPercent}%</span>
-          </div>
-          <div className="h-2 bg-white rounded-full overflow-hidden shadow-inner">
-            <div
-              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500"
-              style={{ width: `${progressPercent}%` }}
-            />
-          </div>
-          <p className="text-xs text-gray-600 mt-2">
-            {completedSections.size} of {tabs.length} lessons completed
-          </p>
         </div>
 
         {/* Navigation */}
@@ -182,7 +163,6 @@ export default function AIArchitectureGuide() {
                 {group.tabs.map((tab) => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
-                  const isCompleted = completedSections.has(tab.id);
                   return (
                     <button
                       key={tab.id}
@@ -192,17 +172,12 @@ export default function AIArchitectureGuide() {
                         text-sm font-medium transition-all duration-200
                         ${isActive
                           ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md'
-                          : isCompleted
-                            ? 'bg-green-50 text-green-700 hover:bg-green-100'
-                            : 'text-gray-700 hover:bg-gray-100'
+                          : 'text-gray-700 hover:bg-gray-100'
                         }
                       `}
                     >
-                      <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-white' : isCompleted ? 'text-green-600' : 'text-gray-400'}`} />
+                      <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-white' : 'text-gray-400'}`} />
                       <span className="flex-1 text-left truncate">{tab.label}</span>
-                      {isCompleted && !isActive && (
-                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                      )}
                     </button>
                   );
                 })}
@@ -214,7 +189,7 @@ export default function AIArchitectureGuide() {
         {/* Footer */}
         <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 mt-auto">
           <p className="text-xs text-gray-500 text-center">
-            {tabs.length} lessons · ~45 min read
+            {tabs.length} sections · Comprehensive guide
           </p>
           <p className="text-xs text-gray-400 text-center mt-1">
             Built for Leverege Ops Teams
