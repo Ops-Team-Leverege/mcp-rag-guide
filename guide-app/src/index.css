@@ -90,83 +90,136 @@ body {
   animation-delay: 0.15s;
 }
 
-/* Content layer - better typography and spacing */
-@layer base {
+/* Content area typography - using regular CSS instead of @apply */
+.content-area h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
 
-  /* Only style elements that don't have Tailwind classes */
-  .content-area h1 {
-    @apply text-3xl font-bold text-slate-900 mb-6 leading-tight;
-  }
+.content-area h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
 
-  .content-area h2 {
-    @apply text-2xl font-semibold text-slate-900 mb-4 mt-8 leading-tight;
-  }
+.content-area h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+  line-height: 1.375;
+}
 
-  .content-area h3 {
-    @apply text-xl font-semibold text-slate-800 mb-3 mt-6 leading-snug;
-  }
+.content-area h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  line-height: 1.375;
+}
 
-  .content-area h4 {
-    @apply text-lg font-semibold text-slate-800 mb-2 mt-4 leading-snug;
-  }
+.content-area h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.5rem;
+  margin-top: 0.75rem;
+  line-height: 1.5;
+}
 
-  .content-area h5 {
-    @apply text-base font-semibold text-slate-700 mb-2 mt-3 leading-normal;
-  }
+.content-area p {
+  color: #475569;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
 
-  .content-area p {
-    @apply text-slate-600 leading-relaxed mb-4;
-  }
+.content-area ul,
+.content-area ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
 
-  .content-area ul,
-  .content-area ol {
-    @apply ml-6 mb-4 space-y-2;
-  }
+.content-area ul li,
+.content-area ol li {
+  color: #475569;
+  line-height: 1.75;
+  margin-top: 0.5rem;
+}
 
-  .content-area ul li {
-    @apply list-disc text-slate-600 leading-relaxed;
-  }
+.content-area ul li {
+  list-style-type: disc;
+}
 
-  .content-area ol li {
-    @apply list-decimal text-slate-600 leading-relaxed;
-  }
+.content-area ol li {
+  list-style-type: decimal;
+}
 
-  .content-area strong {
-    @apply font-semibold text-slate-900;
-  }
+.content-area strong {
+  font-weight: 600;
+  color: #0f172a;
+}
 
-  .content-area em {
-    @apply italic;
-  }
+.content-area em {
+  font-style: italic;
+}
 
-  .content-area code {
-    @apply font-mono text-sm bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded;
-  }
+.content-area code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  background-color: #f1f5f9;
+  color: #e11d48;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+}
 
-  .content-area pre {
-    @apply bg-slate-800 text-slate-200 p-4 rounded-lg overflow-x-auto mb-4 font-mono text-sm leading-relaxed;
-  }
+.content-area pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
 
-  .content-area pre code {
-    @apply bg-transparent text-slate-200 p-0;
-  }
+.content-area pre code {
+  background-color: transparent;
+  color: #e2e8f0;
+  padding: 0;
+}
 
-  .content-area blockquote {
-    @apply border-l-4 border-slate-300 pl-4 italic text-slate-600 my-4;
-  }
+.content-area blockquote {
+  border-left: 4px solid #cbd5e1;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #475569;
+  margin: 1rem 0;
+}
 
-  .content-area hr {
-    @apply border-slate-200 my-8;
-  }
+.content-area hr {
+  border-color: #e2e8f0;
+  margin: 2rem 0;
+}
 
-  /* Better spacing for nested elements */
-  .content-area>*+* {
-    @apply mt-4;
-  }
+/* Better spacing for nested elements */
+.content-area>*+* {
+  margin-top: 1rem;
+}
 
-  .content-area>h2+*,
-  .content-area>h3+*,
-  .content-area>h4+* {
-    @apply mt-3;
-  }
+.content-area>h2+*,
+.content-area>h3+*,
+.content-area>h4+* {
+  margin-top: 0.75rem;
 }
