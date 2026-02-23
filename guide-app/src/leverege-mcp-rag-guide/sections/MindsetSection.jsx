@@ -14,10 +14,61 @@ export const MindsetSection = () => (
         </Callout>
 
         <ProgressiveSection number="1" title="Before You Build: Do You Actually Need This?" subtitle="The best architecture is the one you don't need to build" defaultOpen={true}>
-            <p className="text-slate-500 mb-4">
-                Run through this checklist honestly. Many teams invest weeks building custom AI systems
-                when simpler solutions would work better.
-            </p>
+            <Callout type="warning" title="The most expensive AI mistakes happen before development starts">
+                When the use case is wrong, not the implementation. Run through this checklist honestly before writing any code.
+            </Callout>
+
+            <h4 className="font-semibold mb-3 mt-4">Don't Build If:</h4>
+            <div className="space-y-3">
+                <Card className="p-5 border-l-4 border-rose-500">
+                    <h5 className="font-semibold text-rose-900 mb-2">The data is static and fits in a document</h5>
+                    <p className="text-sm text-slate-600">
+                        A well-organized wiki, FAQ page, or dashboard is faster, cheaper, and more reliable than an AI system.
+                        If the answer never changes, AI adds no value and introduces unnecessary failure modes.
+                    </p>
+                </Card>
+
+                <Card className="p-5 border-l-4 border-rose-500">
+                    <h5 className="font-semibold text-rose-900 mb-2">There's no ambiguity or reasoning needed</h5>
+                    <p className="text-sm text-slate-600">
+                        If the logic is deterministic — look up a value, run a calculation, filter a list — write code.
+                        AI is for tasks where the answer requires interpretation, synthesis, or judgment that can't be hardcoded.
+                    </p>
+                </Card>
+
+                <Card className="p-5 border-l-4 border-rose-500">
+                    <h5 className="font-semibold text-rose-900 mb-2">You don't know the use cases yet</h5>
+                    <p className="text-sm text-slate-600">
+                        Building before you understand the problem leads to systems that answer the wrong questions well.
+                        Do product discovery first. Talk to the people who will use it. Map the actual questions they ask.
+                    </p>
+                </Card>
+
+                <Card className="p-5 border-l-4 border-rose-500">
+                    <h5 className="font-semibold text-rose-900 mb-2">You have no accuracy requirements</h5>
+                    <p className="text-sm text-slate-600">
+                        If you can't define what "correct" looks like, you can't evaluate, improve, or trust the system.
+                        "It seems good" is not a success criterion.
+                    </p>
+                </Card>
+
+                <Card className="p-5 border-l-4 border-rose-500">
+                    <h5 className="font-semibold text-rose-900 mb-2">You need critical accuracy without human review</h5>
+                    <p className="text-sm text-slate-600">
+                        AI systems make mistakes — always. For high-stakes decisions in medical, legal, financial, or safety-critical contexts,
+                        always design a human review step into the workflow. AI can augment these decisions; it should not make them autonomously.
+                    </p>
+                </Card>
+            </div>
+
+            <Card className="p-6 bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-300 mt-6">
+                <h5 className="font-semibold text-emerald-900 mb-2">The Right Question</h5>
+                <p className="text-slate-700">
+                    The right question isn't "can we use AI?" — it's "does AI make this meaningfully better than the alternative,
+                    and are we prepared to own what happens when it's wrong?"
+                </p>
+            </Card>
+
             <BeforeYouBuildDiagram />
         </ProgressiveSection>
 
@@ -64,51 +115,98 @@ Validation → Answer`}
             </p>
         </ProgressiveSection>
 
-        <ProgressiveSection number="3" title="The Hallucination Problem" subtitle="Why AI makes things up — and how it manifests">
-            <Card className="p-5 bg-amber-50 border-amber-200 mb-4">
-                <div className="flex items-start gap-3">
-                    <AlertTriangle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
-                    <div>
-                        <p className="font-semibold text-amber-900">Hallucinations aren't bugs — they're the default behavior.</p>
-                        <p className="text-sm text-amber-800 mt-1">
-                            LLMs generate statistically likely text. Without guardrails, they will confidently
-                            state things that aren't in your data. This is by design — the model optimizes for
-                            helpfulness, not accuracy.
+        <ProgressiveSection number="3" title="The Hallucination Problem" subtitle="Why AI makes things up — and how to prevent it">
+            <Callout type="danger" title="The fundamental truth">
+                AI models don't retrieve facts — they generate plausible text. A model that sounds confident is not a model that is correct. Understanding how hallucination happens is the first step to preventing it.
+            </Callout>
+
+            <h4 className="font-semibold mb-3 mt-6">Three Hallucination Mechanisms</h4>
+            <div className="space-y-3 mb-6">
+                <Card className="p-5 border-l-4 border-rose-500">
+                    <h5 className="font-semibold text-rose-900 mb-2">1. Gap Filling</h5>
+                    <p className="text-sm text-slate-600 mb-3">
+                        When context is incomplete, models fill the gap with the most statistically plausible continuation.
+                        There is no signal that information is missing — the model simply generates what should be there.
+                    </p>
+                    <div className="bg-rose-50 p-3 rounded-lg text-sm">
+                        <p className="text-slate-700 mb-1"><strong>Example:</strong></p>
+                        <p className="text-slate-600">
+                            Prompt: "What were Q3 results for the APAC region?" — If APAC data is absent from context,
+                            the model may generate plausible-sounding numbers rather than reporting that the data isn't available.
+                            The output looks identical to a grounded response.
                         </p>
                     </div>
-                </div>
-            </Card>
-
-            <h4 className="font-semibold mb-3">Why Hallucinations Happen: The Three Mechanisms</h4>
-            <p className="text-slate-500 mb-4">
-                Before we look at how hallucinations manifest, it helps to understand the underlying mechanisms.
-                These aren't bugs you can fix — they're inherent to how LLMs work.
-            </p>
-            <div className="space-y-3 mb-6">
-                <Card className="p-4 border-l-4 border-rose-400">
-                    <h5 className="font-semibold text-slate-800 mb-1">1. Attention Collapse</h5>
-                    <p className="text-sm text-slate-600">
-                        The model loses track of which part of the context to focus on. When you have 50 meeting transcripts
-                        in context, the model might blend details from multiple meetings or miss the specific one you asked about.
-                    </p>
                 </Card>
 
-                <Card className="p-4 border-l-4 border-rose-400">
-                    <h5 className="font-semibold text-slate-800 mb-1">2. Recency Bias</h5>
-                    <p className="text-sm text-slate-600">
-                        Later tokens in the context get more weight than earlier ones. If the answer is buried at the top
-                        of a long context window, the model might ignore it in favor of more recent (but less relevant) information.
+                <Card className="p-5 border-l-4 border-rose-500">
+                    <h5 className="font-semibold text-rose-900 mb-2">2. Confabulation</h5>
+                    <p className="text-sm text-slate-600 mb-3">
+                        The model invents specific details — names, dates, citations, statistics — with no source material at all,
+                        and expresses them with full confidence. Most dangerous for requests that imply facts should exist.
                     </p>
+                    <div className="bg-rose-50 p-3 rounded-lg text-sm">
+                        <p className="text-slate-700 mb-1"><strong>Example:</strong></p>
+                        <p className="text-slate-600">
+                            Prompt: "Cite three studies on customer churn in SaaS." Without real studies in context,
+                            the model will generate plausible-sounding fake citations. Author names, journal names,
+                            and publication years will all look real.
+                        </p>
+                    </div>
                 </Card>
 
-                <Card className="p-4 border-l-4 border-rose-400">
-                    <h5 className="font-semibold text-slate-800 mb-1">3. Parametric Memory Interference</h5>
-                    <p className="text-sm text-slate-600">
-                        The model's training data conflicts with your retrieved context. If you ask about "Apple's revenue"
-                        and your context says "$100M" but the model was trained on public data saying "$400B", it might
-                        blend the two or favor its training data.
+                <Card className="p-5 border-l-4 border-rose-500">
+                    <h5 className="font-semibold text-rose-900 mb-2">3. Selective Omission and Distortion</h5>
+                    <p className="text-sm text-slate-600 mb-3">
+                        The model softens negatives, loses critical nuance, or drops signals that feel uncomfortable —
+                        particularly in summarization. This is the most insidious form because the output isn't wrong — it's just misleading.
                     </p>
+                    <div className="bg-rose-50 p-3 rounded-lg text-sm">
+                        <p className="text-slate-700 mb-1"><strong>Example:</strong></p>
+                        <p className="text-slate-600">
+                            Source text: "We need this fixed before renewal or we're walking."
+                            Summarized as: "Customer mentioned the renewal timeline."
+                            The sentiment and urgency are gone.
+                        </p>
+                    </div>
                 </Card>
+            </div>
+
+            <h4 className="font-semibold mb-3 mt-6">Prevention Techniques</h4>
+            <div className="overflow-x-auto rounded-xl border border-slate-200">
+                <table className="w-full">
+                    <thead>
+                        <tr className="bg-slate-50">
+                            <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Technique</th>
+                            <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">How to Apply</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className="border-b border-slate-100">
+                            <td className="px-5 py-3 font-semibold text-slate-700">Extractive prompting</td>
+                            <td className="px-5 py-3 text-slate-600">"Answer only using information explicitly stated in the context below."</td>
+                        </tr>
+                        <tr className="border-b border-slate-100">
+                            <td className="px-5 py-3 font-semibold text-slate-700">Citation requirements</td>
+                            <td className="px-5 py-3 text-slate-600">"For every claim, include a direct quote from the source."</td>
+                        </tr>
+                        <tr className="border-b border-slate-100">
+                            <td className="px-5 py-3 font-semibold text-slate-700">Null state instructions</td>
+                            <td className="px-5 py-3 text-slate-600">"If the answer is not present in the context, respond: 'I don't have that information.'"</td>
+                        </tr>
+                        <tr className="border-b border-slate-100">
+                            <td className="px-5 py-3 font-semibold text-slate-700">Temperature = 0</td>
+                            <td className="px-5 py-3 text-slate-600">Reduces randomness for factual retrieval tasks. Not a cure, but reduces variance.</td>
+                        </tr>
+                        <tr className="border-b border-slate-100">
+                            <td className="px-5 py-3 font-semibold text-slate-700">Negative framing protection</td>
+                            <td className="px-5 py-3 text-slate-600">"Do not soften, reframe, or generalize negative statements. Preserve the original tone."</td>
+                        </tr>
+                        <tr>
+                            <td className="px-5 py-3 font-semibold text-slate-700">Self-consistency sampling</td>
+                            <td className="px-5 py-3 text-slate-600">Run the same prompt 3 times with temperature {">"} 0. Flag answers that diverge across runs.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <h4 className="font-semibold mb-3">How Hallucinations Manifest: Common Patterns</h4>

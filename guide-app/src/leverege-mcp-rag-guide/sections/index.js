@@ -17,3 +17,12 @@ export { HybridSearchSection } from './HybridSearchSection';
 export { AIJudgeSection } from './AIJudgeSection';
 export { DeploymentSection } from './DeploymentSection';
 export { PitCrewCaseStudy } from './PitCrewCaseStudy';
+
+// Export pattern sections
+export { RAGPatternSection } from './patterns/RAGPatternSection';
+export { MCPPatternSection } from './patterns/MCPPatternSection';
+export { FineTuningPatternSection } from './patterns/FineTuningPatternSection';
+export { AgenticPatternSection } from './patterns/AgenticPatternSection';
+export { A2APatternSection } from './patterns/A2APatternSection';
+export { ContextEngineeringSection } from './patterns/ContextEngineeringSection';
+export { RouterPatternSection } from './patterns/RouterPatternSection';

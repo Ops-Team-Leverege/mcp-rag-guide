@@ -1,81 +1,9 @@
-/* Enhanced UX Styles */
-
-/* Better section spacing */
-.space-y-3>*+* {
-  margin-top: 0.75rem;
-}
-
-.space-y-4>*+* {
-  margin-top: 1rem;
-}
-
-.space-y-6>*+* {
-  margin-top: 1.5rem;
-}
-
-.space-y-8>*+* {
-  margin-top: 2rem;
-}
-
-.space-y-10>*+* {
-  margin-top: 2.5rem;
-}
-
-/* Better list styling */
-ul:not([class]),
-ol:not([class]) {
-  line-height: 1.8;
-  padding-left: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-li:not([class]) {
-  margin-bottom: 0.5rem;
-}
-
-ul:not([class]) li {
-  list-style-type: disc;
-}
-
-ol:not([class]) li {
-  list-style-type: decimal;
-}
-
-/* Nested lists */
-ul ul,
-ol ul {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Better paragraph spacing */
-p+p {
-  margin-top: 1rem;
-}
-
-p+ul,
-p+ol {
-  margin-top: 0.75rem;
-}
-
-/* Better code blocks */
-pre {
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  padding: 1rem;
-  overflow-x: auto;
-  margin: 1rem 0;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+/* Minimal App-specific styles - most styling is in index.css */
 
 /* Better focus states */
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #4F46E5;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -91,16 +19,4 @@ a:focus-visible {
   body {
     font-size: 12pt;
   }
-}
-
-/* Grid improvements */
-.grid {
-  display: grid;
-}
-
-/* Better transitions */
-* {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }

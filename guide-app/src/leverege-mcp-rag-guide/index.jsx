@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext } from 'react';
-import { Menu, X, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Menu, X, ChevronRight, ChevronLeft, CheckCircle } from 'lucide-react';
 import { tabGroups, tabs } from './config/tabs';
 
 export const NavigationContext = createContext(null);
@@ -22,7 +22,14 @@ import {
   HybridSearchSection,
   AIJudgeSection,
   DeploymentSection,
-  PitCrewCaseStudy
+  PitCrewCaseStudy,
+  RAGPatternSection,
+  MCPPatternSection,
+  FineTuningPatternSection,
+  AgenticPatternSection,
+  A2APatternSection,
+  ContextEngineeringSection,
+  RouterPatternSection
 } from './sections';
 
 // Next Section navigation component
@@ -47,7 +54,7 @@ export const NextSectionNav = ({ currentId }) => {
       {next && (
         <button
           onClick={() => navigateTo(next.id)}
-          className="group flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue text-sm font-semibold text-white hover:bg-blue-hover transition-all"
+          className="group flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 text-sm font-semibold text-white hover:bg-blue-700 transition-all shadow-sm"
         >
           Next section
           <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -71,6 +78,13 @@ export default function AIArchitectureGuide() {
       case 'promptengineering': return <PromptEngineeringSection />;
       case 'modelselection': return <ModelSelectionSection />;
       case 'data': return <DataShapeSection />;
+      case 'pattern-rag': return <RAGPatternSection />;
+      case 'pattern-mcp': return <MCPPatternSection />;
+      case 'pattern-finetuning': return <FineTuningPatternSection />;
+      case 'pattern-agentic': return <AgenticPatternSection />;
+      case 'pattern-a2a': return <A2APatternSection />;
+      case 'pattern-context': return <ContextEngineeringSection />;
+      case 'pattern-router': return <RouterPatternSection />;
       case 'architecture': return <ArchitectureSection />;
       case 'decisions': return <DecisionsSection />;
       case 'mvppath': return <MVPPathSection />;
@@ -100,75 +114,95 @@ export default function AIArchitectureGuide() {
   const progressPercent = Math.round((completedSections.size / tabs.length) * 100);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Dark Sidebar */}
+      {/* Sidebar Navigation */}
       <aside
         className={`
-          fixed lg:sticky top-0 left-0 h-screen
-          w-sidebar bg-sidebar-bg overflow-y-auto z-50
+          fixed lg:relative top-0 left-0 h-screen
+          w-72 bg-white border-r border-gray-200 overflow-y-auto z-50
           transition-transform duration-300 ease-in-out sidebar
+          flex-shrink-0 shadow-lg lg:shadow-none
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
         {/* Brand */}
-        <div className="px-[18px] pt-[22px] pb-[18px] border-b border-white/[0.07]">
-          <div className="flex items-center gap-2.5 mb-1">
-            <div className="w-7 h-7 bg-blue rounded-lg flex items-center justify-center text-[13px] flex-shrink-0">
-              🧠
+        <div className="px-6 py-5 border-b border-gray-200 bg-white sticky top-0 z-10">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+                <span className="text-white text-xl font-bold">🎓</span>
+              </div>
+              <div>
+                <h1 className="text-lg font-bold text-gray-900">AI Architecture</h1>
+                <p className="text-xs text-gray-500">Professional Course</p>
+              </div>
             </div>
-            <span className="text-[13.5px] font-bold text-white tracking-tight">
-              AI Architecture Guide
-            </span>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden ml-auto text-slate-400 hover:text-white"
+              className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5 text-gray-500" />
             </button>
-          </div>
-          <div className="text-[11px] text-slate-500 pl-[38px]">
-            Building Production AI Systems
           </div>
         </div>
 
-        {/* Navigation */}
-        <nav>
-          {tabGroups.map((group, groupIndex) => (
+        {/* Progress Overview */}
+        <div className="px-6 py-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-b border-gray-200">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-semibold text-gray-700">Course Progress</span>
+            <span className="text-sm font-bold text-indigo-600">{progressPercent}%</span>
+          </div>
+          <div className="h-2 bg-white rounded-full overflow-hidden shadow-inner">
             <div
-              key={groupIndex}
-              className={`pt-7 ${groupIndex > 0 ? 'border-t border-white/[0.05] mt-1' : ''}`}
-            >
-              <h3 className="text-[10px] font-bold tracking-[0.11em] uppercase text-slate-400 px-[18px] pb-2">
+              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+          <p className="text-xs text-gray-600 mt-2">
+            {completedSections.size} of {tabs.length} lessons completed
+          </p>
+        </div>
+
+        {/* Navigation */}
+        <nav className="py-4">
+          {tabGroups.map((group, groupIndex) => (
+            <div key={groupIndex} className="mb-6">
+              <h3 className="text-xs font-bold tracking-wider uppercase text-gray-500 px-6 mb-3">
                 {group.title}
               </h3>
-              <div>
+              <div className="space-y-1 px-3">
                 {group.tabs.map((tab) => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
+                  const isCompleted = completedSections.has(tab.id);
                   return (
                     <button
                       key={tab.id}
                       onClick={() => handleTabClick(tab.id)}
                       className={`
-                        w-full flex items-center gap-[9px] px-[18px] py-[9.5px]
-                        text-[13px] font-medium transition-all duration-150
-                        border-l-[3px]
+                        w-full flex items-center gap-3 px-3 py-3 rounded-lg
+                        text-sm font-medium transition-all duration-200
                         ${isActive
-                          ? 'bg-blue/20 text-white border-blue'
-                          : 'text-[#C9CDD6] hover:text-white hover:bg-white/5 border-transparent'
+                          ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md'
+                          : isCompleted
+                            ? 'bg-green-50 text-green-700 hover:bg-green-100'
+                            : 'text-gray-700 hover:bg-gray-100'
                         }
                       `}
                     >
-                      <Icon className={`w-[15px] h-[15px] flex-shrink-0 ${isActive ? 'opacity-100' : 'opacity-45'}`} />
-                      <span>{tab.label}</span>
+                      <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-white' : isCompleted ? 'text-green-600' : 'text-gray-400'}`} />
+                      <span className="flex-1 text-left truncate">{tab.label}</span>
+                      {isCompleted && !isActive && (
+                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                      )}
                     </button>
                   );
                 })}
@@ -177,67 +211,83 @@ export default function AIArchitectureGuide() {
           ))}
         </nav>
 
-        {/* Footer with Progress */}
-        <div className="mt-auto px-[18px] py-[14px] border-t border-white/[0.07] text-[11px] text-slate-500">
-          <div>{tabs.length} sections · ~45 min read</div>
-          <div className="mt-[7px] h-[3px] bg-white/[0.08] rounded-full overflow-hidden">
-            <div
-              className="h-full bg-blue rounded-full transition-all duration-300"
-              style={{ width: `${progressPercent}%` }}
-            />
-          </div>
-          <div className="mt-[5px] text-[10.5px]">
-            {completedSections.size} of {tabs.length} completed
-          </div>
+        {/* Footer */}
+        <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 mt-auto">
+          <p className="text-xs text-gray-500 text-center">
+            {tabs.length} lessons · ~45 min read
+          </p>
+          <p className="text-xs text-gray-400 text-center mt-1">
+            Built for Leverege Ops Teams
+          </p>
         </div>
       </aside>
 
       {/* Main Content Area */}
       <div className="flex-1 min-w-0 flex flex-col">
-        {/* Topbar */}
-        <div className="sticky top-0 z-30 h-topbar bg-white border-b border-slate-200 flex items-center px-11 gap-3">
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="lg:hidden p-2 hover:bg-slate-100 rounded-lg transition-colors -ml-2"
-          >
-            <Menu className="w-5 h-5 text-slate-600" />
-          </button>
+        {/* Top Navigation Bar */}
+        <header className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+          <div className="flex items-center justify-between px-6 py-4">
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <Menu className="w-6 h-6 text-gray-600" />
+            </button>
 
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-[7px] text-[12.5px]">
-            <span className="text-slate-400">{currentGroup?.title || 'Guide'}</span>
-            <span className="text-slate-300">›</span>
-            <span className="text-slate-700 font-semibold">{currentTab?.label || 'Overview'}</span>
-          </div>
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-gray-500">{currentGroup?.title || 'Guide'}</span>
+              <span className="text-gray-300">›</span>
+              <span className="text-gray-900 font-semibold">{currentTab?.label || 'Overview'}</span>
+            </div>
 
-          {/* Navigation buttons */}
-          <div className="ml-auto flex gap-2">
-            {prevTab && (
-              <button
-                onClick={() => handleTabClick(prevTab.id)}
-                className="px-4 py-[6px] text-[13px] font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-slate-400 hover:text-slate-900 transition-all"
-              >
-                ← Previous
-              </button>
-            )}
-            {nextTab && (
-              <button
-                onClick={() => handleTabClick(nextTab.id)}
-                className="px-4 py-[6px] text-[13px] font-semibold rounded-lg bg-blue text-white hover:bg-blue-hover transition-all"
-              >
-                Next section →
-              </button>
-            )}
+            {/* Navigation buttons */}
+            <div className="flex gap-2">
+              {prevTab && (
+                <button
+                  onClick={() => handleTabClick(prevTab.id)}
+                  className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-all"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
+                </button>
+              )}
+              {nextTab && (
+                <button
+                  onClick={() => handleTabClick(nextTab.id)}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md"
+                >
+                  Next Lesson
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           </div>
-        </div>
+        </header>
 
         {/* Content */}
-        <main className="flex-1 px-6 py-11 lg:px-12 max-w-[860px] w-full content-area">
-          <NavigationContext.Provider value={{ navigateTo: handleTabClick }}>
-            {renderContent()}
-          </NavigationContext.Provider>
+        <main className="flex-1 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-16 lg:py-16">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 px-8 py-12 sm:px-12 sm:py-14 lg:px-20 lg:py-16">
+              <NavigationContext.Provider value={{ navigateTo: handleTabClick }}>
+                {renderContent()}
+              </NavigationContext.Provider>
+            </div>
+          </div>
         </main>
+
+        {/* Footer */}
+        <footer className="bg-white border-t border-gray-200 py-6 px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-sm text-gray-600">
+              © 2024 Leverege AI Architecture Guide
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              Professional training for production AI systems
+            </p>
+          </div>
+        </footer>
       </div>
     </div>
   );

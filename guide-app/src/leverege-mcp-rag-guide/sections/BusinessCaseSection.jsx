@@ -3,13 +3,17 @@ import { Card, Callout, ProgressiveSection, ComparisonTable, DiagramBox } from '
 import { NextSectionNav } from '../index';
 
 export const BusinessCaseSection = () => (
-    <div className="space-y-8">
-        <h2 className="text-2xl font-semibold text-slate-900">Start With the Business Case</h2>
+    <div className="space-y-12">
+        <div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">Start With the Business Case</h2>
+        </div>
 
         <Callout type="danger" title="The Most Common Mistake">
-            Building AI solutions without knowing what questions you need answered.
-            Without a clear business case, you're just building a commercial AI wrapper —
-            expensive, unfocused, and unlikely to deliver value.
+            <p className="text-lg leading-relaxed">
+                Building AI solutions without knowing what questions you need answered.
+                Without a clear business case, you're just building a commercial AI wrapper —
+                expensive, unfocused, and unlikely to deliver value.
+            </p>
         </Callout>
 
         <ProgressiveSection number="1" title="Why Business Case First?" subtitle="Technology serves the question, not the other way around" defaultOpen={true}>

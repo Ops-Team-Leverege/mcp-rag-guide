@@ -22,20 +22,20 @@ export const PitCrewCaseStudy = () => {
 
                 <div className="grid md:grid-cols-4 gap-4 mt-6">
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                        <div className="text-2xl font-semibold">8</div>
+                        <div className="text-2xl font-semibold">7</div>
                         <div className="text-sm text-blue-200">Intent Types</div>
                     </div>
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                        <div className="text-2xl font-semibold">30+</div>
+                        <div className="text-2xl font-semibold">22</div>
                         <div className="text-sm text-blue-200">Contracts</div>
                     </div>
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                        <div className="text-2xl font-semibold">4-15s</div>
-                        <div className="text-sm text-blue-200">Response Time</div>
+                        <div className="text-2xl font-semibold">8-10s</div>
+                        <div className="text-sm text-blue-200">Avg Response</div>
                     </div>
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
                         <div className="text-2xl font-semibold">10</div>
-                        <div className="text-sm text-blue-200">Active Users</div>
+                        <div className="text-sm text-blue-200">Concurrent Users</div>
                     </div>
                 </div>
             </div>
@@ -83,16 +83,24 @@ const HighLevelOverview = () => (
         <div>
             <h2 className="text-2xl font-semibold text-slate-900 mb-4">What PitCrew Does</h2>
             <p className="text-slate-600 mb-4">
-                PitCrew helps sales teams get answers from their meeting transcripts without digging through recordings.
-                A rep can ask "What did the Costco team say about their IT infrastructure timeline?" or "Draft a follow-up
-                email for the MegaCorp call" and get a grounded, cited answer in seconds — accessible via a web dashboard
-                or directly in Slack (PitCrew Sauce).
+                PitCrew transforms customer conversations into searchable business insights. Sales teams can ask
+                "What did the Costco team say about their IT infrastructure timeline?" or "Draft a follow-up
+                email for the MegaCorp call" and get grounded, cited answers in seconds — accessible via a web dashboard
+                or directly in Slack through @mentions and DMs.
             </p>
-            <p className="text-slate-600">
+            <p className="text-slate-600 mb-4">
                 The system processes uploaded meeting transcripts, extracts structured intelligence at ingestion time
                 (Q&A pairs, action items, product insights), and surfaces that information through a conversational
                 interface backed by RAG and intent-aware routing.
             </p>
+            <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                <p className="text-sm font-semibold text-slate-900 mb-2">Multi-Interface Access:</p>
+                <ul className="text-sm text-slate-600 space-y-1">
+                    <li>• Web Dashboard: React/TypeScript with transcript upload, search, and organization</li>
+                    <li>• Slack Bot: @mentions in channels, DMs, thread conversations, and document generation</li>
+                    <li>• Real-time processing with streaming responses and citations</li>
+                </ul>
+            </div>
         </div>
 
         {/* Why They Built It */}
@@ -182,17 +190,21 @@ const HighLevelOverview = () => (
           v
 +---------------------+
 |  Slack Integration  |
-|  Validates, deduplicates, acknowledges, resolves thread context
+|  /api/slack/events webhook
+|  - Signature verification & deduplication
+|  - Immediate 200 ACK (< 1s)
+|  - "Thinking..." acknowledgment with progress updates
+|  - Thread context resolution
 +---------------------+
           |
           v
 +---------------------+
 |   Decision Layer    |
-|  The single source of truth for all routing decisions
+|  Single source of truth for routing (immutable once set)
 |                     |
-|  1. Classify intent |  LLM-only, deterministic (temp=0)
-|  2. Gate data access|  Boolean flags: which sources are allowed
-|  3. Select contract |  LLM proposes execution strategy
+|  1. Classify intent |  gpt-4o at temp=0 (deterministic)
+|  2. Gate data access|  Boolean context layer flags
+|  3. Select contract |  LLM proposes execution strategy (22 contracts)
 +---------------------+
           |
           v
@@ -207,19 +219,24 @@ const HighLevelOverview = () => (
 |  Execution Layer    |
 |  Runs the contract. Never re-classifies intent.
 |                     |
-|  SINGLE_MEETING  -> |  Structured artifacts -> semantic search -> full transcript
-|  MULTI_MEETING   -> |  Q&A pairs fallback or full cross-transcript search + synthesis
-|  PRODUCT_KNOWLEDGE->|  PostgreSQL product tables (synced daily from Airtable)
-|  EXTERNAL_RESEARCH->|  Gemini web search with citations
+|  SINGLE_MEETING  -> |  Single Meeting Orchestrator (helpers/handlers/index)
+|                     |  Structured artifacts -> semantic search -> full transcript
+|  MULTI_MEETING   -> |  Open Assistant Handler
+|                     |  Q&A pairs fallback or full cross-transcript search + synthesis
+|  PRODUCT_KNOWLEDGE->|  PostgreSQL product tables (synced from Airtable)
+|  EXTERNAL_RESEARCH->|  Gemini web search -> chains to SALES_DOCS_PREP
 |  SLACK_SEARCH    -> |  Slack search.messages API
-|  GENERAL_HELP    -> |  Direct to gemini-2.5-flash (primary), no retrieval
+|  GENERAL_HELP    -> |  Direct to gemini-2.5-flash, no retrieval
 |  CLARIFY         -> |  Returns clarification message, no execution
 +---------------------+
           |
           v
 +---------------------+
 | Response Delivery   |
-|  Streaming, document generation, source attribution, feedback
+|  - Streaming responses with citations
+|  - Markdown formatter (Slack/Word compatible)
+|  - Document generation (Word files)
+|  - Source attribution & feedback
 +---------------------+`}
                 </pre>
             </Card>
@@ -235,11 +252,11 @@ const HighLevelOverview = () => (
                         </thead>
                         <tbody className="divide-y divide-slate-200">
                             <tr><td className="px-4 py-2">Acknowledgment ("thinking...")</td><td className="px-4 py-2">{"< 1 second"}</td></tr>
-                            <tr><td className="px-4 py-2">Decision Layer</td><td className="px-4 py-2">1–2 seconds</td></tr>
+                            <tr><td className="px-4 py-2">Decision Layer (intent + contract)</td><td className="px-4 py-2">1–2 seconds</td></tr>
                             <tr><td className="px-4 py-2">Meeting Resolution (when needed)</td><td className="px-4 py-2">~1.5 seconds</td></tr>
                             <tr><td className="px-4 py-2">Q&A pairs fallback (when triggered)</td><td className="px-4 py-2">~0.5 seconds</td></tr>
-                            <tr><td className="px-4 py-2">Response generation</td><td className="px-4 py-2">2–10 seconds</td></tr>
-                            <tr className="bg-slate-50 font-semibold"><td className="px-4 py-2">Total</td><td className="px-4 py-2">4–15 seconds</td></tr>
+                            <tr><td className="px-4 py-2">Response generation + streaming</td><td className="px-4 py-2">4–8 seconds</td></tr>
+                            <tr className="bg-slate-50 font-semibold"><td className="px-4 py-2">Total (Average)</td><td className="px-4 py-2">8–10 seconds</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -252,7 +269,8 @@ const HighLevelOverview = () => (
             <p className="text-slate-600 mb-4">
                 PitCrew classifies every message into one of seven intents using an LLM call (gpt-4o, temperature=0).
                 There are no keyword fast-paths — they were removed because they degraded accuracy on edge cases and
-                created maintenance burden as user language varied.
+                created maintenance burden as user language varied. The classifier also extracts semantic metadata
+                and proposes the execution contract in the same call for coherence.
             </p>
             <div className="overflow-x-auto">
                 <table className="w-full text-sm border border-slate-200">
@@ -490,6 +508,44 @@ const HighLevelOverview = () => (
                         question has a better experience than one that hits a dead end.
                     </p>
                 </Card>
+                <Card className="p-5 bg-indigo-50 border-l-4 border-indigo-500">
+                    <h3 className="font-semibold text-indigo-900 mb-2">Contract chaining for complex workflows</h3>
+                    <p className="text-sm text-slate-600">
+                        Some intents chain contracts together. EXTERNAL_RESEARCH must chain to SALES_DOCS_PREP to format
+                        findings for sales use. MEETING_SUMMARY can chain to GENERAL_RESPONSE for follow-up synthesis.
+                        This keeps individual contracts focused while enabling complex workflows.
+                    </p>
+                </Card>
+            </div>
+        </div>
+
+        {/* Contract Breakdown */}
+        <div>
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">Contract Breakdown (22 Total)</h2>
+            <p className="text-slate-600 mb-4">
+                Each contract defines a specific execution strategy with clear constraints and expected outputs.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+                <Card className="p-4 bg-blue-50 border-l-4 border-blue-500">
+                    <p className="font-semibold text-blue-900 mb-2">Single Meeting (6)</p>
+                    <p className="text-sm text-slate-600">MEETING_SUMMARY, NEXT_STEPS, ATTENDEES, CUSTOMER_QUESTIONS, EXTRACTIVE_FACT, MEETING_HELP</p>
+                </Card>
+                <Card className="p-4 bg-purple-50 border-l-4 border-purple-500">
+                    <p className="font-semibold text-purple-900 mb-2">Multi-Meeting (5)</p>
+                    <p className="text-sm text-slate-600">PATTERN_ANALYSIS, COMPARISON, TREND_SUMMARY, CROSS_MEETING_QUESTIONS, MULTI_MEETING_HELP</p>
+                </Card>
+                <Card className="p-4 bg-green-50 border-l-4 border-green-500">
+                    <p className="font-semibold text-green-900 mb-2">Product Knowledge (4)</p>
+                    <p className="text-sm text-slate-600">PRODUCT_EXPLANATION, PRODUCT_HELP, FEATURE_VERIFICATION, FAQ_ANSWER</p>
+                </Card>
+                <Card className="p-4 bg-amber-50 border-l-4 border-amber-500">
+                    <p className="font-semibold text-amber-900 mb-2">External & Slack (3)</p>
+                    <p className="text-sm text-slate-600">EXTERNAL_RESEARCH, SALES_DOCS_PREP, SLACK_MESSAGE_SEARCH</p>
+                </Card>
+                <Card className="p-4 bg-red-50 border-l-4 border-red-500">
+                    <p className="font-semibold text-red-900 mb-2">General & Terminal (4)</p>
+                    <p className="text-sm text-slate-600">GENERAL_RESPONSE, NOT_FOUND, REFUSE, CLARIFY</p>
+                </Card>
             </div>
         </div>
 
@@ -649,6 +705,22 @@ const HighLevelOverview = () => (
                             Cross-meeting came later.</p>
                     </div>
                 </Card>
+
+                <Card className="p-5 border-l-4 border-indigo-500">
+                    <h3 className="font-semibold text-indigo-900 mb-2">6. Per-Contract Model Selection</h3>
+                    <p className="text-sm text-slate-600 mb-3">
+                        <strong>Principle:</strong> Different contracts need different models for optimal cost/quality.
+                    </p>
+                    <p className="text-sm text-slate-500 mb-2">
+                        Single-meeting extractive contracts use gemini-2.5-flash (fast, cheap). External research uses
+                        gemini-3-pro-preview (better web reasoning). Each contract specifies its optimal model via
+                        CONTRACT_MODELS registry.
+                    </p>
+                    <div className="bg-indigo-50 p-3 rounded-lg text-sm">
+                        <p className="text-indigo-900"><strong>Implementation:</strong> Unified LLM client routes to OpenAI,
+                            Google, or Anthropic based on model name. No vendor lock-in.</p>
+                    </div>
+                </Card>
             </div>
         </div>
 
@@ -732,16 +804,24 @@ const OpsReference = () => (
     index.ts                     runDecisionLayer() -- orchestrates all three stages
     intent.ts                    Stage 1: LLM intent classification + semantic extraction
     contextLayers.ts             Stage 2: Context layer flag computation
-    answerContracts.ts           Stage 3: Contract selection and constraint definition
+    answerContracts.ts           Stage 3: Contract selection (22 contracts)
   meetingResolver.ts             Meeting resolution (SINGLE_MEETING + MULTI_MEETING only)
-  singleMeeting/
-    index.ts                     executeSingleMeetingContract()
   openAssistant/
+    singleMeeting/
+      helpers.ts                 Data access helpers for single meeting
+      handlers.ts                Contract-specific handlers
+      index.ts                   Single Meeting Orchestrator entry point
     openAssistantHandler.ts      handleOpenAssistant() -- MULTI_MEETING, GENERAL_HELP, SLACK_SEARCH
                                  handleProductKnowledgeIntent() -- PRODUCT_KNOWLEDGE
-  externalResearch.ts            handleExternalResearch() -- Gemini web search
+  externalResearch.ts            handleExternalResearch() -- Gemini web search (chains to SALES_DOCS_PREP)
   slackSearchHandler.ts          handleSlackSearch() -- Slack search.messages API
   threadResolver.ts              Thread context resolution
+  llm/
+    client.ts                    Unified LLM client (OpenAI, Google, Anthropic)
+  config/
+    models.ts                    CONTRACT_MODELS registry for per-contract model assignment
+  utils/
+    markdownFormatter.ts         Converts ### to bold for Slack/Word compatibility
   routes.ts                      processTranscriptInBackground() -- ingestion pipeline`}
                 </pre>
             </Card>
@@ -797,36 +877,82 @@ const OpsReference = () => (
                 </Card>
             </div>
 
-            <div className="mt-6">
-                <h3 className="font-semibold text-slate-900 mb-3">Ops Failure Modes</h3>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm border border-slate-200">
-                        <thead className="bg-slate-100">
-                            <tr>
-                                <th className="px-4 py-3 text-left font-semibold border-b">Symptom</th>
-                                <th className="px-4 py-3 text-left font-semibold border-b">Cause</th>
-                                <th className="px-4 py-3 text-left font-semibold border-b">Fix</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-200">
-                            <tr>
-                                <td className="px-4 py-3">Bot responds twice</td>
-                                <td className="px-4 py-3">Deduplication key mismatch or store reset</td>
-                                <td className="px-4 py-3">Check key construction in events.ts</td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-3">Bot doesn't respond at all</td>
-                                <td className="px-4 py-3">Handler not returning 200 within 3s, or event lost</td>
-                                <td className="px-4 py-3">Check webhook logs; verify async processing is firing</td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-3">"Thinking..." never updates</td>
-                                <td className="px-4 py-3">Placeholder message_ts not passed through to delivery</td>
-                                <td className="px-4 py-3">Trace message_ts from acknowledgment to delivery step</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div className="space-y-3">
+                <Card className="p-4 border-l-4 border-blue-500">
+                    <p className="font-semibold text-blue-900 mb-1">1. Signature verification</p>
+                    <p className="text-sm text-slate-600">
+                        Validates the Slack signing secret on every request. Rejects anything that fails. This is SSRF protection.
+                    </p>
+                </Card>
+                <Card className="p-4 border-l-4 border-purple-500">
+                    <p className="font-semibold text-purple-900 mb-1">2. Deduplication</p>
+                    <p className="text-sm text-slate-600">
+                        Composite key: event_id + client_msg_id + message timestamp. If the key exists, the event is dropped
+                        silently and 200 is returned. Do not remove this.
+                    </p>
+                </Card>
+                <Card className="p-4 border-l-4 border-green-500">
+                    <p className="font-semibold text-green-900 mb-1">3. Bot/edit filtering</p>
+                    <p className="text-sm text-slate-600">
+                        Drops messages from bot users and message edit events. Prevents the bot from responding to itself.
+                    </p>
+                </Card>
+                <Card className="p-4 border-l-4 border-amber-500">
+                    <p className="font-semibold text-amber-900 mb-1">4. Immediate 200 ACK</p>
+                    <p className="text-sm text-slate-600">
+                        Returns 200 before any processing starts. All downstream work is async. If your handler fails to
+                        return 200 within 3 seconds, Slack marks delivery failed and retries.
+                    </p>
+                </Card>
+                <Card className="p-4 border-l-4 border-red-500">
+                    <p className="font-semibold text-red-900 mb-1">5. "Thinking..." acknowledgment</p>
+                    <p className="text-sm text-slate-600">
+                        Posts a placeholder to the thread within ~1 second. A progress timer updates it every 2–3 seconds
+                        if generation is slow.
+                    </p>
+                </Card>
+                <Card className="p-4 border-l-4 border-indigo-500">
+                    <p className="font-semibold text-indigo-900 mb-1">6. Thread context resolution</p>
+                    <p className="text-sm text-slate-600">
+                        Fetches full thread history for replies, enabling follow-up questions to inherit context from
+                        earlier in the conversation.
+                    </p>
+                </Card>
+                <Card className="p-4 border-l-4 border-pink-500">
+                    <p className="font-semibold text-pink-900 mb-1">7. Streaming responses & document generation</p>
+                    <p className="text-sm text-slate-600">
+                        Responses stream to Slack with citations. For complex requests, the system can generate Word documents
+                        with formatted content using the markdown formatter utility.
+                    </p>
+                </Card>
+            </div>
+            <div className="overflow-x-auto">
+                <table className="w-full text-sm border border-slate-200">
+                    <thead className="bg-slate-100">
+                        <tr>
+                            <th className="px-4 py-3 text-left font-semibold border-b">Symptom</th>
+                            <th className="px-4 py-3 text-left font-semibold border-b">Cause</th>
+                            <th className="px-4 py-3 text-left font-semibold border-b">Fix</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200">
+                        <tr>
+                            <td className="px-4 py-3">Bot responds twice</td>
+                            <td className="px-4 py-3">Deduplication key mismatch or store reset</td>
+                            <td className="px-4 py-3">Check key construction in events.ts</td>
+                        </tr>
+                        <tr>
+                            <td className="px-4 py-3">Bot doesn't respond at all</td>
+                            <td className="px-4 py-3">Handler not returning 200 within 3s, or event lost</td>
+                            <td className="px-4 py-3">Check webhook logs; verify async processing is firing</td>
+                        </tr>
+                        <tr>
+                            <td className="px-4 py-3">"Thinking..." never updates</td>
+                            <td className="px-4 py-3">Placeholder message_ts not passed through to delivery</td>
+                            <td className="px-4 py-3">Trace message_ts from acknowledgment to delivery step</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -991,5 +1117,5 @@ const OpsReference = () => (
                 </Card>
             </div>
         </div>
-    </div>
+    </div >
 );

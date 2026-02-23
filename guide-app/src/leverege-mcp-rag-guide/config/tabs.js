@@ -1,4 +1,4 @@
-import { Target, Brain, Users, BookOpen, Database, Layers, GitBranch, Code, Cloud, Zap, Settings, Gauge, FileText, Sparkles, Bug, DollarSign, Box, TestTube, Search, Scale } from 'lucide-react';
+import { Target, Brain, Users, BookOpen, Database, Layers, GitBranch, Code, Cloud, Zap, Settings, Gauge, FileText, Sparkles, Bug, DollarSign, Box, TestTube, Search, Scale, Network, Cpu, Workflow, GitMerge, MessageSquare, Blocks } from 'lucide-react';
 
 export const tabGroups = [
   {
@@ -12,16 +12,28 @@ export const tabGroups = [
   {
     title: "Concepts",
     tabs: [
-      { id: 'concepts', label: 'Core Concepts', icon: BookOpen },
+      { id: 'concepts', label: 'Pattern Overview', icon: BookOpen },
       { id: 'promptengineering', label: 'Prompt Engineering', icon: Sparkles },
       { id: 'modelselection', label: 'Model Selection', icon: DollarSign },
       { id: 'data', label: 'Data Shape', icon: Database },
     ]
   },
   {
-    title: "Architecture",
+    title: "Architecture Patterns",
     tabs: [
-      { id: 'architecture', label: 'Architecture Patterns', icon: Layers },
+      { id: 'pattern-rag', label: 'RAG', icon: Search },
+      { id: 'pattern-mcp', label: 'MCP', icon: Network },
+      { id: 'pattern-finetuning', label: 'Fine-Tuning', icon: Cpu },
+      { id: 'pattern-agentic', label: 'Agentic AI', icon: Workflow },
+      { id: 'pattern-a2a', label: 'A2A', icon: GitMerge },
+      { id: 'pattern-context', label: 'Context Engineering', icon: MessageSquare },
+      { id: 'pattern-router', label: 'Router Pattern', icon: GitBranch },
+    ]
+  },
+  {
+    title: "Implementation",
+    tabs: [
+      { id: 'architecture', label: 'System Architecture', icon: Layers },
       { id: 'decisions', label: 'When to Use What', icon: GitBranch },
       { id: 'mvppath', label: 'The MVP Path', icon: Zap },
       { id: 'implementation', label: 'Implementation', icon: Code },

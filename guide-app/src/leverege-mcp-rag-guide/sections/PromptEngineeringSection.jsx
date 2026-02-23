@@ -305,103 +305,145 @@ AUTHORITY RULES:
                 </Callout>
             </ProgressiveSection>
 
-            <ProgressiveSection number="9" title="Model-Specific Behavior" subtitle="Claude, GPT, and others behave differently">
+            <ProgressiveSection number="9" title="Adapt Your Prompt to the Model You're Using" subtitle="The most critical production lesson: prompts don't transfer between models">
+                <Callout type="danger" title="The hard truth">
+                    A prompt that works perfectly on one model will not reliably work on another. This isn't a quirk — it's a fundamental property of how different models were trained and aligned.
+                </Callout>
+
                 <p className="text-slate-600 mb-4">
-                    Different models have different strengths, weaknesses, and quirks. What works for Claude might not work for GPT-4.
+                    When you switch models (to save cost, increase speed, or improve quality), your prompts need re-testing and likely re-tuning.
+                    Don't assume your prompts transfer. Benchmark scores don't predict task-specific performance with your data and your prompts.
                 </p>
 
-                <div className="space-y-4">
-                    <Card className="p-5 border-l-4 border-indigo-400">
-                        <h5 className="font-semibold text-indigo-900 mb-2">Claude (Anthropic)</h5>
-                        <div className="grid md:grid-cols-2 gap-3 text-sm">
-                            <div>
-                                <p className="font-semibold text-slate-700 mb-1">Strengths:</p>
-                                <ul className="text-slate-600 space-y-1 text-xs">
-                                    <li>{"• Excellent at following complex instructions"}</li>
-                                    <li>{"• Strong refusal behavior (says \"I don't know\" well)"}</li>
-                                    <li>{"• Good at structured output (JSON, XML)"}</li>
-                                    <li>{"• Longer context windows (200K+)"}</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p className="font-semibold text-slate-700 mb-1">Quirks:</p>
-                                <ul className="text-slate-600 space-y-1 text-xs">
-                                    <li>{"• Prefers XML tags over markdown for structure"}</li>
-                                    <li>{"• More verbose by default"}</li>
-                                    <li>{"• Better with explicit role definitions"}</li>
-                                </ul>
-                            </div>
+                <Card className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300 border-l-4">
+                    <h4 className="font-semibold text-amber-900 mb-3">Real Production Example: Claude vs Gemini</h4>
+                    <p className="text-slate-700 mb-3">
+                        In direct side-by-side comparisons on a complex document generation task with identical prompts and context:
+                    </p>
+                    <div className="space-y-3">
+                        <div className="bg-white/60 p-4 rounded-lg">
+                            <p className="font-semibold text-slate-800 mb-1">Claude Opus</p>
+                            <p className="text-sm text-slate-600">
+                                Consistently incorporated all enumerated instructions, including late-conversation refinements and scope constraints.
+                                Treated the prompt as a complete spec and executed against every line.
+                            </p>
                         </div>
-                    </Card>
-
-                    <Card className="p-5 border-l-4 border-green-400">
-                        <h5 className="font-semibold text-green-900 mb-2">GPT-4 (OpenAI)</h5>
-                        <div className="grid md:grid-cols-2 gap-3 text-sm">
-                            <div>
-                                <p className="font-semibold text-slate-700 mb-1">Strengths:</p>
-                                <ul className="text-slate-600 space-y-1 text-xs">
-                                    <li>{"• Strong general knowledge"}</li>
-                                    <li>{"• Good at creative tasks"}</li>
-                                    <li>{"• Function calling is well-developed"}</li>
-                                    <li>{"• Faster inference (generally)"}</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p className="font-semibold text-slate-700 mb-1">Quirks:</p>
-                                <ul className="text-slate-600 space-y-1 text-xs">
-                                    <li>{"• More likely to hallucinate confidently"}</li>
-                                    <li>{"• Needs stronger grounding instructions"}</li>
-                                    <li>{"• Shorter context windows (128K)"}</li>
-                                    <li>{"• Can be overly helpful (guesses instead of refusing)"}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </Card>
-
-                    <Card className="p-5 border-l-4 border-purple-400">
-                        <h5 className="font-semibold text-purple-900 mb-2">Gemini (Google)</h5>
-                        <div className="grid md:grid-cols-2 gap-3 text-sm">
-                            <div>
-                                <p className="font-semibold text-slate-700 mb-1">Strengths:</p>
-                                <ul className="text-slate-600 space-y-1 text-xs">
-                                    <li>{"• Multimodal (text, images, video)"}</li>
-                                    <li>{"• Very long context (1M+ tokens)"}</li>
-                                    <li>{"• Good at code generation"}</li>
-                                    <li>{"• Fast inference"}</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <p className="font-semibold text-slate-700 mb-1">Quirks:</p>
-                                <ul className="text-slate-600 space-y-1 text-xs">
-                                    <li>{"• Less consistent with structured output"}</li>
-                                    <li>{"• Instruction following can be weaker"}</li>
-                                    <li>{"• Better for search/retrieval than reasoning"}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </Card>
-                </div>
-
-                <Card className="p-5 bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-200 mt-4">
-                    <div className="flex items-start gap-3">
-                        <Zap className="w-6 h-6 text-amber-600 flex-shrink-0" />
-                        <div>
-                            <h5 className="font-semibold text-amber-900 mb-1">Practical Advice</h5>
-                            <p className="text-sm text-amber-800">
-                                Don't optimize prompts for one model and assume they'll work for another. Test your prompts
-                                across models if you plan to switch. Claude needs more explicit structure, GPT needs stronger
-                                grounding, Gemini needs simpler instructions.
+                        <div className="bg-white/60 p-4 rounded-lg">
+                            <p className="font-semibold text-slate-800 mb-1">Gemini Pro</p>
+                            <p className="text-sm text-slate-600">
+                                Followed the primary instruction well but dropped several secondary refinements — not because it couldn't execute them,
+                                but because its defaults weight primary intent more heavily than enumerated sub-requirements.
                             </p>
                         </div>
                     </div>
+                    <p className="text-sm text-amber-800 mt-3 italic">
+                        Neither is wrong. They reflect different training choices. The implication: a prompt with 12 explicit sub-requirements
+                        engineered for Claude may need restructuring for Gemini — fewer items, integrated as prose rather than a numbered list.
+                    </p>
                 </Card>
 
-                <div className="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-lg">
-                    <p className="text-sm text-slate-600">
-                        <strong>Temperature behavior also varies:</strong> Temperature=0 on Claude is more deterministic than
-                        temperature=0 on GPT-4. If you need true determinism, test with the same input multiple times.
-                    </p>
+                <h4 className="font-semibold text-slate-800 mt-6 mb-3">Model Behavior at a Glance</h4>
+                <div className="overflow-x-auto rounded-xl border border-slate-200">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="bg-slate-50">
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Dimension</th>
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">GPT-4o</th>
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Claude</th>
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Gemini</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 font-semibold text-slate-700">Instruction following</td>
+                                <td className="px-5 py-3 text-slate-600">Literal — does exactly what you say, nothing more</td>
+                                <td className="px-5 py-3 text-slate-600">Inferential — fills gaps with judgment</td>
+                                <td className="px-5 py-3 text-slate-600">Intent-first — primary ask over sub-requirements</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 font-semibold text-slate-700">Chain-of-thought</td>
+                                <td className="px-5 py-3 text-slate-600">Responds well to explicit step instructions</td>
+                                <td className="px-5 py-3 text-slate-600">Reasons extensively by default</td>
+                                <td className="px-5 py-3 text-slate-600">Moderate</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 font-semibold text-slate-700">Context window</td>
+                                <td className="px-5 py-3 text-slate-600">128K</td>
+                                <td className="px-5 py-3 text-slate-600">200K</td>
+                                <td className="px-5 py-3 text-slate-600">1M+</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 font-semibold text-slate-700">Refusal behavior</td>
+                                <td className="px-5 py-3 text-slate-600">Conservative on edge cases</td>
+                                <td className="px-5 py-3 text-slate-600">Nuanced, context-sensitive</td>
+                                <td className="px-5 py-3 text-slate-600">Variable</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 font-semibold text-slate-700">JSON output reliability</td>
+                                <td className="px-5 py-3 text-slate-600">Strong with function calling</td>
+                                <td className="px-5 py-3 text-slate-600">Strong with direct instruction</td>
+                                <td className="px-5 py-3 text-slate-600">Moderate</td>
+                            </tr>
+                            <tr>
+                                <td className="px-5 py-3 font-semibold text-slate-700">Long context recall</td>
+                                <td className="px-5 py-3 text-slate-600">Degrades at high utilization</td>
+                                <td className="px-5 py-3 text-slate-600">Degrades at high utilization</td>
+                                <td className="px-5 py-3 text-slate-600">Degrades at high utilization</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+
+                <h4 className="font-semibold text-slate-800 mt-6 mb-3">How to Adapt When Switching Models</h4>
+                <div className="space-y-3">
+                    <Card className="p-5 border-l-4 border-blue-500">
+                        <h5 className="font-semibold text-blue-900 mb-2">GPT-4o → Claude</h5>
+                        <p className="text-slate-600 text-sm mb-2">
+                            You can be less exhaustively explicit. Claude infers reasonable behavior from context.
+                        </p>
+                        <div className="bg-blue-50 p-3 rounded text-xs">
+                            <p className="text-blue-800">
+                                <strong>Warning:</strong> Over-specifying can produce rigid, unnatural outputs with Claude.
+                            </p>
+                        </div>
+                    </Card>
+
+                    <Card className="p-5 border-l-4 border-emerald-500">
+                        <h5 className="font-semibold text-emerald-900 mb-2">Claude → GPT-4o</h5>
+                        <p className="text-slate-600 text-sm mb-2">
+                            Be more literal. State every requirement explicitly. GPT-4o will do exactly what you say and nothing more.
+                        </p>
+                        <div className="bg-emerald-50 p-3 rounded text-xs">
+                            <p className="text-emerald-800">
+                                <strong>Key insight:</strong> This is a feature, not a bug — but it requires complete instructions.
+                            </p>
+                        </div>
+                    </Card>
+
+                    <Card className="p-5 border-l-4 border-purple-500">
+                        <h5 className="font-semibold text-purple-900 mb-2">Either → Gemini</h5>
+                        <p className="text-slate-600 text-sm mb-2">
+                            Reduce the number of numbered sub-requirements. Gemini handles primary intent well but can drop secondary constraints on long lists.
+                        </p>
+                        <div className="bg-purple-50 p-3 rounded text-xs">
+                            <p className="text-purple-800">
+                                <strong>Best practice:</strong> Reduce to the 3–5 most critical requirements and integrate the rest as prose.
+                            </p>
+                        </div>
+                    </Card>
+
+                    <Card className="p-5 border-l-4 border-rose-500">
+                        <h5 className="font-semibold text-rose-900 mb-2">Any Switch</h5>
+                        <p className="text-slate-600 text-sm">
+                            Re-run your golden set before deploying a prompt developed on a different model. Never assume transfer.
+                        </p>
+                    </Card>
+                </div>
+
+                <Callout type="success" title="The production rule">
+                    Treat model switching like a deployment event. Test your prompts on the new model with your golden set before going live.
+                    Budget time for prompt re-tuning — it's not optional.
+                </Callout>
             </ProgressiveSection>
 
             <ProgressiveSection number="10" title="The Fine-Tuning Trap" subtitle="Why most teams don't need it">
