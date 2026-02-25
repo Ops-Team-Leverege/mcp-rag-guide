@@ -713,18 +713,48 @@ Do not use information from your training data. Cite the specific document ID fo
                 </Callout>
             </ProgressiveSection>
 
+            <NextSectionNav currentSection="Prompt Engineering" />
+
             <div className="mt-8 pt-6 border-t border-slate-200">
-                <h3 className="text-lg font-semibold text-slate-800 mb-3">Sources & Further Reading</h3>
-                <div className="space-y-2 text-sm text-slate-600">
-                    <p>• <a href="https://www.anthropic.com/index/claude-prompt-engineering" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Anthropic Prompt Engineering Guide</a></p>
-                    <p>• <a href="https://platform.openai.com/docs/guides/prompt-engineering" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">OpenAI Prompt Engineering Guide</a></p>
-                    <p>• <a href="https://ai.google.dev/gemini-api/docs/prompting-intro" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Google Gemini Prompting Guide</a></p>
-                    <p>• <a href="https://arxiv.org/abs/2201.11903" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Chain-of-Thought Prompting (Wei et al., 2022)</a></p>
-                    <p>• <a href="https://arxiv.org/abs/2005.14165" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Language Models are Few-Shot Learners (Brown et al., 2020)</a></p>
+                <h3 className="text-lg font-semibold text-slate-800 mb-3">Sources</h3>
+                <p className="text-slate-600 text-sm mb-4">
+                    For readers who want to go deeper into model-specific prompting guidance, the official documentation from each company is the most reliable and up-to-date reference:
+                </p>
+                <div className="space-y-3">
+                    <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <p className="text-sm text-slate-700">
+                            <strong>Anthropic — Prompt engineering overview:</strong>{' '}
+                            <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                                docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview
+                            </a>
+                        </p>
+                    </div>
+                    <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <p className="text-sm text-slate-700">
+                            <strong>OpenAI — GPT-5 prompting guide:</strong>{' '}
+                            <a href="https://developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                                developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide
+                            </a>
+                        </p>
+                    </div>
+                    <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <p className="text-sm text-slate-700">
+                            <strong>OpenAI — GPT-5.1 prompting guide:</strong>{' '}
+                            <a href="https://developers.openai.com/cookbook/examples/gpt-5/gpt-5-1_prompting_guide" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                                developers.openai.com/cookbook/examples/gpt-5/gpt-5-1_prompting_guide
+                            </a>
+                        </p>
+                    </div>
+                    <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <p className="text-sm text-slate-700">
+                            <strong>Google — Gemini API prompt design strategies:</strong>{' '}
+                            <a href="https://ai.google.dev/gemini-api/docs/prompting-strategies" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                                ai.google.dev/gemini-api/docs/prompting-strategies
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
-
-            <NextSectionNav currentSection="Prompt Engineering" />
         </div>
     );
 };
