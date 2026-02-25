@@ -536,7 +536,7 @@ const HighLevelOverview = () => (
                     {
                         paradigm: "MCP",
                         decision: "⚠️ Exposure only",
-                        reasoning: "Available for Claude Desktop / Cursor. Slack uses Router — can't have LLM picking random tools for customers",
+                        reasoning: "In progress — MCP server being developed for Claude Desktop / Cursor integration",
                         color: "amber"
                     },
                     {
