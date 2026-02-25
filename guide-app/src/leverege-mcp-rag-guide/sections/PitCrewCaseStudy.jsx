@@ -18,7 +18,7 @@ export const PitCrewCaseStudy = () => {
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-4 mt-6">
+                <div className="grid md:grid-cols-2 gap-4 mt-6">
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
                         <div className="text-2xl font-semibold">7</div>
                         <div className="text-sm text-blue-200">Intent Types</div>
@@ -26,10 +26,6 @@ export const PitCrewCaseStudy = () => {
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
                         <div className="text-2xl font-semibold">22</div>
                         <div className="text-sm text-blue-200">Contracts</div>
-                    </div>
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                        <div className="text-2xl font-semibold">8-10s</div>
-                        <div className="text-sm text-blue-200">Avg Response</div>
                     </div>
                 </div>
             </div>
