@@ -292,6 +292,101 @@ export const MCPPatternSection = () => (
             </div>
         </ProgressiveSection>
 
+        <ProgressiveSection number="7" title="The Access Scope Problem" subtitle="What MCP doesn't solve">
+            <Callout type="warning" title="The most commonly misunderstood limitation">
+                MCP defines how to connect. It doesn't define what flows through the wire. Access control is entirely
+                outside MCP's scope — it's your responsibility to build inside the server.
+            </Callout>
+
+            <div className="mt-6 space-y-4">
+                <Card className="p-6 bg-blue-50 border-blue-200">
+                    <h4 className="font-semibold text-blue-900 mb-3">The USB-C Analogy Extended</h4>
+                    <p className="text-gray-700 mb-3">
+                        USB-C defines how to connect. It doesn't define what flows through the wire. A USB-C port doesn't know
+                        if it should deliver 5W or 100W — that negotiation happens separately, outside the connector standard itself.
+                        You can plug in a laptop charger or a phone charger and the port accepts both without question.
+                    </p>
+                    <p className="text-gray-700">
+                        MCP works the same way. The protocol handles discovery and invocation — how the agent finds your tools
+                        and calls them. It says nothing about what data those tools are allowed to return, or to whom.
+                    </p>
+                </Card>
+
+                <Card className="p-6 bg-rose-50 border-rose-200">
+                    <h4 className="font-semibold text-rose-900 mb-3">What This Means in Practice</h4>
+                    <p className="text-gray-700 mb-3">
+                        When you give an agent access to a Slack MCP server, it gets access to <strong>everything</strong> that
+                        server's credentials can see — every channel, every DM, every message the underlying token has permission to read.
+                    </p>
+                    <p className="text-gray-700 mb-3">
+                        MCP has no built-in mechanism to say "this agent can only see #sales." There's no query-level scoping
+                        in the protocol itself.
+                    </p>
+                    <div className="bg-white p-4 rounded-lg text-sm">
+                        <p className="text-gray-700 mb-2"><strong>The same is true for any broad integration:</strong></p>
+                        <ul className="space-y-1 text-gray-600">
+                            <li>• CRM access → agent can read all customer records, not just the ones relevant to the current task</li>
+                            <li>• Google Drive → agent can access all files the OAuth token allows, not just the folder you intended</li>
+                            <li>• Database tool → agent can run any query the connection string permits, not just the query you designed it for</li>
+                        </ul>
+                    </div>
+                </Card>
+
+                <Card className="p-6 bg-amber-50 border-amber-200">
+                    <h4 className="font-semibold text-amber-900 mb-3">This Isn't a Bug in MCP</h4>
+                    <p className="text-gray-700">
+                        It's a correct observation about what the protocol is and isn't. MCP standardizes the interface.
+                        Scoping is your responsibility to build inside the server.
+                    </p>
+                </Card>
+
+                <Card className="p-6 bg-emerald-50 border-emerald-200">
+                    <h4 className="font-semibold text-emerald-900 mb-3">The Fix: Narrow Tools, Not Broad Access</h4>
+                    <p className="text-gray-700 mb-4">
+                        The mitigation is tool design, not protocol configuration. Instead of:
+                    </p>
+                    <div className="bg-white p-4 rounded-lg mb-4">
+                        <code className="text-sm text-rose-600">search_slack(query: string) → Message[]</code>
+                        <p className="text-xs text-gray-500 mt-1">// searches everything</p>
+                    </div>
+                    <p className="text-gray-700 mb-2">Build:</p>
+                    <div className="bg-white p-4 rounded-lg space-y-2">
+                        <div>
+                            <code className="text-sm text-emerald-600">search_sales_channel(query: string) → Message[]</code>
+                            <p className="text-xs text-gray-500">// searches #sales only</p>
+                        </div>
+                        <div>
+                            <code className="text-sm text-emerald-600">search_customer_threads(company: string) → Message[]</code>
+                            <p className="text-xs text-gray-500">// scoped to a company</p>
+                        </div>
+                    </div>
+                    <p className="text-gray-700 mt-4">
+                        Each tool uses a token or query that's scoped to exactly what it needs. The agent can only access
+                        what the tool exposes — and the tool only exposes what it should.
+                    </p>
+                </Card>
+
+                <Card className="p-6 border-l-4 border-indigo-500">
+                    <h4 className="font-semibold text-indigo-900 mb-3">Least-Privilege Tool Design</h4>
+                    <p className="text-gray-700 mb-3">
+                        Least-privilege tool design isn't optional hygiene. It's the primary mechanism for access control
+                        in MCP systems. If you skip it, you're trusting that the agent will never be prompted — accidentally
+                        or adversarially — to ask for data it shouldn't have.
+                    </p>
+                    <div className="bg-indigo-50 p-4 rounded-lg">
+                        <p className="text-sm text-indigo-900 mb-2"><strong>Practical rules for production:</strong></p>
+                        <ul className="space-y-2 text-sm text-indigo-800">
+                            <li>• One OAuth token per purpose, not one token for everything</li>
+                            <li>• Name tools after what they should do, not what they technically can do — this also helps the agent use them correctly</li>
+                            <li>• If a tool could return sensitive data outside its intended scope, it's too broad — split it</li>
+                            <li>• Log every tool invocation with the inputs received — this is your audit trail when something goes wrong</li>
+                            <li>• Test adversarially: prompt your agent to ask for something it shouldn't be able to get, and verify the tool design stops it</li>
+                        </ul>
+                    </div>
+                </Card>
+            </div>
+        </ProgressiveSection>
+
         <div className="rounded-xl bg-gradient-to-r from-slate-800 to-indigo-900 text-white p-8">
             <h3 className="font-semibold text-xl mb-4">🎯 The Bottom Line</h3>
             <div className="space-y-3 text-lg leading-relaxed">

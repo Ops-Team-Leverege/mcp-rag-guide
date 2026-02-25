@@ -284,20 +284,23 @@ else:
         {/* Comparison */}
         <section className="space-y-6">
             <h3 className="text-3xl font-bold text-gray-900">Router vs. Other Patterns</h3>
+            <p className="text-gray-600 mb-4">
+                <em>Note: Cost figures are approximate and illustrative. Verify current pricing before making architectural decisions.</em>
+            </p>
             <ComparisonTable
-                headers={['Pattern', 'LLM Calls per Request', 'Latency', 'Cost', 'Best For']}
+                headers={['Pattern', 'LLM Calls per Request', 'Latency', 'Cost (approx)', 'Best For']}
                 rows={[
-                    ['Router', '1', '~500ms', '$0.001', 'Finite intents, deterministic actions'],
-                    ['RAG', '1-2', '1-2s', '$0.01', 'Knowledge retrieval + generation'],
-                    ['Agentic', '5-15', '5-30s', '$0.10', 'Complex multi-step reasoning'],
-                    ['Fine-tuned', '1', '~300ms', '$0.05', 'Specialized tasks with training data']
+                    ['Router', '1', '~500ms', '~$0.001', 'Finite intents, deterministic actions'],
+                    ['RAG', '1-2', '1-2s', '~$0.01', 'Knowledge retrieval + generation'],
+                    ['Agentic', '5-15', '5-30s', '~$0.10', 'Complex multi-step reasoning'],
+                    ['Fine-tuned', '1', '~300ms', '~$0.05', 'Specialized tasks with training data']
                 ]}
             />
         </section>
 
         {/* Real-World Example */}
         <section className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900">Real-World Example</h3>
+            <h3 className="text-3xl font-bold text-gray-900">Real-World Example (Illustrative)</h3>
             <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
                 <h4 className="text-xl font-semibold text-gray-900 mb-4">E-commerce Support Bot</h4>
                 <p className="text-lg text-gray-700 leading-relaxed mb-4">
@@ -317,15 +320,16 @@ else:
                 <ul className="space-y-2 text-lg text-gray-700">
                     <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> 92% classification accuracy</li>
                     <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> Average response time: 800ms (vs 8s with previous agentic approach)</li>
-                    <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> Cost per interaction: $0.002 (vs $0.08 with agentic)</li>
+                    <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> Significant cost reduction per interaction</li>
                     <li className="flex gap-2"><span className="text-green-600 font-bold">✓</span> 78% of requests fully automated (no human handoff needed)</li>
                 </ul>
             </div>
         </section>
 
-        <Callout type="success" title="Start Here for Production Systems">
+        <Callout type="success" title="A Strong Starting Point">
             <p className="text-lg leading-relaxed">
-                The Router Pattern is often the best starting point for production AI systems. It's fast, cheap, reliable, and easy to debug. Start with routing, then add RAG or agentic capabilities only where needed. Many successful AI products are 80% router, 15% RAG, 5% agentic.
+                The Router Pattern is a strong starting point when your intent space is finite and predictable. It's fast, cheap, reliable, and easy to debug.
+                Start with routing, then add RAG or agentic capabilities only where needed. Many successful AI products are 80% router, 15% RAG, 5% agentic.
             </p>
         </Callout>
 

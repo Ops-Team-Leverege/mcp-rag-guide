@@ -5,7 +5,7 @@ import { NextSectionNav } from '../index';
 export const BusinessCaseSection = () => (
     <div className="space-y-12">
         <div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">Start With the Business Case</h2>
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Start With the Business Case</h2>
         </div>
 
         <Callout type="danger" title="The Most Common Mistake">
@@ -122,7 +122,156 @@ export const BusinessCaseSection = () => (
             </DiagramBox>
         </ProgressiveSection>
 
-        <ProgressiveSection number="4" title="Anti-Patterns to Avoid" subtitle="Signs you don't have a real business case">
+        <ProgressiveSection number="4" title="Build vs. Buy Decision Framework" subtitle="When to use off-the-shelf vs. building custom">
+            <p className="text-slate-600 mb-4">
+                Every team faces this decision: use a managed RAG product, an AI platform, or build on raw APIs?
+                The calculus involves maintenance burden, customization needs, data sensitivity, and iteration speed.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+                <Card className="bg-emerald-50 border-emerald-200">
+                    <h4 className="font-semibold text-emerald-800 mb-2">Use Off-the-Shelf When:</h4>
+                    <ul className="text-sm text-emerald-700 space-y-1">
+                        <li>{"• Generic use case (chat with docs)"}</li>
+                        <li>{"• No proprietary data concerns"}</li>
+                        <li>{"• Speed to market matters most"}</li>
+                        <li>{"• Limited engineering resources"}</li>
+                        <li>{"• Standard workflows suffice"}</li>
+                    </ul>
+                </Card>
+
+                <Card className="bg-sky-50 border-sky-200">
+                    <h4 className="font-semibold text-sky-800 mb-2">Build Custom When:</h4>
+                    <ul className="text-sm text-sky-700 space-y-1">
+                        <li>{"• Specific business logic required"}</li>
+                        <li>{"• Data sensitivity/compliance needs"}</li>
+                        <li>{"• Need full control over behavior"}</li>
+                        <li>{"• Integration with existing systems"}</li>
+                        <li>{"• Cost optimization at scale"}</li>
+                    </ul>
+                </Card>
+
+                <Card className="bg-violet-50 border-violet-200">
+                    <h4 className="font-semibold text-violet-800 mb-2">Hybrid Approach:</h4>
+                    <ul className="text-sm text-violet-700 space-y-1">
+                        <li>{"• Start with managed platform"}</li>
+                        <li>{"• Validate use case and ROI"}</li>
+                        <li>{"• Build custom when limits hit"}</li>
+                        <li>{"• Keep infrastructure managed"}</li>
+                        <li>{"• Focus engineering on differentiation"}</li>
+                    </ul>
+                </Card>
+            </div>
+
+            <Callout type="insight" title="The real cost">
+                The API cost is just the beginning. Factor in evaluation infrastructure, prompt engineering time,
+                monitoring, re-prompting when models update, and human review queues. Teams routinely underestimate
+                total cost of ownership by 3-5x.
+            </Callout>
+        </ProgressiveSection>
+
+        <ProgressiveSection number="5" title="Total Cost of Ownership" subtitle="Beyond API costs">
+            <p className="text-slate-600 mb-4">
+                Most teams focus on API call costs but miss the larger picture. Here's what actually drives TCO:
+            </p>
+
+            <div className="space-y-3">
+                <Card className="border-l-4 border-l-blue-400">
+                    <h4 className="font-semibold text-blue-800 mb-2">Evaluation Infrastructure</h4>
+                    <p className="text-sm text-slate-600">
+                        Golden sets, AI-as-a-judge systems, human review queues. Building and maintaining these
+                        costs more than the LLM calls themselves.
+                    </p>
+                </Card>
+
+                <Card className="border-l-4 border-l-purple-400">
+                    <h4 className="font-semibold text-purple-800 mb-2">Prompt Engineering Time</h4>
+                    <p className="text-sm text-slate-600">
+                        Iterating on prompts, testing edge cases, tuning for each model. This is ongoing work,
+                        not a one-time setup cost.
+                    </p>
+                </Card>
+
+                <Card className="border-l-4 border-l-amber-400">
+                    <h4 className="font-semibold text-amber-800 mb-2">Monitoring & Observability</h4>
+                    <p className="text-sm text-slate-600">
+                        Logging every request, tracking quality metrics, alerting on degradation. Essential for
+                        production but often underestimated.
+                    </p>
+                </Card>
+
+                <Card className="border-l-4 border-l-rose-400">
+                    <h4 className="font-semibold text-rose-800 mb-2">Model Updates & Re-prompting</h4>
+                    <p className="text-sm text-slate-600">
+                        When providers update models, your prompts may break. Budget for regression testing and
+                        re-tuning with every model version change.
+                    </p>
+                </Card>
+
+                <Card className="border-l-4 border-l-green-400">
+                    <h4 className="font-semibold text-green-800 mb-2">Human Review Queues</h4>
+                    <p className="text-sm text-slate-600">
+                        For high-stakes decisions, humans review AI outputs. The cost of reviewers often exceeds
+                        the cost of the AI system itself.
+                    </p>
+                </Card>
+            </div>
+
+            <Card className="bg-amber-50 border-amber-200 mt-4">
+                <p className="text-amber-800 font-medium">
+                    Rule of thumb: If your API costs are $1000/month, budget $3000-5000/month total when you include
+                    engineering time, infrastructure, and operations.
+                </p>
+            </Card>
+        </ProgressiveSection>
+
+        <ProgressiveSection number="6" title="When to Stop" subtitle="Knowing when to kill or rebuild">
+            <p className="text-slate-600 mb-4">
+                Teams often iterate indefinitely on underperforming AI features without a clear decision framework.
+                Here's how to know when to stop.
+            </p>
+
+            <div className="space-y-4">
+                <Card className="bg-rose-50 border-rose-200">
+                    <h4 className="font-semibold text-rose-800 mb-2">Kill the Feature When:</h4>
+                    <ul className="text-sm text-rose-700 space-y-1">
+                        <li>{"• Accuracy below 70% after 3 months of iteration"}</li>
+                        <li>{"• Users actively avoid using it"}</li>
+                        <li>{"• Cost per valuable interaction exceeds manual process"}</li>
+                        <li>{"• Hallucinations create trust issues"}</li>
+                        <li>{"• The business case was wrong (users don't need this)"}</li>
+                    </ul>
+                </Card>
+
+                <Card className="bg-amber-50 border-amber-200">
+                    <h4 className="font-semibold text-amber-800 mb-2">Rebuild from Scratch When:</h4>
+                    <ul className="text-sm text-amber-700 space-y-1">
+                        <li>{"• Data quality is the bottleneck (garbage in, garbage out)"}</li>
+                        <li>{"• Wrong pattern choice (should have used SQL, not RAG)"}</li>
+                        <li>{"• Chunking strategy fundamentally broken"}</li>
+                        <li>{"• Prompt engineering can't fix architectural issues"}</li>
+                    </ul>
+                </Card>
+
+                <Card className="bg-emerald-50 border-emerald-200">
+                    <h4 className="font-semibold text-emerald-800 mb-2">Keep Iterating When:</h4>
+                    <ul className="text-sm text-emerald-700 space-y-1">
+                        <li>{"• Accuracy improving month-over-month"}</li>
+                        <li>{"• Users report value despite imperfections"}</li>
+                        <li>{"• Clear path to next improvement"}</li>
+                        <li>{"• Cost trending down as you optimize"}</li>
+                    </ul>
+                </Card>
+            </div>
+
+            <Callout type="warning" title="The sunk cost trap">
+                Engineering teams keep iterating because they've already invested time. Business teams need a
+                clear accuracy floor and timeline. If you can't hit 80% accuracy in 6 months, the use case
+                may not be viable with current technology.
+            </Callout>
+        </ProgressiveSection>
+
+        <ProgressiveSection number="7" title="Anti-Patterns to Avoid" subtitle="Signs you don't have a real business case">
             <div className="grid md:grid-cols-2 gap-3">
                 {[
                     { bad: '"Let users ask anything about the data"', why: "Too vague. Users won't know what to ask.", better: "Define the 10 questions users actually need" },

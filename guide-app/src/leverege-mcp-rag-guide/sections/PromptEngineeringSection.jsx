@@ -343,58 +343,267 @@ AUTHORITY RULES:
                 </Card>
 
                 <h4 className="font-semibold text-slate-800 mt-6 mb-3">Model Behavior at a Glance</h4>
+                <p className="text-sm text-slate-600 mb-3">
+                    Comparing current frontier models on dimensions that matter for production prompt engineering. Prices verified February 2026.
+                </p>
                 <div className="overflow-x-auto rounded-xl border border-slate-200">
                     <table className="w-full">
                         <thead>
                             <tr className="bg-slate-50">
                                 <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Dimension</th>
-                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">GPT-4o</th>
-                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Claude</th>
-                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Gemini</th>
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">GPT-5 / GPT-5.1</th>
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Claude Sonnet 4.6</th>
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Gemini 2.5 Pro</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr className="border-b border-slate-100">
                                 <td className="px-5 py-3 font-semibold text-slate-700">Instruction following</td>
-                                <td className="px-5 py-3 text-slate-600">Literal — does exactly what you say, nothing more</td>
-                                <td className="px-5 py-3 text-slate-600">Inferential — fills gaps with judgment</td>
-                                <td className="px-5 py-3 text-slate-600">Intent-first — primary ask over sub-requirements</td>
+                                <td className="px-5 py-3 text-slate-600">Surgical — follows every instruction literally, including contradictory ones</td>
+                                <td className="px-5 py-3 text-slate-600">Inferential — fills reasonable gaps with judgment</td>
+                                <td className="px-5 py-3 text-slate-600">Intent-first — handles primary instruction well; can drop secondary constraints on long lists</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 font-semibold text-slate-700">Instruction density</td>
+                                <td className="px-5 py-3 text-slate-600">Complete, non-contradictory prompts required — conflicts hurt more</td>
+                                <td className="px-5 py-3 text-slate-600">Fewer explicit instructions needed; over-specifying produces rigid output</td>
+                                <td className="px-5 py-3 text-slate-600">Integrate secondary requirements as prose; reduce to 3–5 critical requirements</td>
                             </tr>
                             <tr className="border-b border-slate-100">
                                 <td className="px-5 py-3 font-semibold text-slate-700">Chain-of-thought</td>
-                                <td className="px-5 py-3 text-slate-600">Responds well to explicit step instructions</td>
-                                <td className="px-5 py-3 text-slate-600">Reasons extensively by default</td>
-                                <td className="px-5 py-3 text-slate-600">Moderate</td>
+                                <td className="px-5 py-3 text-slate-600">Responds well to explicit CoT instructions; reasoning_effort parameter controls depth</td>
+                                <td className="px-5 py-3 text-slate-600">Reasons extensively by default; often doesn't need explicit "think step by step"</td>
+                                <td className="px-5 py-3 text-slate-600">Strong with CoT; "explanation-first" prompting significantly boosts performance</td>
                             </tr>
                             <tr className="border-b border-slate-100">
-                                <td className="px-5 py-3 font-semibold text-slate-700">Context window</td>
-                                <td className="px-5 py-3 text-slate-600">128K</td>
-                                <td className="px-5 py-3 text-slate-600">200K</td>
-                                <td className="px-5 py-3 text-slate-600">1M+</td>
+                                <td className="px-5 py-3 font-semibold text-slate-700">Verbosity control</td>
+                                <td className="px-5 py-3 text-slate-600">verbosity API parameter (low / medium / high); prompt-level overrides respected</td>
+                                <td className="px-5 py-3 text-slate-600">Managed well through direct instruction</td>
+                                <td className="px-5 py-3 text-slate-600">Requires explicit "Be concise" in prompt; "Minimize prose" alone is not sufficient</td>
                             </tr>
                             <tr className="border-b border-slate-100">
-                                <td className="px-5 py-3 font-semibold text-slate-700">Refusal behavior</td>
-                                <td className="px-5 py-3 text-slate-600">Conservative on edge cases</td>
-                                <td className="px-5 py-3 text-slate-600">Nuanced, context-sensitive</td>
-                                <td className="px-5 py-3 text-slate-600">Variable</td>
-                            </tr>
-                            <tr className="border-b border-slate-100">
-                                <td className="px-5 py-3 font-semibold text-slate-700">JSON output reliability</td>
-                                <td className="px-5 py-3 text-slate-600">Strong with function calling</td>
+                                <td className="px-5 py-3 font-semibold text-slate-700">JSON / structured output</td>
+                                <td className="px-5 py-3 text-slate-600">Strong with function calling and responseSchema</td>
                                 <td className="px-5 py-3 text-slate-600">Strong with direct instruction</td>
-                                <td className="px-5 py-3 text-slate-600">Moderate</td>
+                                <td className="px-5 py-3 text-slate-600">Strong with responseSchema parameter (July 2025+); use for automated pipelines</td>
                             </tr>
-                            <tr>
+                            <tr className="border-b border-slate-100">
                                 <td className="px-5 py-3 font-semibold text-slate-700">Long context recall</td>
                                 <td className="px-5 py-3 text-slate-600">Degrades at high utilization</td>
                                 <td className="px-5 py-3 text-slate-600">Degrades at high utilization</td>
-                                <td className="px-5 py-3 text-slate-600">Degrades at high utilization</td>
+                                <td className="px-5 py-3 text-slate-600">Degrades at high utilization; "needle in haystack" retrieval stronger than earlier versions</td>
+                            </tr>
+                            <tr>
+                                <td className="px-5 py-3 font-semibold text-slate-700">Sycophancy</td>
+                                <td className="px-5 py-3 text-slate-600">Significantly reduced vs GPT-4o (14.5% → {"<"}6% on targeted evals)</td>
+                                <td className="px-5 py-3 text-slate-600">Low by default</td>
+                                <td className="px-5 py-3 text-slate-600">Variable</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <h4 className="font-semibold text-slate-800 mt-6 mb-3">How to Adapt When Switching Models</h4>
+                <Card className="bg-amber-50 border-amber-200 mt-4">
+                    <p className="font-semibold text-amber-800 mb-2">Key production lesson not in the previous table:</p>
+                    <p className="text-sm text-amber-700">
+                        Contradictions hurt more in smarter models. GPT-5 and Claude Sonnet 4.6 follow instructions with higher fidelity than earlier models —
+                        which means a prompt with conflicting instructions causes the model to expend reasoning tokens searching for a way to reconcile them,
+                        rather than picking one at random. Prompt consistency now matters as much as prompt completeness. Before deploying, audit your system
+                        prompt for any instructions that could conflict under edge cases.
+                    </p>
+                </Card>
+
+                <h4 className="font-semibold text-slate-800 mt-6 mb-3">Sources</h4>
+                <p className="text-sm text-slate-600 mb-3">
+                    For readers who want to go deeper into model-specific prompting guidance, the official documentation from each company
+                    is the most reliable and up-to-date reference:
+                </p>
+                <div className="space-y-2">
+                    <Card className="bg-slate-50 border-slate-200 p-3">
+                        <p className="text-sm">
+                            <strong className="text-slate-800">Anthropic — Prompt engineering overview:</strong>{" "}
+                            <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview"
+                                target="_blank" rel="noopener noreferrer"
+                                className="text-blue-600 hover:underline">
+                                docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview
+                            </a>
+                        </p>
+                    </Card>
+                    <Card className="bg-slate-50 border-slate-200 p-3">
+                        <p className="text-sm">
+                            <strong className="text-slate-800">OpenAI — GPT-5 prompting guide:</strong>{" "}
+                            <a href="https://developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide"
+                                target="_blank" rel="noopener noreferrer"
+                                className="text-blue-600 hover:underline">
+                                developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide
+                            </a>
+                        </p>
+                    </Card>
+                    <Card className="bg-slate-50 border-slate-200 p-3">
+                        <p className="text-sm">
+                            <strong className="text-slate-800">OpenAI — GPT-5.1 prompting guide:</strong>{" "}
+                            <a href="https://developers.openai.com/cookbook/examples/gpt-5/gpt-5-1_prompting_guide"
+                                target="_blank" rel="noopener noreferrer"
+                                className="text-blue-600 hover:underline">
+                                developers.openai.com/cookbook/examples/gpt-5/gpt-5-1_prompting_guide
+                            </a>
+                        </p>
+                    </Card>
+                    <Card className="bg-slate-50 border-slate-200 p-3">
+                        <p className="text-sm">
+                            <strong className="text-slate-800">Google — Gemini API prompt design strategies:</strong>{" "}
+                            <a href="https://ai.google.dev/gemini-api/docs/prompting-strategies"
+                                target="_blank" rel="noopener noreferrer"
+                                className="text-blue-600 hover:underline">
+                                ai.google.dev/gemini-api/docs/prompting-strategies
+                            </a>
+                        </p>
+                    </Card>
+                </div>
+            </ProgressiveSection>
+
+            <ProgressiveSection number="10" title="Built-in Guardrails — What You Still Need to Prompt For" subtitle="Understanding what's automatic and what's not">
+                <p className="text-slate-600 mb-4">
+                    Modern frontier models have alignment and safety baked into their training through techniques like RLHF and Constitutional AI.
+                    This is real and it does reduce the prompting work you need to do — but only for one type of grounding.
+                </p>
+
+                <h4 className="font-semibold text-slate-800 mb-3">Two Types of Grounding — Only One is Built In</h4>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                    <Card className="bg-emerald-50 border-emerald-200">
+                        <h5 className="font-semibold text-emerald-800 mb-2">Safety Grounding — Built In ✓</h5>
+                        <p className="text-sm text-slate-600 mb-3">
+                            Don't generate harmful content, flag uncertainty, don't impersonate. Current frontier models handle this
+                            without explicit instructions.
+                        </p>
+                        <div className="bg-emerald-100 p-3 rounded text-xs text-emerald-800">
+                            You no longer need "don't make things up" or "only answer safe questions" as explicit prompt rules —
+                            hallucination rates are genuinely lower in GPT-5 and Claude Sonnet 4.6 than in their predecessors.
+                        </div>
+                    </Card>
+
+                    <Card className="bg-amber-50 border-amber-200">
+                        <h5 className="font-semibold text-amber-800 mb-2">Factual / Domain Grounding — Never Built In ✗</h5>
+                        <p className="text-sm text-slate-600 mb-3">
+                            "Only use the context I provide," "cite your sources," "if the answer isn't in the document say so explicitly."
+                            No model does this automatically.
+                        </p>
+                        <div className="bg-amber-100 p-3 rounded text-xs text-amber-800">
+                            The model has no way of knowing what your authoritative source is. Even a well-aligned model will confidently
+                            answer from its training data if you don't constrain it to your context.
+                        </div>
+                    </Card>
+                </div>
+
+                <Card className="bg-blue-50 border-blue-200">
+                    <h5 className="font-semibold text-blue-800 mb-2">The Practical Rule</h5>
+                    <p className="text-slate-700">
+                        You can remove defensive safety instructions from prompts aimed at frontier models. You cannot remove factual
+                        grounding constraints. The distinction is: the model knows not to be harmful, but it does not know what your
+                        source of truth is.
+                    </p>
+                </Card>
+
+                <h4 className="font-semibold text-slate-800 mt-6 mb-3">What You Still Need to Prompt For</h4>
+                <div className="overflow-x-auto rounded-xl border border-slate-200">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="bg-slate-50">
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Instruction type</th>
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Still needed?</th>
+                                <th className="px-5 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Why</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 text-slate-700">"Don't generate harmful content"</td>
+                                <td className="px-5 py-3 text-emerald-600 font-semibold">No</td>
+                                <td className="px-5 py-3 text-slate-600">Alignment training handles this</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 text-slate-700">"Don't make things up"</td>
+                                <td className="px-5 py-3 text-amber-600 font-semibold">Less critical than before</td>
+                                <td className="px-5 py-3 text-slate-600">Hallucination rates lower, but context constraints are more reliable</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 text-slate-700">"Only use the provided context"</td>
+                                <td className="px-5 py-3 text-rose-600 font-semibold">Yes — always</td>
+                                <td className="px-5 py-3 text-slate-600">Model cannot know your authoritative source</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 text-slate-700">"Cite your sources with participant ID and timestamp"</td>
+                                <td className="px-5 py-3 text-rose-600 font-semibold">Yes — always</td>
+                                <td className="px-5 py-3 text-slate-600">Specific citation format is always your definition</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-5 py-3 text-slate-700">"If the answer isn't in the context, say so"</td>
+                                <td className="px-5 py-3 text-rose-600 font-semibold">Yes — always</td>
+                                <td className="px-5 py-3 text-slate-600">Null-state behavior is domain-specific</td>
+                            </tr>
+                            <tr>
+                                <td className="px-5 py-3 text-slate-700">"Respond in JSON format with this schema"</td>
+                                <td className="px-5 py-3 text-rose-600 font-semibold">Yes — always</td>
+                                <td className="px-5 py-3 text-slate-600">Output format is always your specification</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ProgressiveSection>
+
+            <ProgressiveSection number="11" title="How to Adapt When Switching Models" subtitle="Practical migration strategies">
+                <div className="space-y-3">
+                    <Card className="p-5 border-l-4 border-blue-500">
+                        <h5 className="font-semibold text-blue-900 mb-2">GPT-4o → Claude</h5>
+                        <p className="text-slate-600 text-sm mb-2">
+                            You can be less exhaustively explicit. Claude infers reasonable behavior from context.
+                        </p>
+                        <div className="bg-blue-50 p-3 rounded text-xs">
+                            <p className="text-blue-800">
+                                <strong>Warning:</strong> Over-specifying can produce rigid, unnatural outputs with Claude.
+                            </p>
+                        </div>
+                    </Card>
+
+                    <Card className="p-5 border-l-4 border-emerald-500">
+                        <h5 className="font-semibold text-emerald-900 mb-2">Claude → GPT-4o</h5>
+                        <p className="text-slate-600 text-sm mb-2">
+                            Be more literal. State every requirement explicitly. GPT-4o will do exactly what you say and nothing more.
+                        </p>
+                        <div className="bg-emerald-50 p-3 rounded text-xs">
+                            <p className="text-emerald-800">
+                                <strong>Key insight:</strong> This is a feature, not a bug — but it requires complete instructions.
+                            </p>
+                        </div>
+                    </Card>
+
+                    <Card className="p-5 border-l-4 border-purple-500">
+                        <h5 className="font-semibold text-purple-900 mb-2">Either → Gemini</h5>
+                        <p className="text-slate-600 text-sm mb-2">
+                            Reduce the number of numbered sub-requirements. Gemini handles primary intent well but can drop secondary constraints on long lists.
+                        </p>
+                        <div className="bg-purple-50 p-3 rounded text-xs">
+                            <p className="text-purple-800">
+                                <strong>Best practice:</strong> Reduce to the 3–5 most critical requirements and integrate the rest as prose.
+                            </p>
+                        </div>
+                    </Card>
+
+                    <Card className="p-5 border-l-4 border-rose-500">
+                        <h5 className="font-semibold text-rose-900 mb-2">Any Switch</h5>
+                        <p className="text-slate-600 text-sm">
+                            Re-run your golden set before deploying a prompt developed on a different model. Never assume transfer.
+                        </p>
+                    </Card>
+                </div>
+
+                <Callout type="success" title="The production rule">
+                    Treat model switching like a deployment event. Test your prompts on the new model with your golden set before going live.
+                    Budget time for prompt re-tuning — it's not optional.
+                </Callout>
+            </ProgressiveSection>
+
+            <ProgressiveSection number="12" title="The Fine-Tuning Trap" subtitle="Why most teams don't need it">
                 <div className="space-y-3">
                     <Card className="p-5 border-l-4 border-blue-500">
                         <h5 className="font-semibold text-blue-900 mb-2">GPT-4o → Claude</h5>

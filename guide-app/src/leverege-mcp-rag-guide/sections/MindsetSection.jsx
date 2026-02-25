@@ -10,12 +10,12 @@ export const MindsetSection = () => (
         <h2 className="text-2xl font-semibold text-slate-900">The Most Important Lesson</h2>
 
         <Callout type="insight" title="The mindset shift">
-            {"Before writing a single line of code, you need to understand why building production AI is fundamentally different from using consumer AI tools."}
+            {"Before you start creating anything, you need to understand why building production AI is fundamentally different from using consumer AI tools."}
         </Callout>
 
         <ProgressiveSection number="1" title="Before You Build: Do You Actually Need This?" subtitle="The best architecture is the one you don't need to build" defaultOpen={true}>
             <Callout type="warning" title="The most expensive AI mistakes happen before development starts">
-                When the use case is wrong, not the implementation. Run through this checklist honestly before writing any code.
+                When the use case is wrong, not the implementation.
             </Callout>
 
             <h4 className="font-semibold mb-3 mt-4">Don't Build If:</h4>
@@ -62,8 +62,8 @@ export const MindsetSection = () => (
             </div>
 
             <Card className="p-6 bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-300 mt-6">
-                <h5 className="font-semibold text-emerald-900 mb-2">The Right Question</h5>
-                <p className="text-slate-700">
+                <h5 className="font-semibold text-emerald-900 mb-4 text-lg">The Right Question</h5>
+                <p className="text-slate-700 text-base leading-relaxed">
                     The right question isn't "can we use AI?" — it's "does AI make this meaningfully better than the alternative,
                     and are we prepared to own what happens when it's wrong?"
                 </p>
@@ -131,7 +131,7 @@ Validation → Answer`}
                     <div className="bg-rose-50 p-3 rounded-lg text-sm">
                         <p className="text-slate-700 mb-1"><strong>Example:</strong></p>
                         <p className="text-slate-600">
-                            Prompt: "What were Q3 results for the APAC region?" — If APAC data is absent from context,
+                            Prompt: "What were Q3 results for the Asia-Pacific region?" — If Asia-Pacific data is absent from context,
                             the model may generate plausible-sounding numbers rather than reporting that the data isn't available.
                             The output looks identical to a grounded response.
                         </p>

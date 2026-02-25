@@ -4,3 +4,5 @@ export { SixLayerArchitecture } from './SixLayerArchitecture';
 export { ComplexitySpectrum } from './ComplexitySpectrum';
 export { SQLRagFlowDiagram } from './SQLRagFlowDiagram';
 export { AgenticFlowDiagram } from './AgenticFlowDiagram';
+export { DebugFlowDiagram } from './DebugFlowDiagram';
+export { KnowledgeTiersDiagram } from './KnowledgeTiersDiagram';

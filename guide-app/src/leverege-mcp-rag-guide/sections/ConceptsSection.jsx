@@ -2,7 +2,7 @@ import React from 'react';
 import { Brain, Settings, Database, FileText, CheckCircle, Eye, Lightbulb, Search, Play } from 'lucide-react';
 import { Card, Callout, ProgressiveSection } from '../components/ui';
 import AIPatternComparison from '../components/diagrams/AIPatternComparison';
-import KnowledgeTiersDiagram from '../components/diagrams/KnowledgeTiersDiagram';
+import { KnowledgeTiersDiagram } from '../components/diagrams';
 import { NextSectionNav } from '../index';
 
 // Inline diagram components
@@ -46,31 +46,8 @@ export const ConceptsSection = () => (
         <h2 className="text-2xl font-semibold text-slate-900">Core Concepts</h2>
 
         <Callout type="info" title="The building blocks">
-            {"Understanding the 7 AI paradigms, protocols, and the mental model that ties them together."}
+            {"Understanding the core AI paradigms, protocols, and the mental model that ties them together."}
         </Callout>
-
-        {/* Mental Model Card */}
-        <Card className="p-6 mb-8">
-            <div className="flex items-center gap-3 mb-5">
-                <div className="p-2.5 bg-indigo-50 rounded-lg">
-                    <Brain className="w-6 h-6 text-indigo-600" />
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900">The Mental Model</h3>
-            </div>
-            <div className="grid md:grid-cols-2 gap-3">
-                {[
-                    { text: "Prompts explain.", desc: "Natural language instructions" },
-                    { text: "Capabilities execute.", desc: "Actions the AI can take" },
-                    { text: "Contracts constrain.", desc: "Rules & boundaries" },
-                    { text: "Protocols connect.", desc: "MCP, A2A, ACP — standardized interfaces" },
-                ].map((item, i) => (
-                    <div key={i} className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                        <p className="font-semibold text-sm text-slate-800">{item.text}</p>
-                        <p className="text-slate-500 text-xs mt-1">{item.desc}</p>
-                    </div>
-                ))}
-            </div>
-        </Card>
 
         {/* AI Architecture Patterns Introduction */}
         <div className="my-8">
@@ -268,7 +245,7 @@ export const ConceptsSection = () => (
             </Card>
 
             <Card className="p-5 border-l-4 border-indigo-500 bg-gradient-to-r from-indigo-50 to-blue-50">
-                <h4 className="font-semibold text-indigo-900 mb-2">7. Router Pattern ⭐ (Recommended Starting Point)</h4>
+                <h4 className="font-semibold text-indigo-900 mb-2">Router Pattern</h4>
                 <p className="text-sm text-slate-600 mb-3">
                     Use the LLM once to classify intent, then route to deterministic code handlers. Combines AI flexibility
                     with code reliability. Best of both worlds.
@@ -433,78 +410,7 @@ export const ConceptsSection = () => (
             </div>
         </ProgressiveSection>
 
-        <ProgressiveSection number="3" title="The Query Stack" subtitle="How the layers fit together">
-            <div className="my-6">
-                <div className="flex flex-col items-center gap-2">
-                    {[
-                        { layer: "Orchestration", desc: "Routes + orchestrates", tech: "Router Pattern or MCP", color: "purple", icon: Brain },
-                        { layer: "Semantic", desc: "Meaning-based retrieval", tech: "RAG, embeddings, vector search", color: "blue", icon: Search },
-                        { layer: "Data", desc: "Structured facts", tech: "SQL, databases, APIs", color: "green", icon: Database },
-                    ].map((item, i) => {
-                        const colors = {
-                            purple: "bg-purple-100 border-purple-300 text-purple-800",
-                            blue: "bg-blue-100 border-blue-300 text-blue-800",
-                            green: "bg-green-100 border-green-300 text-green-800"
-                        };
-                        const widths = ["w-full max-w-lg", "w-full max-w-xl", "w-full max-w-2xl"];
-                        return (
-                            <div key={i} className="flex flex-col items-center w-full">
-                                {i > 0 && <div className="w-0.5 h-4 bg-slate-300" />}
-                                <div className={`${widths[i]} ${colors[item.color]} border rounded-xl p-4 flex items-center gap-4`}>
-                                    <div className="p-2 bg-white/50 rounded-lg">
-                                        <item.icon className="w-6 h-6" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="font-semibold">{item.layer}</div>
-                                        <div className="text-sm opacity-75">{item.desc}</div>
-                                    </div>
-                                    <div className="text-xs font-mono bg-white/50 px-2 py-1 rounded hidden md:block">
-                                        {item.tech}
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-
-            <Card className="p-5 bg-gradient-to-br from-slate-50 to-slate-100 border-slate-200">
-                <h4 className="font-semibold mb-4 flex items-center gap-2">
-                    <Play className="w-4 h-4 text-blue-600" />
-                    Example Flow: "What did TPI's customer say about cameras?"
-                </h4>
-                <div className="space-y-3">
-                    {[
-                        { step: 1, layer: "Router", action: "Classifies intent: SINGLE_MEETING → customer feedback search", color: "purple" },
-                        { step: 2, layer: "Retrieval", action: "SQL filter: WHERE company='TPI' AND role='customer' + vector search for 'cameras'", color: "blue" },
-                        { step: 3, layer: "Data", action: "Returns matching chunks with metadata (speaker, date, meeting)", color: "green" },
-                        { step: 4, layer: "Generation", action: "Builds grounded prompt with citations — cite or abstain", color: "amber" },
-                        { step: 5, layer: "Output", action: '"Alan mentioned cameras go offline during peak hours [March 28 meeting]"', color: "gray" },
-                    ].map((item, i) => {
-                        const dotColors = {
-                            purple: "bg-purple-500",
-                            blue: "bg-blue-500",
-                            green: "bg-green-500",
-                            amber: "bg-amber-500",
-                            gray: "bg-slate-500"
-                        };
-                        return (
-                            <div key={i} className="flex items-start gap-3">
-                                <div className={`w-6 h-6 rounded-full ${dotColors[item.color]} text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                                    {item.step}
-                                </div>
-                                <div>
-                                    <span className="font-semibold">{item.layer}:</span>
-                                    <span className="text-slate-500 ml-1">{item.action}</span>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </Card>
-        </ProgressiveSection>
-
-        <ProgressiveSection number="4" title="What the AI Sees" subtitle="Capabilities, not infrastructure">
+        <ProgressiveSection number="2" title="What is RAG?" subtitle="Retrieval Augmented Generation">
             <p className="text-slate-500 mb-4">
                 Regardless of which pattern you use (Router, MCP, Agentic), the AI should see
                 <strong> capabilities and contracts</strong>, never raw infrastructure.
