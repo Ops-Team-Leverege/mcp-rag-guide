@@ -20,14 +20,14 @@ export const OverviewSection = () => {
       <Card className="p-6 bg-gradient-to-r from-indigo-50 to-violet-50 border-indigo-200">
         <h2 className="font-semibold text-lg mb-5 flex items-center gap-2.5">
           <Target className="w-6 h-6 text-indigo-500" />
-          What This Guide Will Help You Do
+          What You'll Learn
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { title: "Understand the core AI paradigms and when to use each", sub: "RAG, MCP, Fine-tuning, Agentic AI, A2A, Context Engineering, Router Pattern" },
-            { title: "Design systems that don't hallucinate critical information", sub: "Grounding, citations, and the \"cite or abstain\" rule" },
-            { title: "Choose and combine the right architecture patterns", sub: "When to use code-driven routing, when to let LLMs decide, and how patterns combine" },
-            { title: "Debug, evaluate, and improve production AI", sub: "Systematic debugging, RAGAS evaluation, intent accuracy testing" },
+            { title: "Core AI paradigms and when to use each", sub: "RAG, MCP, Fine-tuning, Agentic AI, A2A, Context Engineering, Router Pattern" },
+            { title: "Systems that don't hallucinate", sub: "Grounding, citations, and the \"cite or abstain\" rule" },
+            { title: "Choosing and combining patterns", sub: "When to use code-driven routing vs. letting LLMs decide" },
+            { title: "Debug, evaluate, and improve", sub: "Systematic debugging, RAGAS evaluation, intent accuracy testing" },
           ].map((item, i) => (
             <div key={i} className="flex items-start gap-3">
               <CheckCircle className="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0" />
@@ -41,20 +41,22 @@ export const OverviewSection = () => {
       </Card>
 
       <Card className="p-6 bg-slate-50 border-slate-200">
-        <h2 className="text-xl font-semibold mb-3 text-slate-900">How This Guide Is Organized</h2>
-        <p className="text-slate-600 leading-relaxed">
-          This guide walks you through building production AI systems from first principles. We start with the mindset shift
-          from consumer AI to production AI, then cover the business case and core concepts. You'll learn prompt engineering
-          fundamentals, model selection strategies, and data preparation. The middle sections dive into implementation patterns
-          (RAG, MCP, Router, Agentic, A2A), followed by debugging, evaluation, and testing techniques. We close with deployment
-          considerations and a real-world case study (PitCrew Sauce) showing these concepts in action. Use the sidebar to navigate
-          directly to any topic, or read sequentially for a complete understanding.
+        <h2 className="text-lg font-semibold mb-3 text-slate-900">How to Navigate</h2>
+        <p className="text-slate-600 leading-relaxed mb-4">
+          This guide is organized progressively, starting with mindset and fundamentals, moving through implementation
+          patterns and techniques, and ending with a real-world case study.
         </p>
+        <div className="flex items-start gap-3 text-sm">
+          <div className="flex-1">
+            <p className="text-slate-700 mb-2">
+              <strong>First time here?</strong> Read sequentially to build a complete mental model.
+            </p>
+            <p className="text-slate-700">
+              <strong>Looking for something specific?</strong> Use the sidebar to jump directly to any topic.
+            </p>
+          </div>
+        </div>
       </Card>
-
-      <Callout type="insight" title="How to Use This Guide">
-        Read through the sections in order on your first pass. Use the sidebar to jump directly to specific topics as needed.
-      </Callout>
 
       <NextSectionNav currentId="overview" />
     </div>
