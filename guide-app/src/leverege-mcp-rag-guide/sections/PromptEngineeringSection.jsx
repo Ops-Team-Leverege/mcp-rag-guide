@@ -413,13 +413,80 @@ Do not use information from your training data. Cite the specific document ID fo
                 </Callout>
             </ProgressiveSection>
 
-            <ProgressiveSection number="9" title="Adapting Prompts Between Models" subtitle="What changes when you switch">
+            <ProgressiveSection number="9" title="Model Behavior at a Glance" subtitle="How current frontier models differ in production">
                 <p className="text-slate-600 mb-4">
-                    Different models have different instruction-following styles. A prompt optimized for GPT-5 may need adjustment
-                    for Claude or Gemini.
+                    The most critical production lesson: A prompt that works on one model will not reliably work on another.
+                    This isn't a quirk — it's a fundamental property of how different models were trained. When you switch models,
+                    your prompts need re-testing and likely re-tuning. Benchmark scores don't predict task-specific performance
+                    with your data and your prompts.
                 </p>
 
-                <div className="space-y-4">
+                <div className="overflow-x-auto rounded-xl border border-slate-200 mb-6">
+                    <table className="w-full text-sm">
+                        <thead>
+                            <tr className="bg-slate-50">
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Dimension</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">GPT-5</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Claude Sonnet 4.6</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Gemini 2.5 Pro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Instruction following</td>
+                                <td className="px-4 py-3 text-slate-600">Surgical — follows every instruction literally, including contradictory ones</td>
+                                <td className="px-4 py-3 text-slate-600">Inferential — fills reasonable gaps with judgment; less over-specification needed</td>
+                                <td className="px-4 py-3 text-slate-600">Intent-first — handles primary instruction well; can drop secondary constraints on long lists</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Instruction density</td>
+                                <td className="px-4 py-3 text-slate-600">Complete, non-contradictory prompts required — conflicts burn reasoning tokens</td>
+                                <td className="px-4 py-3 text-slate-600">Fewer explicit instructions needed; over-specifying produces rigid outputs</td>
+                                <td className="px-4 py-3 text-slate-600">Reduce to 3–5 critical requirements; integrate secondary requirements as prose</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Chain-of-thought</td>
+                                <td className="px-4 py-3 text-slate-600">Responds well to explicit CoT; reasoning_effort parameter controls depth</td>
+                                <td className="px-4 py-3 text-slate-600">Reasons extensively by default; often doesn't need "think step by step"</td>
+                                <td className="px-4 py-3 text-slate-600">Strong with CoT; "explanation-first" prompting significantly boosts complex tasks</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Verbosity control</td>
+                                <td className="px-4 py-3 text-slate-600">verbosity API parameter (low/medium/high)</td>
+                                <td className="px-4 py-3 text-slate-600">Managed well through direct instruction</td>
+                                <td className="px-4 py-3 text-slate-600">Requires explicit "Be concise"; "Minimize prose" alone is not sufficient</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">JSON / structured output</td>
+                                <td className="px-4 py-3 text-slate-600">Strong with function calling and responseSchema</td>
+                                <td className="px-4 py-3 text-slate-600">Strong with direct instruction</td>
+                                <td className="px-4 py-3 text-slate-600">Strong with responseSchema parameter; use for automated pipelines</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-3 font-medium text-slate-800">Sycophancy</td>
+                                <td className="px-4 py-3 text-slate-600">Significantly reduced vs GPT-4o (~6% on targeted evals)</td>
+                                <td className="px-4 py-3 text-slate-600">Low by default</td>
+                                <td className="px-4 py-3 text-slate-600">Variable</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <Callout type="warning" title="Contradictions hurt more in smarter models">
+                    GPT-5 and Claude Sonnet 4.6 follow instructions with higher fidelity than earlier models — which means a prompt
+                    with conflicting instructions causes the model to expend reasoning tokens reconciling them rather than just picking one.
+                    Prompt consistency now matters as much as prompt completeness. Before deploying, audit your system prompt for any
+                    instructions that could conflict under edge cases.
+                </Callout>
+            </ProgressiveSection>
+
+            <ProgressiveSection number="10" title="Adapting When Switching Models" subtitle="Practical guidance for model migration">
+                <p className="text-slate-600 mb-4">
+                    Different models have different instruction-following styles. A prompt optimized for one model may need adjustment
+                    for another.
+                </p>
+
+                <div className="space-y-4 mb-6">
                     <Card className="p-5 bg-blue-50 border-blue-200">
                         <h4 className="font-semibold text-blue-900 mb-2">Claude (Anthropic)</h4>
                         <ul className="space-y-1 text-sm text-slate-700">
@@ -452,13 +519,41 @@ Do not use information from your training data. Cite the specific document ID fo
                     </Card>
                 </div>
 
+                <div className="space-y-3 mb-6">
+                    <h4 className="font-semibold text-slate-800">Migration patterns</h4>
+                    <Card className="p-4 bg-slate-50">
+                        <p className="text-sm text-slate-700 mb-2">
+                            <strong>GPT-4o → Claude:</strong> You can be less exhaustively explicit. Claude infers reasonable behavior from context.
+                            Over-specifying can produce rigid, unnatural outputs.
+                        </p>
+                    </Card>
+                    <Card className="p-4 bg-slate-50">
+                        <p className="text-sm text-slate-700 mb-2">
+                            <strong>Claude → GPT-4o:</strong> Be more literal. State every requirement explicitly. GPT-4o will do exactly what you say
+                            and nothing more — which is a feature, but requires complete instructions.
+                        </p>
+                    </Card>
+                    <Card className="p-4 bg-slate-50">
+                        <p className="text-sm text-slate-700 mb-2">
+                            <strong>Either → Gemini:</strong> Reduce the number of numbered sub-requirements to the 3–5 most critical and integrate
+                            the rest as prose.
+                        </p>
+                    </Card>
+                    <Card className="p-4 bg-slate-50">
+                        <p className="text-sm text-slate-700 mb-2">
+                            <strong>Any switch:</strong> Re-run your golden set before deploying. Treat model switching like a deployment event.
+                            Budget time for prompt re-tuning — it's not optional.
+                        </p>
+                    </Card>
+                </div>
+
                 <Callout type="info" title="Test across models">
                     If you're model-agnostic, test your prompts across at least two providers. What works perfectly on one may
                     fail silently on another.
                 </Callout>
             </ProgressiveSection>
 
-            <ProgressiveSection number="10" title="Prompt Versioning" subtitle="Treat prompts like code">
+            <ProgressiveSection number="11" title="Prompt Versioning" subtitle="Treat prompts like code">
                 <p className="text-slate-600 mb-4">
                     Prompts change over time as you discover edge cases and improve performance. Version them like you would
                     any other production artifact.
@@ -509,7 +604,7 @@ Do not use information from your training data. Cite the specific document ID fo
                 </Callout>
             </ProgressiveSection>
 
-            <ProgressiveSection number="11" title="Iterative Refinement" subtitle="How to improve prompts systematically">
+            <ProgressiveSection number="12" title="Iterative Refinement" subtitle="How to improve prompts systematically">
                 <p className="text-slate-600 mb-4">
                     Prompt engineering is not a one-shot process. It's iterative. Here's the loop:
                 </p>
@@ -567,7 +662,7 @@ Do not use information from your training data. Cite the specific document ID fo
                 </Callout>
             </ProgressiveSection>
 
-            <ProgressiveSection number="12" title="Prompt Injection" subtitle="The security risk you can't ignore">
+            <ProgressiveSection number="13" title="Prompt Injection" subtitle="The security risk you can't ignore">
                 <p className="text-slate-600 mb-4">
                     Prompt injection is when user input manipulates the model's instructions. It's the LLM equivalent of SQL injection.
                 </p>
@@ -632,84 +727,23 @@ Do not use information from your training data. Cite the specific document ID fo
                 </Callout>
             </ProgressiveSection>
 
-            <ProgressiveSection number="13" title="Adapting When Switching Models" subtitle="What to watch for">
+            <ProgressiveSection number="14" title="The Fine-Tuning Trap" subtitle="When NOT to fine-tune">
                 <p className="text-slate-600 mb-4">
-                    When you switch from one model to another (e.g., GPT-4 → GPT-5.2, or Claude 3.5 → Claude 4.6), your prompts
-                    may need adjustment. Here's what typically changes:
+                    Prompt engineering writes better instructions for an existing model — free, instant iteration.
+                    Fine-tuning trains a new version of the model on your specific data — expensive, slow, hard to iterate.
                 </p>
 
-                <div className="space-y-4">
-                    <Card className="p-5 bg-amber-50 border-amber-200">
-                        <h4 className="font-semibold text-amber-900 mb-3">Common adjustments</h4>
-                        <div className="space-y-3 text-sm">
-                            <div className="flex items-start gap-2">
-                                <Zap className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">
-                                    <strong>Verbosity:</strong> Newer models tend to be more concise. You may need to add "be detailed"
-                                    or remove "be brief" instructions.
-                                </p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <Zap className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">
-                                    <strong>Instruction following:</strong> Stronger models follow complex multi-step instructions better.
-                                    You may be able to simplify your prompt.
-                                </p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <Zap className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">
-                                    <strong>Hallucination rates:</strong> Newer models hallucinate less (GPT-5.2 shows 30% fewer errors than GPT-5.1), but you still need grounding
-                                    constraints for domain-specific tasks.
-                                </p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <Zap className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">
-                                    <strong>Output format:</strong> JSON mode and structured output support varies. Test format compliance
-                                    carefully.
-                                </p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <Zap className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">
-                                    <strong>Context window:</strong> Larger windows (e.g., Gemini 2M tokens) may change your chunking
-                                    strategy. You can fit more context per request.
-                                </p>
-                            </div>
-                        </div>
-                    </Card>
+                <Card className="p-5 bg-amber-50 border-amber-200 mb-4">
+                    <h4 className="font-semibold text-amber-900 mb-3">As Chip Huyen puts it:</h4>
+                    <p className="text-slate-700 text-sm">
+                        "Fine-tuning is for form, and RAG is for facts." If you need the AI to know your data, use RAG.
+                        If you need it to write in a very specific style that prompting genuinely can't achieve, then consider fine-tuning.
+                    </p>
+                </Card>
 
-                    <Card className="p-5 bg-blue-50 border-blue-200">
-                        <h4 className="font-semibold text-blue-900 mb-3">Testing checklist when switching models</h4>
-                        <div className="space-y-2 text-sm">
-                            <div className="flex items-start gap-2">
-                                <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">Run your full golden set against the new model</p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">Check output format compliance (JSON, citations, length)</p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">Verify grounding behavior (does it stay within provided context?)</p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">Test edge cases (null inputs, ambiguous queries, long context)</p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-slate-700">Measure latency and cost per request</p>
-                            </div>
-                        </div>
-                    </Card>
-                </div>
-
-                <Callout type="info" title="Don't assume backward compatibility">
-                    Model updates are not like software updates. A new version may behave differently even with the same prompt.
-                    Always test before deploying.
+                <Callout type="warning" title="The 40-hour rule">
+                    If you haven't spent 40+ hours iterating on prompts, you haven't earned the right to consider fine-tuning.
+                    Most teams skip straight to fine-tuning because it feels more "ML-like" — but it's almost always the wrong move.
                 </Callout>
             </ProgressiveSection>
 
@@ -721,6 +755,15 @@ Do not use information from your training data. Cite the specific document ID fo
                     For readers who want to go deeper into model-specific prompting guidance, the official documentation from each company is the most reliable and up-to-date reference:
                 </p>
                 <div className="space-y-3">
+                    <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <p className="text-sm text-slate-700">
+                            <strong>Chip Huyen — AI Engineering: Building Applications with Foundation Models (O'Reilly, 2025):</strong>{' '}
+                            Chapter 5 covers prompt engineering in depth, including prompt sensitivity, versioning, defensive engineering, and prompt injection —{' '}
+                            <a href="https://www.oreilly.com/library/view/ai-engineering/9781098166298" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                                oreilly.com/library/view/ai-engineering/9781098166298
+                            </a>
+                        </p>
+                    </div>
                     <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
                         <p className="text-sm text-slate-700">
                             <strong>Anthropic — Prompt engineering overview:</strong>{' '}
