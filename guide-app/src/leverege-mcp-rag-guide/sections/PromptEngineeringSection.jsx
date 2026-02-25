@@ -256,161 +256,175 @@ const PromptEngineeringSection = () => {
 
             <ProgressiveSection number="6" title="Before/After Examples" subtitle="Real prompt improvements from production systems">
                 <div className="space-y-6">
+                    <h4 className="font-semibold text-slate-800 mb-3">Meeting Summary</h4>
+
                     <Card className="p-5 border-l-4 border-rose-400">
                         <div className="mb-3">
-                            <span className="text-xs font-semibold text-rose-700 uppercase tracking-wide">❌ Before</span>
-                            <h4 className="font-semibold text-slate-800 mt-1">Vague instruction</h4>
+                            <span className="text-xs font-semibold text-rose-700 uppercase tracking-wide">❌ Bad</span>
                         </div>
                         <div className="bg-slate-50 p-3 rounded text-sm text-slate-700 font-mono mb-3">
-                            "Summarize the meeting."
+                            Summarize the meeting.
                         </div>
                         <p className="text-sm text-slate-600">
-                            <strong>Problem:</strong> No constraints on length, format, or what to include. Output varies wildly.
+                            No constraints on length, format, or source. The model will summarize from imagination if context is thin.
                         </p>
                     </Card>
 
                     <Card className="p-5 border-l-4 border-emerald-400">
                         <div className="mb-3">
-                            <span className="text-xs font-semibold text-emerald-700 uppercase tracking-wide">✓ After</span>
-                            <h4 className="font-semibold text-slate-800 mt-1">Specific instruction with format</h4>
+                            <span className="text-xs font-semibold text-emerald-700 uppercase tracking-wide">✅ Good</span>
                         </div>
-                        <div className="bg-slate-50 p-3 rounded text-sm text-slate-700 font-mono mb-3">
-                            {`Summarize this meeting in 3–5 bullet points. Each bullet should be one sentence.
-Focus on: decisions made, action items assigned, and blockers identified.
-If none exist in a category, omit that category.`}
+                        <div className="bg-slate-50 p-3 rounded text-sm text-slate-700 font-mono mb-3 whitespace-pre-wrap">
+                            {`You are a meeting analyst for a sales ops team. Using ONLY the transcript provided below, create a summary with:
+
+1. Key topics discussed (max 5, one sentence each)
+2. Action items with owners and deadlines
+3. Customer concerns or objections raised
+
+If a section has no relevant content in the transcript, write "None identified." Do NOT fabricate topics that were not discussed.
+
+<transcript>
+{retrieved_meeting_chunks}
+</transcript>`}
                         </div>
-                        <p className="text-sm text-slate-600">
-                            <strong>Result:</strong> Consistent structure, predictable length, clear scope.
-                        </p>
                     </Card>
+
+                    <h4 className="font-semibold text-slate-800 mb-3 mt-8">Product Question (SSOT Authority)</h4>
 
                     <Card className="p-5 border-l-4 border-rose-400">
                         <div className="mb-3">
-                            <span className="text-xs font-semibold text-rose-700 uppercase tracking-wide">❌ Before</span>
-                            <h4 className="font-semibold text-slate-800 mt-1">Implicit expectations</h4>
+                            <span className="text-xs font-semibold text-rose-700 uppercase tracking-wide">❌ Bad</span>
                         </div>
                         <div className="bg-slate-50 p-3 rounded text-sm text-slate-700 font-mono mb-3">
-                            "Answer the user's question based on the context."
+                            Answer this question about our product.
                         </div>
                         <p className="text-sm text-slate-600">
-                            <strong>Problem:</strong> Model will use training data if context is incomplete. No citation behavior defined.
+                            The model will answer from training data, not your actual product specs.
                         </p>
                     </Card>
 
                     <Card className="p-5 border-l-4 border-emerald-400">
                         <div className="mb-3">
-                            <span className="text-xs font-semibold text-emerald-700 uppercase tracking-wide">✓ After</span>
-                            <h4 className="font-semibold text-slate-800 mt-1">Explicit constraints and fallback</h4>
+                            <span className="text-xs font-semibold text-emerald-700 uppercase tracking-wide">✅ Good</span>
                         </div>
-                        <div className="bg-slate-50 p-3 rounded text-sm text-slate-700 font-mono mb-3">
-                            {`Answer the user's question using ONLY the information in the <context> section below.
-If the context does not contain enough information to answer, respond with:
-"I don't have enough information in the provided context to answer that question."
+                        <div className="bg-slate-50 p-3 rounded text-sm text-slate-700 font-mono mb-3 whitespace-pre-wrap">
+                            {`You are answering a question about PitCrew's product features.
 
-Do not use information from your training data. Cite the specific document ID for each claim.`}
+AUTHORITY RULES:
+- If the answer exists in the <product_knowledge> section below, use it VERBATIM.
+  This is the Single Source of Truth. Do not rephrase or add interpretation.
+- If the answer is NOT in <product_knowledge>, say: "I don't have verified
+  information about that feature. Let me connect you with the product team."
+- NEVER guess about pricing, capabilities, or availability.
+
+<product_knowledge>
+{retrieved_product_rows}
+</product_knowledge>`}
                         </div>
-                        <p className="text-sm text-slate-600">
-                            <strong>Result:</strong> Model stays grounded to provided context, clear null-state behavior.
-                        </p>
                     </Card>
                 </div>
             </ProgressiveSection>
 
             <ProgressiveSection number="7" title="Common Prompt Failure Modes" subtitle="What goes wrong and how to fix it">
-                <div className="space-y-4">
-                    {[
-                        {
-                            problem: "Model ignores instructions buried in the middle",
-                            cause: "Attention mechanisms weight the beginning and end of context more heavily",
-                            fix: "Put critical instructions at the start AND repeat them at the end. Use XML tags to create clear boundaries."
-                        },
-                        {
-                            problem: "Output format drifts over time",
-                            cause: "No explicit schema enforcement, model improvises",
-                            fix: "Use structured output (JSON mode) or provide an exact output template with placeholders."
-                        },
-                        {
-                            problem: "Model answers from training data instead of context",
-                            cause: "No explicit constraint to stay grounded",
-                            fix: "Add: 'Use ONLY the information in the <context> section. If the answer isn't there, say so.'"
-                        },
-                        {
-                            problem: "Inconsistent behavior across similar inputs",
-                            cause: "Temperature > 0 introduces randomness",
-                            fix: "Set temperature=0 for deterministic tasks (classification, extraction). Use temperature > 0 only for creative tasks."
-                        },
-                        {
-                            problem: "Model refuses valid requests",
-                            cause: "Overly cautious safety training",
-                            fix: "Clarify the context: 'This is a simulation for training purposes' or 'You are analyzing historical data for research.'"
-                        },
-                        {
-                            problem: "Citations are vague or missing",
-                            cause: "No explicit citation format specified",
-                            fix: "Define exact format: 'Cite as [doc_id:chunk_id]. Every claim must have a citation.'"
-                        }
-                    ].map((item, i) => (
-                        <Card key={i} className="p-4 bg-slate-50">
-                            <div className="flex items-start gap-3">
-                                <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-                                <div className="flex-1">
-                                    <h5 className="font-semibold text-slate-800 mb-1">{item.problem}</h5>
-                                    <p className="text-sm text-slate-600 mb-2">
-                                        <strong>Cause:</strong> {item.cause}
-                                    </p>
-                                    <p className="text-sm text-emerald-700">
-                                        <strong>Fix:</strong> {item.fix}
-                                    </p>
-                                </div>
-                            </div>
-                        </Card>
-                    ))}
-                </div>
-            </ProgressiveSection>
-
-            <ProgressiveSection number="8" title="Temperature and Sampling" subtitle="When to use what">
-                <p className="text-slate-600 mb-4">
-                    Temperature controls randomness. Lower = more deterministic, higher = more creative. Most production systems
-                    should use temperature=0 for consistency.
-                </p>
-
-                <div className="overflow-x-auto rounded-xl border border-slate-200 mb-6">
+                <div className="overflow-x-auto rounded-xl border border-slate-200">
                     <table className="w-full text-sm">
                         <thead>
                             <tr className="bg-slate-50">
-                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Task Type</th>
-                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Temperature</th>
-                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Why</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Failure Mode</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">What You See</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Root Cause</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Fix</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr className="border-b border-slate-100">
-                                <td className="px-4 py-3 text-slate-700 font-medium">Classification, routing, extraction</td>
-                                <td className="px-4 py-3 text-slate-600 font-mono">0</td>
-                                <td className="px-4 py-3 text-slate-600">You want the same answer every time</td>
+                                <td className="px-4 py-3 font-medium text-slate-800">No null state</td>
+                                <td className="px-4 py-3 text-slate-600">Model invents details when context is empty</td>
+                                <td className="px-4 py-3 text-slate-600">No fallback instruction</td>
+                                <td className="px-4 py-3 text-slate-600">Add: "If the answer is not in the context, say so explicitly"</td>
                             </tr>
                             <tr className="border-b border-slate-100">
-                                <td className="px-4 py-3 text-slate-700 font-medium">Summarization, Q&A</td>
-                                <td className="px-4 py-3 text-slate-600 font-mono">0–0.3</td>
-                                <td className="px-4 py-3 text-slate-600">Mostly deterministic, slight variation acceptable</td>
+                                <td className="px-4 py-3 font-medium text-slate-800">Context blindness</td>
+                                <td className="px-4 py-3 text-slate-600">Model ignores retrieved content</td>
+                                <td className="px-4 py-3 text-slate-600">Grounding instruction too weak</td>
+                                <td className="px-4 py-3 text-slate-600">Add: "Answer ONLY using the context provided. Do not use prior knowledge."</td>
                             </tr>
                             <tr className="border-b border-slate-100">
-                                <td className="px-4 py-3 text-slate-700 font-medium">Creative writing, brainstorming</td>
-                                <td className="px-4 py-3 text-slate-600 font-mono">0.7–1.0</td>
-                                <td className="px-4 py-3 text-slate-600">You want diverse, novel outputs</td>
+                                <td className="px-4 py-3 font-medium text-slate-800">Sentiment loss</td>
+                                <td className="px-4 py-3 text-slate-600">Negative feedback softened in summaries</td>
+                                <td className="px-4 py-3 text-slate-600">No tone preservation instruction</td>
+                                <td className="px-4 py-3 text-slate-600">Add: "Preserve the exact tone and urgency of the source. Do not soften negative statements."</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Incomplete instruction following</td>
+                                <td className="px-4 py-3 text-slate-600">Model answers part of a multi-part question</td>
+                                <td className="px-4 py-3 text-slate-600">Multiple requirements not enumerated</td>
+                                <td className="px-4 py-3 text-slate-600">Number each requirement explicitly</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Format drift</td>
+                                <td className="px-4 py-3 text-slate-600">JSON output breaks after many turns</td>
+                                <td className="px-4 py-3 text-slate-600">Format instructions only at session start</td>
+                                <td className="px-4 py-3 text-slate-600">Repeat format in each turn; add output validation</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Instruction conflict</td>
+                                <td className="px-4 py-3 text-slate-600">Contradictory behavior across inputs</td>
+                                <td className="px-4 py-3 text-slate-600">System prompt and user message conflict</td>
+                                <td className="px-4 py-3 text-slate-600">Audit for conflicts; define which instruction takes priority</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Role confusion</td>
+                                <td className="px-4 py-3 text-slate-600">Model breaks character mid-conversation</td>
+                                <td className="px-4 py-3 text-slate-600">Role only set in initial system prompt</td>
+                                <td className="px-4 py-3 text-slate-600">Reinforce role at start of each turn</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-medium text-slate-800">Vague persona</td>
+                                <td className="px-4 py-3 text-slate-600">Generic chatbot behavior</td>
+                                <td className="px-4 py-3 text-slate-600">"Be helpful" is too vague</td>
+                                <td className="px-4 py-3 text-slate-600">Specify exact role, domain, and constraints</td>
                             </tr>
                             <tr>
-                                <td className="px-4 py-3 text-slate-700 font-medium">Code generation</td>
-                                <td className="px-4 py-3 text-slate-600 font-mono">0–0.2</td>
-                                <td className="px-4 py-3 text-slate-600">Syntax errors increase with temperature</td>
+                                <td className="px-4 py-3 font-medium text-slate-800">Context overload</td>
+                                <td className="px-4 py-3 text-slate-600">Diluted answer quality</td>
+                                <td className="px-4 py-3 text-slate-600">Irrelevant content retrieved</td>
+                                <td className="px-4 py-3 text-slate-600">Only inject what's relevant to this specific query</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </ProgressiveSection>
 
-                <Callout type="warning" title="Default is not zero">
-                    Most APIs default to temperature=0.7 or 1.0. If you want deterministic behavior, you must explicitly set it to 0.
-                </Callout>
+            <ProgressiveSection number="8" title="Temperature and Sampling" subtitle="When to use what">
+                <div className="overflow-x-auto rounded-xl border border-slate-200">
+                    <table className="w-full text-sm">
+                        <thead>
+                            <tr className="bg-slate-50">
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Temperature</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Behavior</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Use For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-mono font-semibold text-slate-800">0</td>
+                                <td className="px-4 py-3 text-slate-600">Deterministic — same input always gives same output</td>
+                                <td className="px-4 py-3 text-slate-600">Intent classification, data extraction, factual Q&A</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-mono font-semibold text-slate-800">0.3–0.7</td>
+                                <td className="px-4 py-3 text-slate-600">Slight variation — natural-sounding but controlled</td>
+                                <td className="px-4 py-3 text-slate-600">Drafting emails, summaries, creative suggestions</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-3 font-mono font-semibold text-slate-800">1.0+</td>
+                                <td className="px-4 py-3 text-slate-600">High creativity, high hallucination risk</td>
+                                <td className="px-4 py-3 text-slate-600">Brainstorming only — never for factual work</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </ProgressiveSection>
 
             <ProgressiveSection number="9" title="Model Behavior at a Glance" subtitle="How current frontier models differ in production">
