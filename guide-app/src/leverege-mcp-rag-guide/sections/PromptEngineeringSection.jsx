@@ -802,4 +802,5 @@ Do not use information from your training data. Cite the specific document ID fo
     );
 };
 
+export { PromptEngineeringSection };
 export default PromptEngineeringSection;
