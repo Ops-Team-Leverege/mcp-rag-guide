@@ -326,13 +326,6 @@ else:
             </div>
         </section>
 
-        <Callout type="success" title="A Strong Starting Point">
-            <p className="text-lg leading-relaxed">
-                The Router Pattern is a strong starting point when your intent space is finite and predictable. It's fast, cheap, reliable, and easy to debug.
-                Start with routing, then add RAG or agentic capabilities only where needed. Many successful AI products are 80% router, 15% RAG, 5% agentic.
-            </p>
-        </Callout>
-
         <NextSectionNav currentId="pattern-router" />
     </div>
 );
