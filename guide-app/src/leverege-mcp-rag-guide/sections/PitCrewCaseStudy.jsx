@@ -138,8 +138,24 @@ const HighLevelOverview = () => (
                 walking" became "customer mentioned the renewal timeline." The fix was extractive prompting over raw
                 transcripts, with explicit instructions to preserve original tone.
             </p>
+
+            <Card className="p-5 bg-blue-50 border-blue-200 mt-4">
+                <h4 className="font-semibold text-blue-900 mb-2">Testing at Scale</h4>
+                <p className="text-sm text-slate-600 mb-3">
+                    To ensure accuracy across all intents and contracts, the team built a test runner that generates questions
+                    by intent and validates responses against expected behavior.
+                </p>
+                <div className="bg-white p-3 rounded-lg">
+                    <p className="text-sm text-slate-700">
+                        <strong className="text-blue-900">1000+ test questions</strong> run regularly to catch regressions
+                        and validate that each intent and contract behaves correctly across different query patterns.
+                    </p>
+                </div>
+            </Card>
+
             <Callout type="warning" title="The Most Valuable Thing They Did">
-                Build your golden set and evaluate before you build the conversational layer on top.
+                Build your golden set and evaluate before you build the conversational layer on top. Then automate testing
+                at scale to catch regressions early.
             </Callout>
         </div>
 
