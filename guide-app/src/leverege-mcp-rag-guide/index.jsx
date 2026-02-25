@@ -10,9 +10,7 @@ import {
   BusinessCaseSection,
   ConceptsSection,
   DataShapeSection,
-  ArchitectureSection,
   DecisionsSection,
-  MVPPathSection,
   ImplementationSection,
   PromptEngineeringSection,
   ModelSelectionSection,
@@ -84,9 +82,7 @@ export default function AIArchitectureGuide() {
       case 'pattern-a2a': return <A2APatternSection />;
       case 'pattern-context': return <ContextEngineeringSection />;
       case 'pattern-router': return <RouterPatternSection />;
-      case 'architecture': return <ArchitectureSection />;
       case 'decisions': return <DecisionsSection />;
-      case 'mvppath': return <MVPPathSection />;
       case 'implementation': return <ImplementationSection />;
       case 'debugging': return <DebuggingSection />;
       case 'evaluation': return <EvaluationSection />;

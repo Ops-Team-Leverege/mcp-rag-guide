@@ -108,7 +108,7 @@ export const DebugFlowDiagram = () => {
                             {item.highlight && (
                                 <div className="mt-3 p-2 bg-green-200 border border-green-400 rounded">
                                     <p className="text-xs font-bold text-green-900">
-                                        ⭐ 90% OF ERRORS LIVE HERE — Check retrieval first!
+                                        90% OF ERRORS LIVE HERE — Check retrieval first!
                                     </p>
                                 </div>
                             )}

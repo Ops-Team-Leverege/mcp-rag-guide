@@ -603,7 +603,7 @@ AUTHORITY RULES:
                 </Callout>
             </ProgressiveSection>
 
-            <ProgressiveSection number="12" title="The Fine-Tuning Trap" subtitle="Why most teams don't need it">
+            <ProgressiveSection number="12" title="Adapting Prompts Between Models" subtitle="What changes when you switch">
                 <div className="space-y-3">
                     <Card className="p-5 border-l-4 border-blue-500">
                         <h5 className="font-semibold text-blue-900 mb-2">GPT-4o → Claude</h5>

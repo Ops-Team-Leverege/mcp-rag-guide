@@ -273,144 +273,7 @@ export const ConceptsSection = () => (
             </Card>
         </div>
 
-        <ProgressiveSection number="1" title="What is MCP?" subtitle="Model Context Protocol - the USB-C for AI" defaultOpen={true}>
-            <p className="mb-4">
-                <strong>MCP (Model Context Protocol)</strong> is an open standard that enables AI applications to connect
-                to external systems — databases, APIs, tools — in a standardized way. Think of it like USB-C for AI:
-                one protocol that works with many different systems.
-            </p>
-
-            <MCPArchitectureDiagram />
-
-            <h4 className="font-semibold mt-6 mb-3">MCP Servers Expose Three Types of Capabilities:</h4>
-            <div className="grid md:grid-cols-3 gap-4">
-                {[
-                    {
-                        icon: Settings,
-                        title: "Tools",
-                        desc: "Functions the AI can invoke",
-                        examples: ["create_task()", "search_database()", "send_email()"],
-                        color: "blue"
-                    },
-                    {
-                        icon: Database,
-                        title: "Resources",
-                        desc: "Data the AI can read",
-                        examples: ["File contents", "Database schemas", "API responses"],
-                        color: "purple"
-                    },
-                    {
-                        icon: FileText,
-                        title: "Prompts",
-                        desc: "Pre-built templates",
-                        examples: ["Summarize meeting", "Extract action items", "Analyze feedback"],
-                        color: "green"
-                    },
-                ].map((item, i) => {
-                    const colors = {
-                        blue: "border-blue-200 bg-blue-50",
-                        purple: "border-purple-200 bg-purple-50",
-                        green: "border-green-200 bg-green-50"
-                    };
-                    const iconColors = {
-                        blue: "text-blue-600 bg-blue-100",
-                        purple: "text-purple-600 bg-purple-100",
-                        green: "text-green-600 bg-green-100"
-                    };
-                    return (
-                        <Card key={i} className={`p-4 ${colors[item.color]}`}>
-                            <div className="flex items-center gap-2 mb-2">
-                                <div className={`p-2 rounded-lg ${iconColors[item.color]}`}>
-                                    <item.icon className="w-4 h-4" />
-                                </div>
-                                <h5 className="font-semibold">{item.title}</h5>
-                            </div>
-                            <p className="text-sm text-slate-500 mb-3">{item.desc}</p>
-                            <div className="space-y-1">
-                                {item.examples.map((ex, j) => (
-                                    <div key={j} className="text-xs font-mono bg-white/50 px-2 py-1 rounded">{ex}</div>
-                                ))}
-                            </div>
-                        </Card>
-                    );
-                })}
-            </div>
-
-            <Callout type="info" title="Key Insight">
-                <strong>HTTP is how MCP is accessed, not what MCP is.</strong> MCP defines the contract
-                between AI and tools. The transport (HTTP, stdio) is just plumbing.
-            </Callout>
-        </ProgressiveSection>
-
-        <ProgressiveSection number="2" title="What is RAG?" subtitle="Retrieval Augmented Generation">
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 mb-6">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                    <div className="flex-1">
-                        <h4 className="font-semibold text-lg text-amber-800 mb-2">The Problem</h4>
-                        <p className="text-amber-700">
-                            AI models can generate fluent text, but they <strong>make things up</strong>.
-                            They don't know your data.
-                        </p>
-                    </div>
-                    <div className="text-4xl">→</div>
-                    <div className="flex-1">
-                        <h4 className="font-semibold text-lg text-green-800 mb-2">The Solution: RAG</h4>
-                        <p className="text-green-700">
-                            <strong>Retrieve</strong> relevant context first, then <strong>generate</strong>
-                            a response grounded in that context.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <h4 className="font-semibold mb-3">Your Data Has Two Natures:</h4>
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-                <Card className="p-4 border-blue-200">
-                    <div className="flex items-center gap-2 mb-2">
-                        <Database className="w-5 h-5 text-blue-600" />
-                        <h5 className="font-semibold text-blue-800">Structurally Stored</h5>
-                    </div>
-                    <p className="text-sm text-slate-500">Rows in a table, columns with types, foreign keys</p>
-                    <div className="mt-2 font-mono text-xs bg-blue-50 p-2 rounded">
-                        id | speaker | company | text
-                    </div>
-                </Card>
-                <Card className="p-4 border-purple-200">
-                    <div className="flex items-center gap-2 mb-2">
-                        <Brain className="w-5 h-5 text-purple-600" />
-                        <h5 className="font-semibold text-purple-800">Semantically Unstructured</h5>
-                    </div>
-                    <p className="text-sm text-slate-500">Meaning is in natural language, not in schema</p>
-                    <div className="mt-2 font-mono text-xs bg-purple-50 p-2 rounded">
-                        "We're worried about camera reliability..."
-                    </div>
-                </Card>
-            </div>
-
-            <Callout type="insight" title="The Core Problem">
-                A table can store text, but it cannot <em>understand</em> text. RAG gives us semantic indexing —
-                embeddings capture <strong>meaning</strong>, not just words.
-            </Callout>
-
-            <h4 className="font-semibold mt-6 mb-3">RAG is a Cache, Not a Database</h4>
-            <div className="bg-slate-100 rounded-xl p-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                    {[
-                        { label: "Stores", value: "Precomputed embeddings (vectors)" },
-                        { label: "Derived from", value: "Source data (transcripts, docs)" },
-                        { label: "Optimized for", value: "Recall, relevance, grounding" },
-                        { label: "Can be", value: "Regenerated when data changes" },
-                    ].map((item, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                            <span className="text-sm"><strong>{item.label}:</strong> {item.value}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </ProgressiveSection>
-
-        <ProgressiveSection number="2" title="What is RAG?" subtitle="Retrieval Augmented Generation">
+        <ProgressiveSection number="1" title="The Abstraction Layer" subtitle="Capabilities and contracts, not infrastructure" defaultOpen={true}>
             <p className="text-slate-500 mb-4">
                 Regardless of which pattern you use (Router, MCP, Agentic), the AI should see
                 <strong> capabilities and contracts</strong>, never raw infrastructure.
@@ -473,7 +336,7 @@ export const ConceptsSection = () => (
             </Card>
         </ProgressiveSection>
 
-        <ProgressiveSection number="5" title="Knowledge Tiers Pattern" subtitle="Different sources, different trust levels">
+        <ProgressiveSection number="2" title="Knowledge Tiers Pattern" subtitle="Different sources, different trust levels">
             <KnowledgeTiersDiagram />
         </ProgressiveSection>
 

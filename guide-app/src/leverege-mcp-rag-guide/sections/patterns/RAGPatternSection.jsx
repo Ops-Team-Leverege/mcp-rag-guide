@@ -19,6 +19,72 @@ export const RAGPatternSection = () => (
             </p>
         </Callout>
 
+        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 mb-6">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-1">
+                    <h4 className="font-semibold text-lg text-amber-800 mb-2">The Problem</h4>
+                    <p className="text-amber-700">
+                        AI models can generate fluent text, but they <strong>make things up</strong>.
+                        They don't know your data.
+                    </p>
+                </div>
+                <div className="text-4xl">→</div>
+                <div className="flex-1">
+                    <h4 className="font-semibold text-lg text-green-800 mb-2">The Solution: RAG</h4>
+                    <p className="text-green-700">
+                        <strong>Retrieve</strong> relevant context first, then <strong>generate</strong>
+                        a response grounded in that context.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h4 className="font-semibold mb-3">Your Data Has Two Natures:</h4>
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <Card className="p-4 border-blue-200">
+                <div className="flex items-center gap-2 mb-2">
+                    <Database className="w-5 h-5 text-blue-600" />
+                    <h5 className="font-semibold text-blue-800">Structurally Stored</h5>
+                </div>
+                <p className="text-sm text-slate-500">Rows in a table, columns with types, foreign keys</p>
+                <div className="mt-2 font-mono text-xs bg-blue-50 p-2 rounded">
+                    id | speaker | company | text
+                </div>
+            </Card>
+            <Card className="p-4 border-purple-200">
+                <div className="flex items-center gap-2 mb-2">
+                    <Database className="w-5 h-5 text-purple-600" />
+                    <h5 className="font-semibold text-purple-800">Semantically Unstructured</h5>
+                </div>
+                <p className="text-sm text-slate-500">Meaning is in natural language, not in schema</p>
+                <div className="mt-2 font-mono text-xs bg-purple-50 p-2 rounded">
+                    "We're worried about camera reliability..."
+                </div>
+            </Card>
+        </div>
+
+        <Callout type="insight" title="The Core Problem">
+            A table can store text, but it cannot <em>understand</em> text. RAG gives us semantic indexing —
+            embeddings capture <strong>meaning</strong>, not just words.
+        </Callout>
+
+        <h4 className="font-semibold mt-6 mb-3">RAG is a Cache, Not a Database</h4>
+        <div className="bg-slate-100 rounded-xl p-4 mb-6">
+            <div className="grid md:grid-cols-2 gap-4">
+                {[
+                    { label: "Stores", value: "Precomputed embeddings (vectors)" },
+                    { label: "Derived from", value: "Source data (transcripts, docs)" },
+                    { label: "Optimized for", value: "Recall, relevance, grounding" },
+                    { label: "Can be", value: "Regenerated when data changes" },
+                ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <span className="text-sm"><strong>{item.label}:</strong> {item.value}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+
         <ProgressiveSection number="1" title="How RAG Works" subtitle="The retrieval-augmentation pipeline" defaultOpen={true}>
             <DiagramBox title="RAG Flow">
                 {`Question → [Retriever] → Relevant Chunks → [LLM + Context] → Response

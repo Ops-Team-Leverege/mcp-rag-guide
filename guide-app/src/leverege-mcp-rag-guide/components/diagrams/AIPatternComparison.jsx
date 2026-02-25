@@ -45,7 +45,7 @@ const AIPatternComparison = () => {
         <div className="my-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
             <h3 className="text-base font-semibold text-center mb-6 text-slate-800">AI Architecture Patterns Comparison</h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                 {/* RAG */}
                 <PatternCard title="RAG">
@@ -151,7 +151,7 @@ const AIPatternComparison = () => {
                 </PatternCard>
 
                 {/* Router Pattern */}
-                <PatternCard title="Router Pattern ★" highlight>
+                <PatternCard title="Router Pattern" highlight>
                     <FlowBox color="slate">Question</FlowBox>
                     <Arrow />
                     <LLMPill label="LLM (ONE call)" />

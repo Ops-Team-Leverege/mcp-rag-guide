@@ -1,5 +1,5 @@
 import React from 'react';
-import { Network, Plug, Database, Code, CheckCircle, AlertTriangle, Zap } from 'lucide-react';
+import { Network, Plug, Database, Code, CheckCircle, AlertTriangle, Zap, Settings, FileText, Brain } from 'lucide-react';
 import { Card, Callout, ProgressiveSection, DiagramBox } from '../../components/ui';
 import { NextSectionNav } from '../../index';
 
@@ -27,42 +27,97 @@ export const MCPPatternSection = () => (
                                      └── Files & Resources`}
             </DiagramBox>
 
-            <div className="mt-6 space-y-4">
-                <Card className="p-6 bg-blue-50 border-blue-200">
-                    <h4 className="font-semibold text-blue-900 mb-3">MCP Servers Expose Three Types of Capabilities:</h4>
-                    <div className="space-y-3">
-                        <div className="flex items-start gap-3">
-                            <Code className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
-                            <div>
-                                <p className="font-semibold text-blue-900">Tools</p>
-                                <p className="text-sm text-blue-800">Functions the agent can call (e.g., query_database, send_email, create_ticket)</p>
-                            </div>
+            <div className="my-6 p-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200 overflow-x-auto">
+                <div className="hidden md:flex items-center justify-center gap-3 min-w-max">
+                    <div className="px-4 py-3 rounded-lg border bg-blue-50 border-blue-200 text-blue-800 text-center">
+                        <div className="flex items-center justify-center gap-2">
+                            <Brain className="w-4 h-4" />
+                            <span className="font-semibold text-sm">AI Host</span>
                         </div>
-                        <div className="flex items-start gap-3">
-                            <Database className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
-                            <div>
-                                <p className="font-semibold text-blue-900">Resources</p>
-                                <p className="text-sm text-blue-800">Data the agent can read (e.g., file contents, database records, API responses)</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-3">
-                            <Zap className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
-                            <div>
-                                <p className="font-semibold text-blue-900">Prompts</p>
-                                <p className="text-sm text-blue-800">Pre-built instruction templates for common tasks</p>
-                            </div>
-                        </div>
+                        <p className="text-xs opacity-75 mt-1">Claude, Cursor, etc.</p>
                     </div>
-                </Card>
-
-                <Card className="p-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">The MCP client discovers these at runtime</h4>
-                    <p className="text-gray-600">
-                        The client asks the server "what can you do?" and the server responds with a list of available tools,
-                        resources, and prompts. The client then invokes them via a standardized protocol over HTTP.
-                    </p>
-                </Card>
+                    <div className="w-6 h-6 text-slate-400">→</div>
+                    <div className="px-4 py-3 rounded-lg border bg-purple-50 border-purple-200 text-purple-800 text-center">
+                        <span className="font-semibold text-sm">MCP Client</span>
+                        <p className="text-xs opacity-75 mt-1">Connects host to server</p>
+                    </div>
+                    <div className="w-6 h-6 text-slate-400">→</div>
+                    <div className="px-4 py-3 rounded-lg border bg-green-50 border-green-200 text-green-800 text-center">
+                        <div className="flex items-center justify-center gap-2">
+                            <Settings className="w-4 h-4" />
+                            <span className="font-semibold text-sm">MCP Server</span>
+                        </div>
+                        <p className="text-xs opacity-75 mt-1">Your tools & logic</p>
+                    </div>
+                    <div className="w-6 h-6 text-slate-400">→</div>
+                    <div className="px-4 py-3 rounded-lg border bg-amber-50 border-amber-200 text-amber-800 text-center">
+                        <div className="flex items-center justify-center gap-2">
+                            <Database className="w-4 h-4" />
+                            <span className="font-semibold text-sm">External Systems</span>
+                        </div>
+                        <p className="text-xs opacity-75 mt-1">Databases, APIs, Services</p>
+                    </div>
+                </div>
             </div>
+
+            <h4 className="font-semibold mt-6 mb-3">MCP Servers Expose Three Types of Capabilities:</h4>
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+                {[
+                    {
+                        icon: Settings,
+                        title: "Tools",
+                        desc: "Functions the AI can invoke",
+                        examples: ["create_task()", "search_database()", "send_email()"],
+                        color: "blue"
+                    },
+                    {
+                        icon: Database,
+                        title: "Resources",
+                        desc: "Data the AI can read",
+                        examples: ["File contents", "Database schemas", "API responses"],
+                        color: "purple"
+                    },
+                    {
+                        icon: FileText,
+                        title: "Prompts",
+                        desc: "Pre-built templates",
+                        examples: ["Summarize meeting", "Extract action items", "Analyze feedback"],
+                        color: "green"
+                    },
+                ].map((item, i) => {
+                    const colors = {
+                        blue: "border-blue-200 bg-blue-50",
+                        purple: "border-purple-200 bg-purple-50",
+                        green: "border-green-200 bg-green-50"
+                    };
+                    const iconColors = {
+                        blue: "text-blue-600 bg-blue-100",
+                        purple: "text-purple-600 bg-purple-100",
+                        green: "text-green-600 bg-green-100"
+                    };
+                    return (
+                        <Card key={i} className={`p-4 ${colors[item.color]}`}>
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className={`p-2 rounded-lg ${iconColors[item.color]}`}>
+                                    <item.icon className="w-4 h-4" />
+                                </div>
+                                <h5 className="font-semibold">{item.title}</h5>
+                            </div>
+                            <p className="text-sm text-slate-500 mb-3">{item.desc}</p>
+                            <div className="space-y-1">
+                                {item.examples.map((ex, j) => (
+                                    <div key={j} className="text-xs font-mono bg-white/50 px-2 py-1 rounded">{ex}</div>
+                                ))}
+                            </div>
+                        </Card>
+                    );
+                })}
+            </div>
+
+            <Callout type="info" title="Key Insight">
+                <strong>HTTP is how MCP is accessed, not what MCP is.</strong> MCP defines the contract
+                between AI and tools. The transport (HTTP, stdio) is just plumbing.
+            </Callout>
 
             <div className="mt-6 grid md:grid-cols-2 gap-6">
                 <Card className="p-6 bg-emerald-50 border-emerald-200">

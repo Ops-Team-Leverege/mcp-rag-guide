@@ -33,9 +33,7 @@ export const tabGroups = [
   {
     title: "Implementation",
     tabs: [
-      { id: 'architecture', label: 'System Architecture', icon: Layers },
       { id: 'decisions', label: 'When to Use What', icon: GitBranch },
-      { id: 'mvppath', label: 'The MVP Path', icon: Zap },
       { id: 'implementation', label: 'Implementation', icon: Code },
     ]
   },
