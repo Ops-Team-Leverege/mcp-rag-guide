@@ -46,7 +46,7 @@ export const OverviewSection = () => {
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { title: "Understand the 7 AI paradigms and when to use each", sub: "RAG, MCP, Fine-tuning, Agentic AI, A2A, Context Engineering, Router Pattern" },
+            { title: "Understand the core AI paradigms and when to use each", sub: "RAG, MCP, Fine-tuning, Agentic AI, A2A, Context Engineering, Router Pattern" },
             { title: "Design systems that don't hallucinate critical information", sub: "Grounding, citations, and the \"cite or abstain\" rule" },
             { title: "Choose and combine the right architecture patterns", sub: "When to use code-driven routing, when to let LLMs decide, and how patterns combine" },
             { title: "Debug, evaluate, and improve production AI", sub: "Systematic debugging, RAGAS evaluation, intent accuracy testing" },
