@@ -6,8 +6,8 @@ import { NextSectionNav } from '../../index';
 export const RAGPatternSection = () => (
     <div className="space-y-12">
         <div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">RAG — Retrieval-Augmented Generation</h2>
-            <p className="text-xl text-gray-600">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">RAG — Retrieval-Augmented Generation</h2>
+            <p className="text-lg text-slate-600">
                 Retrieve relevant context from a knowledge base at query time, then generate a response grounded in that context.
             </p>
         </div>

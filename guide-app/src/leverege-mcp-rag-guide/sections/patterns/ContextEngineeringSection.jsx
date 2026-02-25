@@ -6,8 +6,8 @@ import { NextSectionNav } from '../../index';
 export const ContextEngineeringSection = () => (
     <div className="space-y-12">
         <div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">Context Engineering</h2>
-            <p className="text-xl text-gray-600">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Context Engineering</h2>
+            <p className="text-lg text-slate-600">
                 Deliberately architect what information is in the model's context window at the moment of generation.
             </p>
         </div>

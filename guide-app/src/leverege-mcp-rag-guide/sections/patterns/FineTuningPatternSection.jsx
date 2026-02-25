@@ -6,8 +6,8 @@ import { NextSectionNav } from '../../index';
 export const FineTuningPatternSection = () => (
     <div className="space-y-12">
         <div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">Fine-Tuning</h2>
-            <p className="text-xl text-gray-600">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Fine-Tuning</h2>
+            <p className="text-lg text-slate-600">
                 Update the model's weights directly with domain-specific data, so knowledge or behavior becomes part of the model itself.
             </p>
         </div>

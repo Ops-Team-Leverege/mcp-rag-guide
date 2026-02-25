@@ -6,8 +6,8 @@ import { NextSectionNav } from '../../index';
 export const RouterPatternSection = () => (
     <div className="space-y-12">
         <div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">Router Pattern</h2>
-            <p className="text-xl text-gray-600">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Router Pattern</h2>
+            <p className="text-lg text-slate-600">
                 Use the LLM once to classify intent, then route to deterministic code handlers. Fast, cheap, and predictable.
             </p>
         </div>
