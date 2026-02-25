@@ -244,11 +244,11 @@ export const ConceptsSection = () => (
                 </div>
             </Card>
 
-            <Card className="p-5 border-l-4 border-indigo-500 bg-gradient-to-r from-indigo-50 to-blue-50">
-                <h4 className="font-semibold text-indigo-900 mb-2">Router Pattern</h4>
+            <Card className="p-5 border-l-4 border-slate-400">
+                <h4 className="font-semibold text-slate-900 mb-2">7. Router Pattern</h4>
                 <p className="text-sm text-slate-600 mb-3">
                     Use the LLM once to classify intent, then route to deterministic code handlers. Combines AI flexibility
-                    with code reliability. Best of both worlds.
+                    with code reliability.
                 </p>
                 <div className="grid md:grid-cols-2 gap-3 text-sm">
                     <div className="bg-emerald-50 p-3 rounded-lg">
@@ -273,10 +273,16 @@ export const ConceptsSection = () => (
             </Card>
         </div>
 
-        <ProgressiveSection number="1" title="The Abstraction Layer" subtitle="Capabilities and contracts, not infrastructure" defaultOpen={true}>
-            <p className="text-slate-500 mb-4">
-                Regardless of which pattern you use (Router, MCP, Agentic), the AI should see
-                <strong> capabilities and contracts</strong>, never raw infrastructure.
+        <ProgressiveSection number="1" title="The Abstraction Layer" subtitle="What the AI sees vs. what exists" defaultOpen={true}>
+            <p className="text-slate-600 mb-4">
+                Regardless of which pattern you use (Router, MCP, Agentic), a key principle applies:
+                <strong> the AI should interact with high-level abstractions, not raw infrastructure</strong>.
+            </p>
+
+            <p className="text-slate-600 mb-4">
+                Think of it like a restaurant menu. The menu shows "Grilled Salmon with Seasonal Vegetables" —
+                not "Walk to freezer, retrieve fish, set oven to 425°F, chop carrots..." The abstraction hides
+                implementation details and presents a clear interface.
             </p>
             <div className="grid md:grid-cols-2 gap-4 mb-6">
                 <Card className="p-5 border border-red-200 bg-gradient-to-br from-red-50 to-rose-50">
@@ -284,7 +290,7 @@ export const ConceptsSection = () => (
                         <div className="p-2 bg-red-100 rounded-lg">
                             <Eye className="w-5 h-5 text-red-600" />
                         </div>
-                        <h4 className="font-semibold text-red-700">The AI Does NOT Know:</h4>
+                        <h4 className="font-semibold text-red-700">The AI Should NOT See:</h4>
                     </div>
                     <div className="space-y-2">
                         {["Tables & columns", "SQL syntax", "Join operations", "Vector databases", "Embedding dimensions"].map((item, i) => (
@@ -302,10 +308,10 @@ export const ConceptsSection = () => (
                         <div className="p-2 bg-green-100 rounded-lg">
                             <CheckCircle className="w-5 h-5 text-green-600" />
                         </div>
-                        <h4 className="font-semibold text-green-700">The AI Only Knows:</h4>
+                        <h4 className="font-semibold text-green-700">The AI Should See:</h4>
                     </div>
                     <div className="space-y-2">
-                        {["Concepts (company, feedback)", "Available capabilities", "Input/output contracts", "Domain language", "How to ask questions"].map((item, i) => (
+                        {["Business concepts (company, feedback)", "Available operations", "Input/output formats", "Domain language", "How to ask questions"].map((item, i) => (
                             <div key={i} className="flex items-center gap-2 text-sm">
                                 <div className="w-5 h-5 rounded-full bg-green-200 flex items-center justify-center">
                                     <span className="text-green-600 text-xs">✓</span>
@@ -325,11 +331,11 @@ export const ConceptsSection = () => (
                     <div>
                         <h4 className="font-semibold text-amber-800 mb-1">The Golden Rule</h4>
                         <p className="text-amber-900">
-                            <strong>Capabilities represent questions the business asks — not tables that exist.</strong>
+                            <strong>Design interfaces around what users need, not what your database has.</strong>
                         </p>
                         <p className="text-amber-700 text-sm mt-2">
-                            A capability must never return a raw database object. It must return an intentional,
-                            user-facing response with citations.
+                            Whether you're building MCP tools, RAG queries, or agentic workflows — expose operations
+                            that solve business problems, not raw data access.
                         </p>
                     </div>
                 </div>
