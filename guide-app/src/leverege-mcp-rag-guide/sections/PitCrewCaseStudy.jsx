@@ -46,13 +46,13 @@ const HighLevelOverview = () => (
 
         {/* What PitCrew Does */}
         <div>
-            <h2 className="text-2xl font-semibold text-slate-900 mb-4">What PitCrew Does</h2>
+            <h2 className="text-2xl font-semibold text-slate-900 mb-4">What PitCrew Sauce Does</h2>
             <Callout type="info" title="Note: This case study covers the Slack bot only">
                 PitCrew Sauce is the Slack bot interface for meeting intelligence. Sales teams interact with it through
                 @mentions in channels or direct messages to get instant answers from their meeting transcripts.
             </Callout>
             <p className="text-slate-600 mb-4 mt-4">
-                PitCrew helps sales teams get answers from their meeting transcripts without digging through recordings.
+                PitCrew Sauce helps sales teams get answers from their meeting transcripts without digging through recordings.
                 A rep can ask "What did the Costco team say about their IT infrastructure timeline?" or "Draft a follow-up
                 email for the MegaCorp call" and get a grounded, cited answer in seconds — without leaving the Slack channel
                 where their work already happens.
@@ -212,34 +212,13 @@ const HighLevelOverview = () => (
 +---------------------+`}
                 </pre>
             </Card>
-            <div className="mt-4">
-                <h3 className="font-semibold text-slate-900 mb-3">Typical Timing</h3>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                        <thead className="bg-slate-100">
-                            <tr>
-                                <th className="px-4 py-2 text-left font-semibold">Stage</th>
-                                <th className="px-4 py-2 text-left font-semibold">Duration</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-200">
-                            <tr><td className="px-4 py-2">Acknowledgment ("thinking...")</td><td className="px-4 py-2">{"< 1 second"}</td></tr>
-                            <tr><td className="px-4 py-2">Decision Layer (intent + contract)</td><td className="px-4 py-2">1–2 seconds</td></tr>
-                            <tr><td className="px-4 py-2">Meeting Resolution (when needed)</td><td className="px-4 py-2">~1.5 seconds</td></tr>
-                            <tr><td className="px-4 py-2">Q&A pairs fallback (when triggered)</td><td className="px-4 py-2">~0.5 seconds</td></tr>
-                            <tr><td className="px-4 py-2">Response generation + streaming</td><td className="px-4 py-2">4–8 seconds</td></tr>
-                            <tr className="bg-slate-50 font-semibold"><td className="px-4 py-2">Total (Average)</td><td className="px-4 py-2">8–10 seconds</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
 
         {/* Intent Classification */}
         <div>
             <h2 className="text-2xl font-semibold text-slate-900 mb-4">Intent Classification</h2>
             <p className="text-slate-600 mb-4">
-                PitCrew classifies every message into one of seven intents using an LLM call (gpt-4o, temperature=0).
+                PitCrew Sauce classifies every message into one of seven intents using an LLM call (gpt-4o, temperature=0).
                 There are no keyword fast-paths — they were removed because they degraded accuracy on edge cases and
                 created maintenance burden as user language varied. The classifier also extracts semantic metadata
                 and proposes the execution contract in the same call for coherence.
@@ -267,7 +246,7 @@ const HighLevelOverview = () => (
                         <tr>
                             <td className="px-4 py-3 font-medium">PRODUCT_KNOWLEDGE</td>
                             <td className="px-4 py-3">Answers from the Airtable product database</td>
-                            <td className="px-4 py-3 text-slate-600">"Does PitCrew integrate with Square?"</td>
+                            <td className="px-4 py-3 text-slate-600">"Does PitCrew Sauce integrate with Square?"</td>
                         </tr>
                         <tr>
                             <td className="px-4 py-3 font-medium">EXTERNAL_RESEARCH</td>
@@ -525,7 +504,7 @@ const HighLevelOverview = () => (
         <div>
             <h2 className="text-2xl font-semibold text-slate-900 mb-4">Architecture Decisions</h2>
             <p className="text-slate-500 mb-6">
-                How PitCrew combines multiple AI paradigms to solve real business problems.
+                How PitCrew Sauce combines multiple AI paradigms to solve real business problems.
             </p>
 
             <div className="space-y-3">
@@ -599,7 +578,7 @@ const HighLevelOverview = () => (
         <div>
             <h2 className="text-2xl font-semibold text-slate-900 mb-4">Design Principles That Held Up</h2>
             <p className="text-slate-500 mb-6">
-                Five principles that guided every architectural decision in PitCrew.
+                Five principles that guided every architectural decision in PitCrew Sauce.
             </p>
 
             <div className="space-y-4">
@@ -639,7 +618,7 @@ const HighLevelOverview = () => (
                         <strong>Principle:</strong> Every response maps to a defined capability with known behavior.
                     </p>
                     <p className="text-sm text-slate-500 mb-2">
-                        PitCrew isn't a chatbot. It's a Q&A system with 8 intent types and 30+ contracts.
+                        PitCrew Sauce isn't a chatbot. It's a Q&A system with 7 intent types and 22 contracts.
                         Users know what it can do, and we can test every capability independently.
                     </p>
                     <div className="bg-green-50 p-3 rounded-lg text-sm">
@@ -658,7 +637,7 @@ const HighLevelOverview = () => (
                         The LLM formats the response but doesn't generate feature descriptions from memory.
                     </p>
                     <div className="bg-amber-50 p-3 rounded-lg text-sm">
-                        <p className="text-amber-900"><strong>Implementation:</strong> PRODUCT_FEATURE intent → SQL query → format response.
+                        <p className="text-amber-900"><strong>Implementation:</strong> PRODUCT_KNOWLEDGE intent → SQL query → format response.
                             Zero hallucination risk.</p>
                     </div>
                 </Card>
@@ -673,7 +652,7 @@ const HighLevelOverview = () => (
                         Adding new capabilities is easy once the foundation is solid.
                     </p>
                     <div className="bg-red-50 p-3 rounded-lg text-sm">
-                        <p className="text-red-900"><strong>Implementation:</strong> MVP focused on SINGLE_MEETING and LAST_MEETING.
+                        <p className="text-red-900"><strong>Implementation:</strong> MVP focused on SINGLE_MEETING.
                             Cross-meeting came later.</p>
                     </div>
                 </Card>
@@ -709,8 +688,8 @@ const HighLevelOverview = () => (
                         color: "blue"
                     },
                     {
-                        title: "REFUSE and CLARIFY are first-class intents",
-                        desc: "Not afterthoughts. If you can't answer well, say so. If the question is ambiguous, ask.",
+                        title: "CLARIFY is a first-class intent",
+                        desc: "Not an afterthought. If the question is ambiguous, ask for clarification.",
                         icon: AlertTriangle,
                         color: "amber"
                     },
