@@ -456,18 +456,6 @@ Validation → Answer`}
             </div>
         </Card>
 
-        <QuizQuestion
-            question="What is the main difference between consumer AI and production AI?"
-            options={[
-                "Production AI uses better models",
-                "Production AI is faster",
-                "Production AI has engineering for accuracy and trust",
-                "Production AI costs more"
-            ]}
-            correctIndex={2}
-            explanation="The key difference is that production AI requires engineering for accuracy, grounding, citations, and the ability to say 'I don't know' — not just generating plausible-sounding text."
-        />
-
         <NextSectionNav currentId="mindset" />
     </div>
 );
