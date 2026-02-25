@@ -85,7 +85,7 @@ const AIPatternComparison = () => {
             dataNeeds: "Intent examples, handlers",
             pros: ["Predictable & debuggable", "Audit trail", "Combines patterns"],
             cons: ["Requires intent categories", "Less flexible than agentic", "Classification can fail"],
-            highlight: true
+            highlight: false
         }
     ];
 
@@ -189,8 +189,8 @@ const AIPatternComparison = () => {
                     <div
                         key={i}
                         className={`border rounded-lg p-4 ${pattern.highlight
-                                ? 'border-indigo-300 bg-indigo-50/50'
-                                : 'border-slate-200 bg-white'
+                            ? 'border-indigo-300 bg-indigo-50/50'
+                            : 'border-slate-200 bg-white'
                             }`}
                     >
                         <div className={`font-semibold text-base mb-1 ${pattern.highlight ? 'text-indigo-700' : 'text-slate-800'}`}>
@@ -249,14 +249,6 @@ const AIPatternComparison = () => {
                         </div>
                     </div>
                 ))}
-            </div>
-
-            {/* Legend */}
-            <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
-                <p className="text-xs text-slate-600 text-center">
-                    <span className="font-semibold text-indigo-600">Router Pattern</span> is highlighted as a recommended starting point —
-                    it combines LLM flexibility with code reliability, making it predictable and debuggable.
-                </p>
             </div>
         </div>
     );
