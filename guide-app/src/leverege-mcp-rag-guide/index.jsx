@@ -254,9 +254,6 @@ export default function AIArchitectureGuide() {
             <p className="text-sm text-gray-600">
               © 2026 Ops Team
             </p>
-            <p className="text-xs text-gray-400 mt-1">
-              Professional training for production AI systems
-            </p>
           </div>
         </footer>
       </div>
