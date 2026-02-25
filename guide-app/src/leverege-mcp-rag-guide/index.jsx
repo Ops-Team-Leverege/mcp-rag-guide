@@ -252,7 +252,7 @@ export default function AIArchitectureGuide() {
         <footer className="bg-white border-t border-gray-200 py-6 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-sm text-gray-600">
-              © 2024 Leverege AI Architecture Guide
+              © 2026 Ops Team — Leverege AI Architecture Guide
             </p>
             <p className="text-xs text-gray-400 mt-1">
               Professional training for production AI systems
