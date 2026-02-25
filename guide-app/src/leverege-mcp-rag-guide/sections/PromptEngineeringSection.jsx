@@ -153,7 +153,7 @@ const PromptEngineeringSection = () => {
                         <div className="flex items-start gap-2">
                             <CheckCircle className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
                             <p className="text-slate-700">
-                                <strong>Stronger models are more robust.</strong> GPT-5 and Claude Sonnet 4.6 are less sensitive to
+                                <strong>Stronger models are more robust.</strong> GPT-5.2 and Claude Sonnet 4.6 are less sensitive to
                                 surface-level prompt variation than earlier models — but not immune. Don't assume robustness; verify it.
                             </p>
                         </div>
@@ -184,7 +184,7 @@ const PromptEngineeringSection = () => {
                         </p>
                         <p className="text-xs text-emerald-700">
                             You no longer need "don't make things up" as an explicit prompt rule — hallucination rates are genuinely
-                            lower in GPT-5 and Claude Sonnet 4.6 than in their predecessors.
+                            lower in GPT-5.2 and Claude Sonnet 4.6 than in their predecessors.
                         </p>
                     </Card>
 
@@ -431,12 +431,13 @@ Do not use information from your training data. Cite the specific document ID fo
                     </Card>
 
                     <Card className="p-5 bg-emerald-50 border-emerald-200">
-                        <h4 className="font-semibold text-emerald-900 mb-2">GPT-5 / GPT-5.1 (OpenAI)</h4>
+                        <h4 className="font-semibold text-emerald-900 mb-2">GPT-5.2 (OpenAI)</h4>
                         <ul className="space-y-1 text-sm text-slate-700">
                             <li>• Works well with both XML and Markdown structure</li>
                             <li>• More concise by default</li>
-                            <li>• Stronger at JSON output formatting</li>
+                            <li>• Stronger at JSON output formatting and structured output</li>
                             <li>• System message has strong influence on behavior</li>
+                            <li>• GPT-5.2 Thinking mode for complex reasoning tasks</li>
                         </ul>
                     </Card>
 
@@ -633,7 +634,7 @@ Do not use information from your training data. Cite the specific document ID fo
 
             <ProgressiveSection number="13" title="Adapting When Switching Models" subtitle="What to watch for">
                 <p className="text-slate-600 mb-4">
-                    When you switch from one model to another (e.g., GPT-4 → GPT-5, or Claude 3.5 → Claude 4.6), your prompts
+                    When you switch from one model to another (e.g., GPT-4 → GPT-5.2, or Claude 3.5 → Claude 4.6), your prompts
                     may need adjustment. Here's what typically changes:
                 </p>
 
@@ -658,7 +659,7 @@ Do not use information from your training data. Cite the specific document ID fo
                             <div className="flex items-start gap-2">
                                 <Zap className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
                                 <p className="text-slate-700">
-                                    <strong>Hallucination rates:</strong> Newer models hallucinate less, but you still need grounding
+                                    <strong>Hallucination rates:</strong> Newer models hallucinate less (GPT-5.2 shows 30% fewer errors than GPT-5.1), but you still need grounding
                                     constraints for domain-specific tasks.
                                 </p>
                             </div>

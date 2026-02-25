@@ -31,8 +31,8 @@ const ModelSelectionSection = () => {
                         <tbody>
                             <tr className="border-b border-slate-100 hover:bg-indigo-50/30">
                                 <td className="px-5 py-3 font-medium text-slate-800">OpenAI</td>
-                                <td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5, GPT-5 mini, GPT-5 nano, GPT-4o-mini</td>
-                                <td className="px-5 py-3 text-slate-600">Broadest ecosystem, fast iteration, strong function calling, GPT-5 nano is among the cheapest available</td>
+                                <td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5.2 (Instant/Thinking/Pro), GPT-4o-mini</td>
+                                <td className="px-5 py-3 text-slate-600">Broadest ecosystem, fast iteration, strong function calling, GPT-5.2 sets new state-of-the-art on professional knowledge work</td>
                                 <td className="px-5 py-3 text-slate-500">Closed-source, usage-based pricing</td>
                             </tr>
                             <tr className="border-b border-slate-100 hover:bg-indigo-50/30">
@@ -79,10 +79,10 @@ const ModelSelectionSection = () => {
                         </thead>
                         <tbody>
                             <tr className="border-b border-slate-100 bg-emerald-50/40"><td className="px-5 py-3 text-slate-700">Intent classification</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Small/fast</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-4o-mini, Haiku 4.5, Gemini 2.5 Flash-Lite</td><td className="px-5 py-3 text-slate-600">{"Classification is simple — doesn't need the smartest model"}</td></tr>
-                            <tr className="border-b border-slate-100 bg-emerald-50/40"><td className="px-5 py-3 text-slate-700">Routing decisions</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Small/fast</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5 nano, Haiku 4.5</td><td className="px-5 py-3 text-slate-600">Routing decisions are lightweight</td></tr>
-                            <tr className="border-b border-slate-100 bg-sky-50/40"><td className="px-5 py-3 text-slate-700">Response generation</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Medium</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Claude Sonnet 4.6, GPT-5 mini, Gemini 2.5 Flash</td><td className="px-5 py-3 text-slate-600">{"Quality matters — summarization, drafting, analysis"}</td></tr>
-                            <tr className="border-b border-slate-100 bg-amber-50/40"><td className="px-5 py-3 text-slate-700">High-trust extraction</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Medium at temp=0</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Claude Sonnet 4.6, GPT-5 mini</td><td className="px-5 py-3 text-slate-600">Determinism matters more than creativity</td></tr>
-                            <tr className="bg-violet-50/40"><td className="px-5 py-3 text-slate-700">Complex reasoning</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Large</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5, Claude Opus 4.6, Gemini 2.5 Pro</td><td className="px-5 py-3 text-slate-600">Only when the task genuinely needs it</td></tr>
+                            <tr className="border-b border-slate-100 bg-emerald-50/40"><td className="px-5 py-3 text-slate-700">Routing decisions</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Small/fast</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-4o-mini, Haiku 4.5</td><td className="px-5 py-3 text-slate-600">Routing decisions are lightweight</td></tr>
+                            <tr className="border-b border-slate-100 bg-sky-50/40"><td className="px-5 py-3 text-slate-700">Response generation</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Medium</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Claude Sonnet 4.6, GPT-5.2 Instant, Gemini 2.5 Flash</td><td className="px-5 py-3 text-slate-600">{"Quality matters — summarization, drafting, analysis"}</td></tr>
+                            <tr className="border-b border-slate-100 bg-amber-50/40"><td className="px-5 py-3 text-slate-700">High-trust extraction</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Medium at temp=0</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Claude Sonnet 4.6, GPT-5.2 Instant</td><td className="px-5 py-3 text-slate-600">Determinism matters more than creativity</td></tr>
+                            <tr className="bg-violet-50/40"><td className="px-5 py-3 text-slate-700">Complex reasoning</td><td className="px-5 py-3 font-mono text-sm text-slate-600">Large</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5.2 Thinking/Pro, Claude Opus 4.6, Gemini 2.5 Pro</td><td className="px-5 py-3 text-slate-600">Only when the task genuinely needs it</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -110,9 +110,9 @@ const ModelSelectionSection = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="border-b border-slate-100"><td className="px-5 py-3 font-medium text-slate-800">Small/fast</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-4o-mini, GPT-5 nano, Haiku 4.5, Gemini 2.5 Flash-Lite</td><td className="px-5 py-3 text-slate-600">$0.05–1.00/1M</td><td className="px-5 py-3 text-slate-600">$0.40–5.00/1M</td><td className="px-5 py-3 text-slate-600">{"Fast (<1s)"}</td></tr>
-                            <tr className="border-b border-slate-100"><td className="px-5 py-3 font-medium text-slate-800">Medium</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5 mini, Claude Sonnet 4.6, Gemini 2.5 Flash</td><td className="px-5 py-3 text-slate-600">$0.30–3.00/1M</td><td className="px-5 py-3 text-slate-600">$2.50–15.00/1M</td><td className="px-5 py-3 text-slate-600">Medium (1–3s)</td></tr>
-                            <tr><td className="px-5 py-3 font-medium text-slate-800">Large</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5, Claude Opus 4.6, Gemini 2.5 Pro</td><td className="px-5 py-3 text-slate-600">$1.25–5.00/1M</td><td className="px-5 py-3 text-slate-600">$10–25.00/1M</td><td className="px-5 py-3 text-slate-600">Slower (3–10s)</td></tr>
+                            <tr className="border-b border-slate-100"><td className="px-5 py-3 font-medium text-slate-800">Small/fast</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-4o-mini, Haiku 4.5, Gemini 2.5 Flash-Lite</td><td className="px-5 py-3 text-slate-600">$0.05–1.00/1M</td><td className="px-5 py-3 text-slate-600">$0.40–5.00/1M</td><td className="px-5 py-3 text-slate-600">{"Fast (<1s)"}</td></tr>
+                            <tr className="border-b border-slate-100"><td className="px-5 py-3 font-medium text-slate-800">Medium</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5.2 Instant, Claude Sonnet 4.6, Gemini 2.5 Flash</td><td className="px-5 py-3 text-slate-600">$0.30–3.00/1M</td><td className="px-5 py-3 text-slate-600">$2.50–15.00/1M</td><td className="px-5 py-3 text-slate-600">Medium (1–3s)</td></tr>
+                            <tr><td className="px-5 py-3 font-medium text-slate-800">Large</td><td className="px-5 py-3 font-mono text-sm text-slate-600">GPT-5.2 Thinking/Pro, Claude Opus 4.6, Gemini 2.5 Pro</td><td className="px-5 py-3 text-slate-600">$1.75–5.00/1M</td><td className="px-5 py-3 text-slate-600">$10–25.00/1M</td><td className="px-5 py-3 text-slate-600">Slower (3–10s)</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -120,9 +120,12 @@ const ModelSelectionSection = () => {
                     <h5 className="font-semibold text-blue-900 mb-2">Why large models got cheaper</h5>
                     <p className="text-blue-800 text-sm">
                         The previous generation of flagship models (Claude Opus 4.1, GPT-4 Turbo) cost $15/$75 per million tokens.
-                        Current flagship models have dropped to $1.25–5/$10–25. The "route cheap, generate smart" principle still applies —
+                        Current flagship models have dropped to $1.75–5/$10–25. The "route cheap, generate smart" principle still applies —
                         but the penalty for using a large model on everything is now lower than it used to be. The bigger cost driver today
                         is output token volume, not model tier selection alone.
+                    </p>
+                    <p className="text-blue-700 text-xs mt-2">
+                        Source: <a href="https://openai.com/index/introducing-gpt-5-2/" target="_blank" rel="noopener noreferrer" className="underline">OpenAI GPT-5.2 announcement</a> (February 2026). GPT-5.2 pricing: $1.75/1M input, $14/1M output.
                     </p>
                 </Card>
                 <Card className="mt-4 bg-sky-50 border-sky-200">
@@ -131,7 +134,7 @@ const ModelSelectionSection = () => {
                         {"A 1-hour meeting transcript ≈ 15,000 tokens. At medium-tier rates (~$3/1M input), that's ~$0.05 per query. At 100 queries/day = ~$5/day."}
                     </p>
                     <ul className="text-sky-700 mt-2 space-y-1">
-                        <li>{"\u2022 Use a large model for everything (GPT-5 at $1.25 input / $10 output) = ~$8–10/day"}</li>
+                        <li>{"\u2022 Use a large model for everything (GPT-5.2 Thinking at $1.75 input / $14 output) = ~$8–10/day"}</li>
                         <li>{"\u2022 Use multi-model routing (classify with Haiku, generate with Sonnet) = ~$5–6/day"}</li>
                     </ul>
                     <p className="text-sky-700 text-sm mt-2">
@@ -277,6 +280,17 @@ const ModelSelectionSection = () => {
                     <p><span className="font-medium">Route cheap, generate smart.</span> Use the smallest model that works for each step.</p>
                     <p><span className="font-medium">Measure everything.</span> Track cost per query, latency per step, and quality per intent.</p>
                     <p className="text-indigo-200 text-xs mt-3">{"The goal isn't to minimize cost — it's to maximize value per dollar spent."}</p>
+                </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-slate-200">
+                <h3 className="text-lg font-semibold text-slate-800 mb-3">Sources & Pricing References</h3>
+                <div className="space-y-2 text-sm text-slate-600">
+                    <p>• <a href="https://openai.com/index/introducing-gpt-5-2/" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">OpenAI: Introducing GPT-5.2</a> (February 2026)</p>
+                    <p>• <a href="https://openai.com/api/pricing" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">OpenAI API Pricing</a></p>
+                    <p>• <a href="https://www.anthropic.com/news/claude-sonnet-4-6" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Anthropic: Introducing Sonnet 4.6</a> (February 2026)</p>
+                    <p>• <a href="https://platform.claude.com/docs/en/about-claude/pricing" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Anthropic Pricing</a></p>
+                    <p>• <a href="https://ai.google.dev/gemini-api/docs/pricing" className="text-indigo-600 hover:underline" target="_blank" rel="noopener noreferrer">Google Gemini API Pricing</a></p>
                 </div>
             </div>
 
