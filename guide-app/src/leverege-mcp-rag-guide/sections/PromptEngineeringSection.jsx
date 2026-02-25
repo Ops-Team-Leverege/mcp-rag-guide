@@ -223,6 +223,78 @@ AUTHORITY RULES:
                 </Callout>
             </ProgressiveSection>
 
+            <ProgressiveSection number="7" title="Model Behavior at a Glance" subtitle="How current frontier models differ in production">
+                <p className="text-slate-600 mb-4">
+                    The existing table compares GPT-4o against Claude and Gemini. This is an uneven comparison — GPT-4o is a generation behind
+                    Claude Sonnet 4.6 and Gemini 2.5 Pro. The table below compares current frontier models on dimensions that actually matter
+                    for production prompt engineering.
+                </p>
+
+                <div className="overflow-x-auto rounded-xl border border-slate-200">
+                    <table className="w-full text-sm">
+                        <thead>
+                            <tr className="bg-slate-50">
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Dimension</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">GPT-5 / GPT-5.1</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Claude Sonnet 4.6</th>
+                                <th className="px-4 py-3 text-left font-semibold text-slate-700 border-b border-slate-200">Gemini 2.5 Pro</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-xs">
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-semibold text-slate-700">Instruction following</td>
+                                <td className="px-4 py-3 text-slate-600">Surgical — follows every instruction literally, including contradictory ones (burns reasoning tokens reconciling conflicts rather than making a judgment call)</td>
+                                <td className="px-4 py-3 text-slate-600">Inferential — fills reasonable gaps with judgment; less over-specification needed than previous generations</td>
+                                <td className="px-4 py-3 text-slate-600">Intent-first — handles primary instruction well; can drop secondary constraints on long enumerated lists</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-semibold text-slate-700">Instruction density</td>
+                                <td className="px-4 py-3 text-slate-600">Complete, non-contradictory prompts required — conflicts hurt more than in earlier models</td>
+                                <td className="px-4 py-3 text-slate-600">Fewer explicit instructions needed than GPT-4o era; over-specifying produces rigid outputs</td>
+                                <td className="px-4 py-3 text-slate-600">Integrate secondary requirements as prose rather than numbered sub-items; reduce to 3–5 critical requirements</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-semibold text-slate-700">Chain-of-thought</td>
+                                <td className="px-4 py-3 text-slate-600">Responds well to explicit CoT instructions; reasoning_effort parameter controls depth</td>
+                                <td className="px-4 py-3 text-slate-600">Reasons extensively by default; often doesn't need explicit "think step by step"</td>
+                                <td className="px-4 py-3 text-slate-600">Strong with CoT; "explanation-first" prompting significantly boosts performance on complex tasks</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-semibold text-slate-700">Verbosity control</td>
+                                <td className="px-4 py-3 text-slate-600">verbosity API parameter (low / medium / high); prompt-level overrides respected</td>
+                                <td className="px-4 py-3 text-slate-600">Managed well through direct instruction</td>
+                                <td className="px-4 py-3 text-slate-600">Requires explicit "Be concise" in prompt; "Minimize prose" alone is not sufficient</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-semibold text-slate-700">JSON / structured output</td>
+                                <td className="px-4 py-3 text-slate-600">Strong with function calling and responseSchema</td>
+                                <td className="px-4 py-3 text-slate-600">Strong with direct instruction</td>
+                                <td className="px-4 py-3 text-slate-600">Strong with responseSchema parameter (July 2025+); use for automated pipelines</td>
+                            </tr>
+                            <tr className="border-b border-slate-100">
+                                <td className="px-4 py-3 font-semibold text-slate-700">Long context recall</td>
+                                <td className="px-4 py-3 text-slate-600">Degrades at high utilization</td>
+                                <td className="px-4 py-3 text-slate-600">Degrades at high utilization</td>
+                                <td className="px-4 py-3 text-slate-600">Degrades at high utilization; "needle in haystack" retrieval stronger than earlier Gemini versions</td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-3 font-semibold text-slate-700">Sycophancy</td>
+                                <td className="px-4 py-3 text-slate-600">Significantly reduced vs GPT-4o (14.5% → &lt;6% on targeted evals)</td>
+                                <td className="px-4 py-3 text-slate-600">Low by default</td>
+                                <td className="px-4 py-3 text-slate-600">Variable</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <Callout type="danger" title="Key production lesson not in the previous table">
+                    <strong>Contradictions hurt more in smarter models.</strong> GPT-5 and Claude Sonnet 4.6 follow instructions with higher fidelity
+                    than earlier models — which means a prompt with conflicting instructions causes the model to expend reasoning tokens searching for
+                    a way to reconcile them, rather than picking one at random. Prompt consistency now matters as much as prompt completeness.
+                    Before deploying, audit your system prompt for any instructions that could conflict under edge cases.
+                </Callout>
+            </ProgressiveSection>
+
             <ProgressiveSection number="8" title="Anthropic's Technique Order" subtitle="The sequence matters — apply these in order">
                 <p className="text-slate-600 mb-4">
                     Anthropic's research shows that prompt engineering techniques work best when applied in a specific order.
