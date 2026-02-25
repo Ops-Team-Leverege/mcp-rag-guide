@@ -1,29 +1,9 @@
-import React, { useContext } from 'react';
-import { Target, CheckCircle, ChevronRight } from 'lucide-react';
+import React from 'react';
+import { Target, CheckCircle } from 'lucide-react';
 import { Card, Callout } from '../components/ui';
-import { NavigationContext, NextSectionNav } from '../index';
+import { NextSectionNav } from '../index';
 
 export const OverviewSection = () => {
-  const nav = useContext(NavigationContext);
-
-  const learningPath = [
-    { num: 1, title: "Mindset Shift", desc: "From 'AI is magic' to 'AI needs engineering for trust'. Hallucinations, grounding, guardrails.", tab: "mindset" },
-    { num: 2, title: "Business Case", desc: "Start here — what questions need answers? Define success metrics.", tab: "businesscase" },
-    { num: 3, title: "Core Concepts", desc: "Understanding AI paradigms, patterns, and the abstraction layer.", tab: "concepts" },
-    { num: 4, title: "Prompt Engineering", desc: "The 70% rule. System prompts, few-shot examples, temperature.", tab: "promptengineering" },
-    { num: 5, title: "Model Selection", desc: "Route cheap, generate smart. Multi-model pattern, cost optimization.", tab: "modelselection" },
-    { num: 6, title: "Data Shape", desc: "The foundation — garbage in, garbage out. Metadata matters.", tab: "data" },
-    { num: 7, title: "When to Use What", desc: "Decision framework for choosing and combining patterns.", tab: "decisions" },
-    { num: 8, title: "Implementation", desc: "Chunking, embeddings, retrieval patterns, ingestion pipeline.", tab: "implementation" },
-    { num: 9, title: "Debugging", desc: "Systematic debugging for AI systems. What to log, when to escalate.", tab: "debugging" },
-    { num: 10, title: "Evaluation", desc: "RAGAS metrics, measuring quality, intent accuracy, end-to-end testing.", tab: "evaluation" },
-    { num: 11, title: "Golden Set", desc: "Building test sets, synthetic data generation, quality benchmarks.", tab: "goldenset" },
-    { num: 12, title: "Hybrid Search", desc: "Vector + BM25, RRF, reranking for better retrieval quality.", tab: "hybridsearch" },
-    { num: 13, title: "AI-as-a-Judge", desc: "Automated evaluation at scale, judge prompts, calibration.", tab: "aijudge" },
-    { num: 14, title: "Deployment", desc: "Hosting options from serverless to dedicated. Security essentials.", tab: "deployment" },
-    { num: 15, title: "PitCrew Sauce", desc: "Real-world case study: meeting intelligence bot in production.", tab: "pitcrew" },
-  ];
-
   return (
     <div className="space-y-10">
       {/* Hero Section */}
@@ -60,30 +40,20 @@ export const OverviewSection = () => {
         </div>
       </Card>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3 text-slate-900">Learning Path</h2>
-      <p className="text-sm text-slate-500 mb-5">Click any section to jump directly to it. The guide is organized progressively.</p>
-
-      <div className="space-y-1.5">
-        {learningPath.map(item => (
-          <button
-            key={item.num}
-            onClick={() => nav?.navigateTo(item.tab)}
-            className="w-full flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:border-indigo-300 hover:bg-indigo-50/50 transition-all text-left group cursor-pointer"
-          >
-            <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-semibold text-xs">
-              {item.num}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-medium text-sm text-slate-800 group-hover:text-indigo-700 transition-colors">{item.title}</p>
-              <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-400 transition-colors flex-shrink-0" />
-          </button>
-        ))}
-      </div>
+      <Card className="p-6 bg-slate-50 border-slate-200">
+        <h2 className="text-xl font-semibold mb-3 text-slate-900">How This Guide Is Organized</h2>
+        <p className="text-slate-600 leading-relaxed">
+          This guide walks you through building production AI systems from first principles. We start with the mindset shift
+          from consumer AI to production AI, then cover the business case and core concepts. You'll learn prompt engineering
+          fundamentals, model selection strategies, and data preparation. The middle sections dive into implementation patterns
+          (RAG, MCP, Router, Agentic, A2A), followed by debugging, evaluation, and testing techniques. We close with deployment
+          considerations and a real-world case study (PitCrew Sauce) showing these concepts in action. Use the sidebar to navigate
+          directly to any topic, or read sequentially for a complete understanding.
+        </p>
+      </Card>
 
       <Callout type="insight" title="How to Use This Guide">
-        Read through the sections in order on your first pass. Use the sidebar or click any section above to jump directly to a topic.
+        Read through the sections in order on your first pass. Use the sidebar to jump directly to specific topics as needed.
       </Callout>
 
       <NextSectionNav currentId="overview" />
