@@ -9,7 +9,7 @@ export const OverviewSection = () => {
   const learningPath = [
     { num: 1, title: "Mindset Shift", desc: "From 'AI is magic' to 'AI needs engineering for trust'. Hallucinations, grounding, guardrails.", tab: "mindset" },
     { num: 2, title: "Business Case", desc: "Start here — what questions need answers? Define success metrics.", tab: "businesscase" },
-    { num: 3, title: "Core Concepts", desc: "The 7 AI paradigms, protocols, and the mental model.", tab: "concepts" },
+    { num: 3, title: "Core Concepts", desc: "Understanding AI paradigms, patterns, and the abstraction layer.", tab: "concepts" },
     { num: 4, title: "Prompt Engineering", desc: "The 70% rule. System prompts, few-shot examples, temperature.", tab: "promptengineering" },
     { num: 5, title: "Model Selection", desc: "Route cheap, generate smart. Multi-model pattern, cost optimization.", tab: "modelselection" },
     { num: 6, title: "Data Shape", desc: "The foundation — garbage in, garbage out. Metadata matters.", tab: "data" },
